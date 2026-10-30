@@ -10,7 +10,7 @@ export default function LandingPage() {
   const handleTryDemo = () => {
     setLoadingDemo(true);
     document.cookie = "demo_mode=true; path=/; max-age=86400; SameSite=Lax";
-    window.location.href = "/dashboard";
+    window.location.href = "/api/demo";
   };
 
   const pillars = [
@@ -113,14 +113,13 @@ export default function LandingPage() {
             >
               Continue with Google
             </Link>
-            <button
-              type="button"
+            <a
+              href="/api/demo"
               onClick={handleTryDemo}
-              disabled={loadingDemo}
-              className="w-full sm:w-auto min-h-[48px] px-6 py-3 rounded-xl bg-[#F1F1FA] hover:bg-[#E5E5F5] text-[#2E2A7A] font-semibold text-sm sm:text-base border border-[#E0E0F0] flex items-center justify-center transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#4338CA] disabled:opacity-60"
+              className="w-full sm:w-auto min-h-[48px] px-6 py-3 rounded-xl bg-[#F1F1FA] hover:bg-[#E5E5F5] text-[#2E2A7A] font-semibold text-sm sm:text-base border border-[#E0E0F0] flex items-center justify-center transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#4338CA]"
             >
               {loadingDemo ? "Opening Demo..." : "Try Demo"}
-            </button>
+            </a>
           </div>
         </section>
 

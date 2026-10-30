@@ -6,41 +6,46 @@ export async function middleware(request: NextRequest) {
     request,
   });
 
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
-  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "";
+  const demoCookie = request.cookies.get("demo_mode")?.value;
+  const isDemo = Boolean(demoCookie && demoCookie.length > 0);
 
   let user = null;
 
-  if (supabaseUrl && supabaseAnonKey) {
-    try {
-      const supabase = createServerClient(supabaseUrl, supabaseAnonKey, {
-        cookies: {
-          getAll() {
-            return request.cookies.getAll();
-          },
-          setAll(cookiesToSet) {
-            cookiesToSet.forEach(({ name, value }) =>
-              request.cookies.set(name, value)
-            );
-            supabaseResponse = NextResponse.next({
-              request,
-            });
-            cookiesToSet.forEach(({ name, value, options }) =>
-              supabaseResponse.cookies.set(name, value, options)
-            );
-          },
-        },
-      });
+  // If not already in demo mode, check Supabase session
+  if (!isDemo) {
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
+    const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "";
 
-      const { data } = await supabase.auth.getUser();
-      user = data.user;
-    } catch {
-      user = null;
+    if (supabaseUrl && supabaseAnonKey) {
+      try {
+        const supabase = createServerClient(supabaseUrl, supabaseAnonKey, {
+          cookies: {
+            getAll() {
+              return request.cookies.getAll();
+            },
+            setAll(cookiesToSet) {
+              cookiesToSet.forEach(({ name, value }) =>
+                request.cookies.set(name, value)
+              );
+              supabaseResponse = NextResponse.next({
+                request,
+              });
+              cookiesToSet.forEach(({ name, value, options }) =>
+                supabaseResponse.cookies.set(name, value, options)
+              );
+            },
+          },
+        });
+
+        const { data } = await supabase.auth.getUser();
+        user = data.user;
+      } catch {
+        user = null;
+      }
     }
   }
 
-  const demoCookie = request.cookies.get("demo_mode")?.value;
-  const isAuthenticated = Boolean(user || (demoCookie && demoCookie.length > 0));
+  const isAuthenticated = isDemo || Boolean(user);
   const { pathname } = request.nextUrl;
 
   // 1. If user is signed in / in demo mode and visits /login, redirect to /dashboard
@@ -79,4 +84,3 @@ export const config = {
     "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
   ],
 };
-

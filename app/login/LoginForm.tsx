@@ -25,7 +25,7 @@ export function LoginForm() {
     // Check if user is already signed in via Supabase or demo cookie
     const checkExistingSession = async () => {
       // Check cookie
-      if (document.cookie.includes("demo_mode=")) {
+      if (document.cookie.includes("demo_mode=true")) {
         router.replace("/dashboard");
         return;
       }
@@ -82,8 +82,8 @@ export function LoginForm() {
     // Set demo_mode cookie for 24 hours
     document.cookie = "demo_mode=true; path=/; max-age=86400; SameSite=Lax";
 
-    // Navigate to dashboard
-    window.location.href = "/dashboard";
+    // Navigate to dashboard via API route to guarantee server-side cookie attachment
+    window.location.href = "/api/demo";
   };
 
   return (
@@ -163,14 +163,13 @@ export function LoginForm() {
           </span>
         </div>
 
-        <button
-          type="button"
+        <a
+          href="/api/demo"
           onClick={handleTryDemo}
-          disabled={loadingGoogle || loadingDemo}
-          className="w-full min-h-[48px] px-4 py-2.5 rounded-xl bg-[#F1F1FA] hover:bg-[#E5E5F5] text-[#2E2A7A] font-semibold text-sm sm:text-base border border-[#E0E0F0] flex items-center justify-center transition-colors disabled:opacity-60 disabled:cursor-not-allowed focus:outline-none focus-visible:ring-2 focus-visible:ring-[#4338CA]"
+          className="w-full min-h-[48px] px-4 py-2.5 rounded-xl bg-[#F1F1FA] hover:bg-[#E5E5F5] text-[#2E2A7A] font-semibold text-sm sm:text-base border border-[#E0E0F0] flex items-center justify-center transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#4338CA]"
         >
           {loadingDemo ? "Opening Demo..." : "Try Demo"}
-        </button>
+        </a>
       </div>
 
       <p className="text-center text-xs text-[#5B5B72] mt-6 leading-relaxed">
@@ -179,4 +178,3 @@ export function LoginForm() {
     </div>
   );
 }
-
