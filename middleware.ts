@@ -58,11 +58,12 @@ export async function middleware(request: NextRequest) {
     return supabaseResponse;
   }
 
-  // 2. Protected routes: /dashboard, /group/*, /trust-score
+  // 2. Protected routes: /dashboard, /group/*, /groups/*, /trust-score
   // Note: /trust/[id] is public and must NOT be protected
   const isProtected =
     pathname.startsWith("/dashboard") ||
     pathname.startsWith("/group") ||
+    pathname.startsWith("/groups") ||
     pathname === "/trust-score" ||
     pathname.startsWith("/trust-score/");
 
