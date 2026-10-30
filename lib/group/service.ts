@@ -32,12 +32,8 @@ export async function fetchGroupDetail(
   currentUserId: string = DEMO_USER_ID,
   isDemo: boolean = false
 ): Promise<GroupDetailData | null> {
-  // If in demo mode or ID matches demo group, return dynamic demo fixture
-  if (isDemo || groupId === DEMO_GROUP_ID) {
-    return buildDemoGroupData();
-  }
-
-  if (!supabase) {
+  // Only return static mock data if ID matches DEMO_GROUP_ID ('goa-trip-demo') or Supabase is not available
+  if (groupId === DEMO_GROUP_ID || !supabase) {
     return buildDemoGroupData();
   }
 
@@ -45,7 +41,7 @@ export async function fetchGroupDetail(
     // 1. Fetch group record
     const { data: groupData, error: groupError } = await supabase
       .from("groups")
-      .select("id, name, type, description, invite_code, created_by, created_at")
+      .select("id, name, type, invite_code, created_by, created_at")
       .eq("id", groupId)
       .maybeSingle();
 
@@ -58,7 +54,7 @@ export async function fetchGroupDetail(
       id: groupData.id,
       name: groupData.name,
       type: (groupData.type as GroupType) || "trip",
-      description: groupData.description || null,
+      description: null,
       invite_code: groupData.invite_code || generateInviteCode(),
       created_by: groupData.created_by,
       created_at: groupData.created_at,
@@ -281,7 +277,6 @@ export async function createGroup(
       .insert({
         name: input.name.trim(),
         type: input.type,
-        description: input.description?.trim() || null,
         invite_code: inviteCode,
         created_by: creatorId,
       })
@@ -388,9 +383,11 @@ export async function updateGroupSettings(
   }
 
   try {
+    // Strip description since the column doesn't exist in the DB schema
+    const { description, ...safeUpdates } = updates as any;
     const { error } = await supabase
       .from("groups")
-      .update(updates)
+      .update(safeUpdates)
       .eq("id", groupId);
 
     if (error) return { success: false, error: error.message };
