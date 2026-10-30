@@ -1,9 +1,12 @@
 import Link from "next/link";
 import { Header } from "@/components/layout/Header";
+import { SimulatorClient } from "@/components/simulator/SimulatorClient";
+import { ShieldCheck, BookOpen, LayoutDashboard, Sparkles } from "lucide-react";
 
 export const metadata = {
   title: "Gaming Simulator — SplitScore",
-  description: "Test how SplitScore's scoring logic resists fraudulent behavior and score farming.",
+  description:
+    "Interactive hackathon test bench. Attempt fraudulent behaviors like micro-transaction farming, circular loops, and velocity spamming to see the anti-gaming defense engine in action.",
 };
 
 export default function SimulatorPage() {
@@ -11,48 +14,63 @@ export default function SimulatorPage() {
     <div className="min-h-screen bg-[#F1F1FA] flex flex-col">
       <Header showBackToHome={true} />
 
-      <main className="flex-1 max-w-4xl w-full mx-auto p-4 sm:p-6 my-4">
-        <div className="bg-white rounded-2xl border border-[#E5E5EF] p-6 sm:p-10 shadow-sm">
-          <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#B45309] mb-2">
-            <span>Interactive Demo</span>
-          </div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-[#2E2A7A] mb-3">
-            Gaming Simulator
-          </h1>
-          <p className="text-sm sm:text-base text-[#5B5B72] leading-relaxed mb-6">
-            Explore live scenarios designed to attempt gaming or farming the trust score, and see how our defensive rules detect and neutralize manipulation.
-          </p>
-
-          <div className="border border-dashed border-[#D1D1DF] rounded-xl p-6 sm:p-8 bg-[#F8F8FC] mb-8">
-            <h2 className="text-base font-semibold text-[#1F1D3D] mb-2">
-              Simulator Workspace Placeholder
-            </h2>
-            <p className="text-sm text-[#5B5B72] leading-relaxed mb-4">
-              Scenarios like &ldquo;Two friends send ₹10 back and forth&rdquo; and &ldquo;Pay only tiny debts on time while defaulting on large bills&rdquo; will be hooked up to the scoring engine simulation here for live judging demonstrations.
-            </p>
-          </div>
-
-          <div className="flex flex-wrap gap-3">
+      <main className="flex-1 max-w-5xl w-full mx-auto p-4 sm:p-6 lg:p-8 space-y-6 my-4">
+        {/* Page Header */}
+        <div className="bg-white rounded-3xl border border-[#E5E5EF] p-6 sm:p-8 shadow-sm">
+          <div className="flex flex-wrap items-center justify-between gap-3 mb-2">
+            <div className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-[#0F766E] bg-[#0F766E]/10 px-3 py-1 rounded-full">
+              <Sparkles className="w-3.5 h-3.5 text-[#15803D]" />
+              <span>Hackathon Judge Demo • Interactive Test Bench</span>
+            </div>
             <Link
               href="/how-scoring-works"
-              className="inline-flex items-center justify-center min-h-[44px] px-4 py-2 text-sm font-medium text-[#4338CA] border border-[#4338CA] hover:bg-[#F1F1FA] rounded-lg transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#4338CA]"
+              className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#4338CA] hover:text-[#2E2A7A] transition-colors"
             >
-              Read Scoring Rules
-            </Link>
-            <Link
-              href="/"
-              className="inline-flex items-center justify-center min-h-[44px] px-4 py-2 text-sm font-medium text-[#5B5B72] hover:text-[#1F1D3D] transition-colors"
-            >
-              Back to Home
+              <BookOpen className="w-3.5 h-3.5" />
+              <span>Read Anti-Gaming Methodology</span>
             </Link>
           </div>
+
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-[#2E2A7A] tracking-tight mb-2">
+            Anti-Gaming Simulator
+          </h1>
+
+          <p className="text-sm sm:text-base text-[#5B5B72] leading-relaxed max-w-3xl">
+            Test the SplitScore scoring engine against real fraud vectors. Click any pre-set cheat attempt below to watch how our mathematical defense rules neutralize manipulation in real-time.
+          </p>
+        </div>
+
+        {/* Simulator Interactive Client */}
+        <SimulatorClient />
+
+        {/* Bottom Actions & Navigation */}
+        <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-[#E5E5EF]">
+          <div className="flex items-center gap-3">
+            <Link
+              href="/dashboard"
+              className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-white bg-[#2E2A7A] hover:bg-[#4338CA] rounded-xl transition-all shadow-sm"
+            >
+              <LayoutDashboard className="w-3.5 h-3.5" />
+              Dashboard
+            </Link>
+            <Link
+              href="/trust-score"
+              className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-[#4338CA] bg-white border border-[#4338CA]/30 hover:bg-[#F1F1FA] rounded-xl transition-colors"
+            >
+              <ShieldCheck className="w-3.5 h-3.5" />
+              My Trust Score
+            </Link>
+          </div>
+
+          <p className="text-xs text-[#5B5B72]">
+            Simulations execute purely on-device via <code className="font-mono text-[#2E2A7A]">lib/trust-score-simulator.ts</code> with zero database mutations.
+          </p>
         </div>
       </main>
 
-      <footer className="w-full text-center text-xs text-[#5B5B72] py-6">
-        <p>Team Null Pointers | Split fair. Score fair.</p>
+      <footer className="w-full text-center text-xs text-[#5B5B72] py-6 border-t border-[#E5E5EF]">
+        <p>Team Null Pointers • Split fair. Score fair.</p>
       </footer>
     </div>
   );
 }
-
