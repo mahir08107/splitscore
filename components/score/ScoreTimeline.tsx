@@ -35,6 +35,11 @@ export function ScoreTimeline({ events }: ScoreTimelineProps) {
     );
   }
 
+  // Sort newest first for chronological timeline
+  const sortedEvents = [...events].sort(
+    (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+  );
+
   return (
     <div className="bg-white rounded-2xl border border-[#E5E5EF] p-4 sm:p-6">
       <div className="flex items-center justify-between mb-4">
@@ -43,7 +48,7 @@ export function ScoreTimeline({ events }: ScoreTimelineProps) {
         </h2>
         <div className="flex items-center gap-1 text-[10px] text-[#5B5B72]">
           <Info className="w-3 h-3" />
-          <span>Latest {events.length} events</span>
+          <span>Latest {sortedEvents.length} events</span>
         </div>
       </div>
 
@@ -52,7 +57,7 @@ export function ScoreTimeline({ events }: ScoreTimelineProps) {
         <div className="absolute left-[15px] top-3 bottom-3 w-px bg-[#E5E5EF]" />
 
         <div className="space-y-0">
-          {events.map((event, i) => {
+          {sortedEvents.map((event) => {
             const isPositive = event.points_change > 0;
             const isNegative = event.points_change < 0;
             const isNeutral = event.points_change === 0;
@@ -78,57 +83,53 @@ export function ScoreTimeline({ events }: ScoreTimelineProps) {
                   `}
                 >
                   {isPositive && (
-                    <TrendingUp className="w-3.5 h-3.5 text-[#15803D]" />
+                    <TrendingUp className="w-3.5 h-3.5 text-[#22C55E]" />
                   )}
                   {isNegative && (
-                    <TrendingDown className="w-3.5 h-3.5 text-[#B91C1C]" />
+                    <TrendingDown className="w-3.5 h-3.5 text-[#EF4444]" />
                   )}
                   {isNeutral && (
-                    <Minus className="w-3.5 h-3.5 text-[#5B5B72]" />
+                    <Minus className="w-3.5 h-3.5 text-[#9CA3AF]" />
                   )}
                 </div>
 
-                {/* Content */}
-                <div className="flex-1 min-w-0">
+                {/* Event info */}
+                <div className="flex-1 min-w-0 pt-0.5">
                   <div className="flex items-start justify-between gap-2">
-                    <div className="flex-1 min-w-0">
-                      {/* Points badge */}
-                      <span
-                        className={`
-                          inline-block text-xs font-bold px-2 py-0.5 rounded-full mb-1
-                          ${
-                            isPositive
-                              ? "bg-[#DCFCE7] text-[#15803D]"
-                              : isNegative
-                              ? "bg-[#FECACA] text-[#B91C1C]"
-                              : "bg-[#F1F1FA] text-[#5B5B72]"
-                          }
-                        `}
-                      >
-                        {isPositive ? "+" : ""}
-                        {event.points_change}
-                      </span>
-                      {/* Reason */}
-                      <p className="text-xs text-[#1F1D3D] leading-relaxed mt-0.5">
-                        {event.reason}
-                      </p>
-                      {/* Counterparty */}
-                      {event.counterparty_name && (
-                        <p className="text-[10px] text-[#5B5B72] mt-0.5">
-                          with {event.counterparty_name}
-                        </p>
-                      )}
-                    </div>
+                    <p className="text-xs font-semibold text-[#1F1D3D] leading-tight">
+                      {event.reason}
+                    </p>
+                    <span
+                      className={`
+                        text-xs font-bold shrink-0 px-2 py-0.5 rounded-full
+                        ${
+                          isPositive
+                            ? "bg-[#DCFCE7] text-[#15803D]"
+                            : isNegative
+                            ? "bg-[#FEE2E2] text-[#B91C1C]"
+                            : "bg-[#F1F1FA] text-[#5B5B72]"
+                        }
+                      `}
+                    >
+                      {isPositive ? `+${event.points_change}` : event.points_change}
+                    </span>
+                  </div>
 
-                    {/* Date + running total */}
-                    <div className="flex-shrink-0 text-right">
-                      <p className="text-[10px] text-[#9CA3AF]">
-                        {formatRelativeDate(event.created_at)}
-                      </p>
-                      <p className="text-[10px] font-medium text-[#5B5B72] mt-0.5">
-                        Score: {event.running_total}
-                      </p>
-                    </div>
+                  <div className="flex items-center gap-3 mt-1 text-[10px] text-[#9CA3AF]">
+                    <span>{formatRelativeDate(event.created_at)}</span>
+                    <span>•</span>
+                    <span>
+                      Score after:{" "}
+                      <strong className="text-[#5B5B72]">
+                        {event.running_total}
+                      </strong>
+                    </span>
+                    {event.counterparty_name && (
+                      <>
+                        <span>•</span>
+                        <span>with {event.counterparty_name}</span>
+                      </>
+                    )}
                   </div>
                 </div>
               </div>

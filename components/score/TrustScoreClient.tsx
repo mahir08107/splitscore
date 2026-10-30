@@ -26,7 +26,7 @@ export function TrustScoreClient({ data }: TrustScoreClientProps) {
       {/* Navigation bar */}
       <div className="flex flex-wrap items-center justify-between gap-2">
         <Link
-          href="/"
+          href="/dashboard"
           className="inline-flex items-center gap-1.5 text-sm text-[#5B5B72] hover:text-[#1F1D3D] transition-colors min-h-[44px]"
         >
           <ArrowLeft className="w-4 h-4" />

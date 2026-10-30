@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   ResponsiveContainer,
   AreaChart,
@@ -37,8 +37,16 @@ function formatShortDate(iso: string): string {
 }
 
 export function ScoreHistoryChart({ events, band }: ScoreHistoryChartProps) {
-  // Events come newest-first from the fetcher; reverse for chart (oldest first)
-  const chronological = [...events].reverse();
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  // Sort chronologically (oldest first) so the timeline progresses left-to-right
+  const chronological = [...events].sort(
+    (a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
+  );
 
   const chartData = chronological.map((e) => ({
     date: formatShortDate(e.created_at),
@@ -75,76 +83,82 @@ export function ScoreHistoryChart({ events, band }: ScoreHistoryChartProps) {
       </div>
 
       <div className="w-full h-[200px] sm:h-[240px]">
-        <ResponsiveContainer width="100%" height="100%">
-          <AreaChart
-            data={chartData}
-            margin={{ top: 4, right: 4, bottom: 0, left: -20 }}
-          >
-            <defs>
-              <linearGradient id="scoreGradient" x1="0" y1="0" x2="0" y2="1">
-                <stop
-                  offset="0%"
-                  stopColor={bandStroke[band]}
-                  stopOpacity={0.25}
-                />
-                <stop
-                  offset="100%"
-                  stopColor={bandFill[band]}
-                  stopOpacity={0.05}
-                />
-              </linearGradient>
-            </defs>
-            <CartesianGrid
-              strokeDasharray="3 3"
-              stroke="#E5E5EF"
-              vertical={false}
-            />
-            <XAxis
-              dataKey="date"
-              tick={{ fontSize: 10, fill: "#9CA3AF" }}
-              axisLine={false}
-              tickLine={false}
-              interval="preserveStartEnd"
-            />
-            <YAxis
-              domain={[minScore, maxScore]}
-              tick={{ fontSize: 10, fill: "#9CA3AF" }}
-              axisLine={false}
-              tickLine={false}
-              width={35}
-            />
-            <Tooltip
-              contentStyle={{
-                borderRadius: "8px",
-                border: "1px solid #E5E5EF",
-                boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
-                fontSize: "12px",
-                padding: "8px 12px",
-              }}
-              labelFormatter={(label) => `Date: ${label}`}
-              formatter={(value) => [`${value}`, "Score"]}
-            />
-            <Area
-              type="monotone"
-              dataKey="score"
-              stroke={bandStroke[band]}
-              strokeWidth={2.5}
-              fill="url(#scoreGradient)"
-              dot={{
-                r: 3,
-                fill: bandStroke[band],
-                stroke: "white",
-                strokeWidth: 2,
-              }}
-              activeDot={{
-                r: 5,
-                fill: bandStroke[band],
-                stroke: "white",
-                strokeWidth: 2,
-              }}
-            />
-          </AreaChart>
-        </ResponsiveContainer>
+        {isMounted ? (
+          <ResponsiveContainer width="100%" height="100%">
+            <AreaChart
+              data={chartData}
+              margin={{ top: 4, right: 4, bottom: 0, left: -20 }}
+            >
+              <defs>
+                <linearGradient id="scoreGradient" x1="0" y1="0" x2="0" y2="1">
+                  <stop
+                    offset="0%"
+                    stopColor={bandStroke[band]}
+                    stopOpacity={0.25}
+                  />
+                  <stop
+                    offset="100%"
+                    stopColor={bandFill[band]}
+                    stopOpacity={0.05}
+                  />
+                </linearGradient>
+              </defs>
+              <CartesianGrid
+                strokeDasharray="3 3"
+                stroke="#E5E5EF"
+                vertical={false}
+              />
+              <XAxis
+                dataKey="date"
+                tick={{ fontSize: 10, fill: "#9CA3AF" }}
+                axisLine={false}
+                tickLine={false}
+                interval="preserveStartEnd"
+              />
+              <YAxis
+                domain={[minScore, maxScore]}
+                tick={{ fontSize: 10, fill: "#9CA3AF" }}
+                axisLine={false}
+                tickLine={false}
+                width={35}
+              />
+              <Tooltip
+                contentStyle={{
+                  borderRadius: "8px",
+                  border: "1px solid #E5E5EF",
+                  boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
+                  fontSize: "12px",
+                  padding: "8px 12px",
+                }}
+                labelFormatter={(label) => `Date: ${label}`}
+                formatter={(value) => [`${value}`, "Score"]}
+              />
+              <Area
+                type="monotone"
+                dataKey="score"
+                stroke={bandStroke[band]}
+                strokeWidth={2.5}
+                fill="url(#scoreGradient)"
+                dot={{
+                  r: 3,
+                  fill: bandStroke[band],
+                  stroke: "white",
+                  strokeWidth: 2,
+                }}
+                activeDot={{
+                  r: 5,
+                  fill: bandStroke[band],
+                  stroke: "white",
+                  strokeWidth: 2,
+                }}
+              />
+            </AreaChart>
+          </ResponsiveContainer>
+        ) : (
+          <div className="w-full h-full flex items-center justify-center text-xs text-[#5B5B72]">
+            Loading chart...
+          </div>
+        )}
       </div>
     </div>
   );
