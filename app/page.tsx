@@ -1,8 +1,18 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 import { Header } from "@/components/layout/Header";
-import { TryDemoButton } from "@/components/landing/TryDemoButton";
 
 export default function LandingPage() {
+  const [loadingDemo, setLoadingDemo] = useState(false);
+
+  const handleTryDemo = () => {
+    setLoadingDemo(true);
+    document.cookie = "demo_mode=true; path=/; max-age=86400; SameSite=Lax";
+    window.location.href = "/dashboard";
+  };
+
   const pillars = [
     {
       title: "Split easily",
@@ -103,7 +113,14 @@ export default function LandingPage() {
             >
               Continue with Google
             </Link>
-            <TryDemoButton className="w-full sm:w-auto min-h-[48px] px-6 py-3 rounded-xl bg-[#F1F1FA] hover:bg-[#E5E5F5] text-[#2E2A7A] font-semibold text-sm sm:text-base border border-[#E0E0F0] flex items-center justify-center transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#4338CA]" />
+            <button
+              type="button"
+              onClick={handleTryDemo}
+              disabled={loadingDemo}
+              className="w-full sm:w-auto min-h-[48px] px-6 py-3 rounded-xl bg-[#F1F1FA] hover:bg-[#E5E5F5] text-[#2E2A7A] font-semibold text-sm sm:text-base border border-[#E0E0F0] flex items-center justify-center transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#4338CA] disabled:opacity-60"
+            >
+              {loadingDemo ? "Opening Demo..." : "Try Demo"}
+            </button>
           </div>
         </section>
 
