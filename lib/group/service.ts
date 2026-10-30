@@ -32,12 +32,8 @@ export async function fetchGroupDetail(
   currentUserId: string = DEMO_USER_ID,
   isDemo: boolean = false
 ): Promise<GroupDetailData | null> {
-  // If in demo mode or ID matches demo group, return dynamic demo fixture
-  if (isDemo || groupId === DEMO_GROUP_ID) {
-    return buildDemoGroupData();
-  }
-
-  if (!supabase) {
+  // Only return static mock data if ID matches DEMO_GROUP_ID ('goa-trip-demo') or Supabase is not available
+  if (groupId === DEMO_GROUP_ID || !supabase) {
     return buildDemoGroupData();
   }
 
