@@ -1,0 +1,196 @@
+SPLITSCORE PROJECT CONTEXT
+Team Null Pointers | Hackathon Problem Statement 6 (Fintech)
+Keep this file at the root of the project and give it to the AI IDE at the start of every session.
+
+======================================================================
+1. THE PROBLEM STATEMENT
+======================================================================
+PS 6: Trust-Score Expense Splitter for Student Groups.
+
+Build a fintech tool that helps student groups split shared expenses (trips, mess bills, event costs) fairly, while building a lightweight, portable trust score for each user based on their repayment behavior over time.
+
+Context: Shared expenses among students are usually tracked informally and badly, and there is no reliable signal of who reliably pays back what they owe.
+
+The challenge: The interesting part is the trust scoring logic. It needs to be fair, hard to game, and meaningful across different group contexts, not just a running tally of dues.
+
+What the organisers want to see:
+1. A working expense splitting flow for a group.
+2. A trust or reliability score that updates based on repayment behavior.
+3. A clear explanation of how the scoring logic resists gaming.
+
+======================================================================
+2. OUR IDEA IN SHORT
+======================================================================
+Platform name: SplitScore
+Team name: Null Pointers
+Tagline: Split fair. Score fair.
+Pitch line: A CIBIL score for student friendships.
+Key line for the problem: Everyone knows who owes money. Nobody knows who pays back.
+
+SplitScore is a web app that helps student groups share expenses like trips, mess bills and event costs without the confusion of WhatsApp chats and notebooks. A group can add an expense, split it equally, by exact amount, by percentage or by shares, and see the simplest way for everyone to settle up. When someone pays, the other person confirms they received it, so the record stays honest. Every confirmed payment updates a trust score that looks at how early the payment was, how big it was and how many different people the user has paid, with recent behaviour counting more. There are rules to stop people from cheating the score, such as two friends sending small amounts back and forth, and each score comes with a simple reason for why it changed. Users can share their score as a link or QR code, so good repayment habits follow them into every new group.
+
+Three pillars:
+1. Split easily (equal, exact, percentage, shares)
+2. Settle with mutual confirmation
+3. Score every confirmed repayment
+
+======================================================================
+3. CURRENT STATUS (update this section as work moves on)
+======================================================================
+Done:
+1. Idea, name, tagline and team name decided.
+2. Pitch deck made (13 slides, Times New Roman, indigo and teal).
+3. Flowchart images made: tech stack, architecture flow, app screens flow.
+4. Short and long idea descriptions written.
+
+Not done yet:
+1. The website prototype has not been started. No code exists so far.
+2. The exact scoring formula and its numbers are not decided yet.
+3. Real screenshots for the deck (slide 10 currently has wireframes).
+4. Member names, college and contact details in the deck.
+
+======================================================================
+4. TECH STACK (everything is free)
+======================================================================
+Frontend and backend: Next.js (App Router) with TypeScript, one codebase.
+UI: Tailwind CSS and shadcn/ui.
+Charts: Recharts.
+Database: Supabase Postgres.
+Login: Supabase Auth with Google login.
+Scoring engine: a standalone TypeScript module at /lib/trust-score.ts, tested with Vitest.
+Signed score card: JWT using Node crypto.
+Payments: UPI deep links only. No payment gateway and no real money handled by the app.
+Reminders: WhatsApp click to chat links with a prefilled message.
+Hosting: Vercel (Hobby plan), code on GitHub.
+Optional: Gemini API free tier for natural language expense entry.
+Testing: Vitest.
+Note: Supabase pauses free projects after about a week of no use. Open it the day before the demo.
+
+======================================================================
+5. PAGES OF THE WEBSITE
+======================================================================
+1. Landing and Login
+   One line pitch, Google login, and a Try Demo button that skips login.
+
+2. Dashboard
+   Total you owe and are owed, trust score badge, list of groups with balances, pending actions such as confirm a payment or pay someone.
+
+3. Group Page (tabs)
+   Expenses tab: title, amount, payer, split type, date.
+   Balances tab: who owes whom, simplified to the fewest payments.
+   Members tab: each member with a small trust badge and an invite link.
+   Group type: Trip, Mess or Event.
+
+4. Add Expense
+   Title, amount, paid by, date, category. Split modes: equal, exact, percentage, shares. Choose which members are included.
+
+5. Settle Up
+   Suggested payments with a Pay via UPI button. Flow: payer marks I paid, receiver clicks Confirm received or Dispute. Only a confirmed payment changes the score. Status values: pending, marked paid, confirmed, disputed.
+
+6. My Trust Score (most important page)
+   Big score with a band: Excellent, Good, Building, Risky.
+   Confidence level, for example based on 4 people and 9 settlements.
+   Score history chart.
+   Breakdown: on time rate, average delay, amount reliability, consistency, diversity of people.
+   Why did my score change timeline, for example plus 6 for paying 1200 rupees to Riya one day early.
+   Separate scores for Trip, Mess and Event.
+
+7. Public Trust Card
+   Shareable link or QR. Shows name, score, band, confidence and how many people verified it. Signed token so anyone can check it is real. No expense details are shown.
+
+8. How Scoring Works
+   Plain language explanation of the scoring and each anti gaming rule with a short example. Written for the judges.
+
+9. Gaming Simulator (demo page)
+   Buttons such as Two friends send 10 rupees back and forth, or Pay only tiny debts on time. Shows live how the score resists each attempt.
+
+======================================================================
+6. BUILD ORDER
+======================================================================
+Foundation first:
+1. Project setup, Supabase connection, database tables, Google login switched on, seed data script.
+2. Scoring engine module with tests.
+
+Then the pages, in this order:
+1. Landing and Login (with demo user)
+2. Dashboard
+3. Group Page
+4. Add Expense
+5. Settle Up
+6. My Trust Score
+7. Public Trust Card
+8. How Scoring Works
+9. Gaming Simulator
+
+Last: WhatsApp reminders, dark mode, mobile layout check, error and empty states, full demo run.
+
+Rule: connect each page to the real database while building it, not at the end. Until real login works, use a fixed demo user. Commit after every page works.
+
+======================================================================
+7. DATA MODELS (starting point, keep column names the same everywhere)
+======================================================================
+User: id, name, email, avatar, created_at
+Group: id, name, type (trip, mess, event), invite_code, created_by, created_at
+GroupMember: group_id, user_id, joined_at
+Expense: id, group_id, title, amount, paid_by, category, date, split_type
+ExpenseSplit: expense_id, user_id, share_amount
+Settlement: id, group_id, from_user, to_user, amount, due_date, status (pending, marked_paid, confirmed, disputed), marked_paid_at, confirmed_at, days_late
+ScoreEvent: id, user_id, settlement_id, points_change, reason, created_at
+Seed data: one trip group with a reliable payer, a chronic late payer and a gaming attempt, so the demo works on the first click.
+
+======================================================================
+8. TRUST SCORE RULES
+======================================================================
+The scoring logic is the heart of the project. It must be fair, hard to game and clear to explain. Exact numbers are still to be decided.
+
+Score inputs: on time rate, average delay, amount reliability, consistency, diversity of people.
+
+Anti gaming rules:
+1. Time decay: recent behaviour counts more than old behaviour.
+2. Amount weighting: paying back 2000 rupees on time counts far more than 20 rupees.
+3. Mutual confirmation: only payments confirmed by the receiver count.
+4. Counterparty diversity: repeated dealings with the same person give less and less credit, so two friends cannot farm points.
+5. Minimum amount: very small payments barely count.
+6. Growth cap: the score can only rise by a limited amount per week.
+7. Bigger penalty than reward: a late or disputed payment hurts more than an on time one helps.
+8. Cold start: new users start in the middle with low confidence, not a fake high or low score.
+9. Loop detection: A pays B, B pays C, C pays A gets flagged.
+
+Every score change must come with a plain reason shown to the user.
+
+======================================================================
+9. WHAT MAKES US DIFFERENT
+======================================================================
+1. Most splitter apps only track dues. We turn repayment behaviour into a reputation.
+2. Explainable: every point can be traced to a real event.
+3. Hard to game, and judges can test this in the simulator.
+4. Honest about uncertainty: every score has a confidence level.
+5. Portable and verifiable: a trust card by link or QR with no expense details shown.
+6. Context aware: meaningful across trips, mess bills and events.
+
+Extra features: debt simplification, due dates with late tracking, WhatsApp reminders, UPI deep links, dark mode, mobile first layout, optional natural language expense entry.
+
+======================================================================
+10. DESIGN GUIDELINES
+======================================================================
+Style: minimal and professional. No clutter and no decorative extras.
+Colours: deep indigo 2E2A7A, indigo 4338CA, teal 0F766E, light tint F1F1FA, text 1F1D3D, grey 5B5B72.
+Score band colours: Excellent green 15803D, Good teal 0F766E, Building amber B45309, Risky red B91C1C.
+Deck font: Times New Roman. Choose one clean font for the website and use it everywhere.
+Layout: mobile first, because students use phones.
+Keep spacing, font sizes and card styles the same on every page.
+
+======================================================================
+11. WRITING STYLE FOR ANY TEXT WE PRODUCE
+======================================================================
+Simple words. Human tone. Do not use double dashes or quotation marks in descriptions. Do not claim features are built until they are.
+
+======================================================================
+12. HOW TO WORK WITH THE AI IDE
+======================================================================
+1. Read this file and the data models before writing any code.
+2. Build one page at a time in the order given above.
+3. Connect each page to the real database while building it.
+4. Keep the scoring engine separate from the pages, with tests.
+5. Do not add paid services or new tools without asking.
+6. Commit after every working page.
