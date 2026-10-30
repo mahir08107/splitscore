@@ -1,7 +1,8 @@
 import React from "react";
 import Link from "next/link";
 import { UserProfile } from "@/lib/data/dashboard";
-import { ShieldCheck } from "lucide-react";
+import { ShieldCheck, Home, FlaskConical } from "lucide-react";
+import { SignOutButton } from "@/components/auth/SignOutButton";
 
 interface DashboardHeaderProps {
   user: UserProfile;
@@ -32,12 +33,25 @@ export function DashboardHeader({ user }: DashboardHeaderProps) {
         {/* Right side navigation & profile */}
         <div className="flex items-center gap-3 sm:gap-5">
           <Link
+            href="/"
+            className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium text-[#5B5B72] hover:bg-[#F1F1FA] transition-colors min-h-[44px]"
+          >
+            <Home className="w-4 h-4" />
+            <span className="hidden sm:inline">Home</span>
+          </Link>
+          <Link
             href="/trust-score"
             className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium text-[#4338CA] hover:bg-[#F1F1FA] transition-colors min-h-[44px]"
           >
             <ShieldCheck className="w-4 h-4 text-[#4338CA]" />
-            <span className="hidden sm:inline">My Trust Score</span>
-            <span className="sm:hidden">Trust Score</span>
+            <span className="hidden sm:inline">Trust Score</span>
+          </Link>
+          <Link
+            href="/simulator"
+            className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium text-[#0F766E] hover:bg-[#F0FDF4] transition-colors min-h-[44px]"
+          >
+            <FlaskConical className="w-4 h-4 text-[#0F766E]" />
+            <span className="hidden sm:inline">Simulator</span>
           </Link>
 
           {/* User Profile / Avatar */}
@@ -62,6 +76,7 @@ export function DashboardHeader({ user }: DashboardHeaderProps) {
                 {user.email}
               </p>
             </div>
+            <SignOutButton isDemo={user.id === "00000000-0000-0000-0000-000000000000"} />
           </div>
         </div>
       </div>

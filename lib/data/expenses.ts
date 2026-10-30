@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { supabase } from "@/lib/supabase";
 import { createClient as createServerSupabase } from "@/lib/supabase/server";
-import { DEMO_GROUP_ID, DEMO_MEMBERS_USERS, DEMO_USER_ID } from "@/lib/group/demo-data";
+import { DEMO_GROUP_ID, DEMO_MEMBERS_USERS } from "@/lib/group/demo-data";
 import { UserSummary } from "@/lib/group/types";
 import { roundToTwo } from "@/lib/utils";
 
@@ -39,12 +39,10 @@ export async function getGroupForExpense(
   groupId: string,
   userIdOverride?: string
 ): Promise<GroupMembersResult | null> {
-  const isDemoGroup = groupId === DEMO_GROUP_ID;
+  // Determine current user from real auth
+  let currentUserId = userIdOverride || "";
 
-  // Determine current user
-  let currentUserId = userIdOverride || DEMO_USER_ID;
-
-  if (!isDemoGroup) {
+  if (!currentUserId) {
     try {
       const serverClient = await createServerSupabase();
       const { data } = await serverClient.auth.getUser();
@@ -52,16 +50,16 @@ export async function getGroupForExpense(
         currentUserId = data.user.id;
       }
     } catch {
-      // Supabase auth might be optional in development
+      // Supabase auth might be unavailable
     }
   }
 
   // If demo group or no supabase instance, return mock members
-  if (isDemoGroup || !supabase) {
+  if (groupId === DEMO_GROUP_ID || !supabase) {
     return {
-      groupName: isDemoGroup ? "Goa Trip (Demo)" : "Group",
+      groupName: groupId === DEMO_GROUP_ID ? "Goa Trip (Demo)" : "Group",
       members: DEMO_MEMBERS_USERS,
-      currentUserId: DEMO_USER_ID,
+      currentUserId: currentUserId || DEMO_MEMBERS_USERS[0].id,
       isDemo: true,
     };
   }

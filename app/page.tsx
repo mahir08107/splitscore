@@ -7,10 +7,11 @@ import { Header } from "@/components/layout/Header";
 export default function LandingPage() {
   const [loadingDemo, setLoadingDemo] = useState(false);
 
-  const handleTryDemo = () => {
+  const handleTryDemo = (e: React.MouseEvent) => {
+    e.preventDefault();
     setLoadingDemo(true);
     document.cookie = "demo_mode=true; path=/; max-age=86400; SameSite=Lax";
-    window.location.href = "/api/demo";
+    window.location.href = "/dashboard";
   };
 
   const pillars = [
@@ -106,20 +107,27 @@ export default function LandingPage() {
             Split group expenses fairly and build a trust score from how you pay back.
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 max-w-md mx-auto">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 max-w-lg mx-auto">
             <Link
               href="/login"
-              className="w-full sm:w-auto min-h-[48px] px-6 py-3 rounded-xl bg-[#4338CA] hover:bg-[#2E2A7A] text-white font-semibold text-sm sm:text-base flex items-center justify-center transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#4338CA]"
+              className="w-full sm:w-auto min-h-[48px] px-6 py-3 rounded-xl bg-[#2E2A7A] hover:bg-[#23205E] text-white font-semibold text-sm sm:text-base flex items-center justify-center transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#4338CA]"
             >
-              Continue with Google
+              Sign In
             </Link>
-            <a
-              href="/api/demo"
+            <Link
+              href="/signup"
+              className="w-full sm:w-auto min-h-[48px] px-6 py-3 rounded-xl bg-[#4338CA] hover:bg-[#3730A3] text-white font-semibold text-sm sm:text-base flex items-center justify-center transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#4338CA]"
+            >
+              Create Account
+            </Link>
+            <button
+              type="button"
               onClick={handleTryDemo}
+              disabled={loadingDemo}
               className="w-full sm:w-auto min-h-[48px] px-6 py-3 rounded-xl bg-[#F1F1FA] hover:bg-[#E5E5F5] text-[#2E2A7A] font-semibold text-sm sm:text-base border border-[#E0E0F0] flex items-center justify-center transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#4338CA]"
             >
               {loadingDemo ? "Opening Demo..." : "Try Demo"}
-            </a>
+            </button>
           </div>
         </section>
 

@@ -56,7 +56,7 @@ Frontend and backend: Next.js (App Router) with TypeScript, one codebase.
 UI: Tailwind CSS and shadcn/ui.
 Charts: Recharts.
 Database: Supabase Postgres.
-Login: Supabase Auth with Google login.
+Login: Supabase Auth with email and password login only.
 Scoring engine: a standalone TypeScript module at /lib/trust-score.ts, tested with Vitest.
 Signed score card: JWT using Node crypto.
 Payments: UPI deep links only. No payment gateway and no real money handled by the app.
@@ -70,7 +70,7 @@ Note: Supabase pauses free projects after about a week of no use. Open it the da
 5. PAGES OF THE WEBSITE
 ======================================================================
 1. Landing and Login
-   One line pitch, Google login, and a Try Demo button that skips login.
+   One line pitch, email/password login and signup, and a Try Demo button that skips login.
 
 2. Dashboard
    Total you owe and are owed, trust score badge, list of groups with balances, pending actions such as confirm a payment or pay someone.
@@ -108,7 +108,7 @@ Note: Supabase pauses free projects after about a week of no use. Open it the da
 6. BUILD ORDER
 ======================================================================
 Foundation first:
-1. Project setup, Supabase connection, database tables, Google login switched on, seed data script.
+1. Project setup, Supabase connection, database tables, email/password auth enabled, seed data script.
 2. Scoring engine module with tests.
 
 Then the pages, in this order:

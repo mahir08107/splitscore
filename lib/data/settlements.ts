@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { supabase } from "@/lib/supabase";
 import { createClient as createServerSupabase } from "@/lib/supabase/server";
-import { DEMO_GROUP_ID, DEMO_MEMBERS_USERS, DEMO_USER_ID } from "@/lib/group/demo-data";
+import { DEMO_GROUP_ID, DEMO_MEMBERS_USERS } from "@/lib/group/demo-data";
 import { roundToTwo } from "@/lib/utils";
 
 export interface SuggestedPayment {
@@ -134,9 +134,9 @@ export async function getSettleUpData(
   userIdOverride?: string
 ): Promise<SettleUpData | null> {
   const isDemoGroup = groupId === DEMO_GROUP_ID;
-  let currentUserId = userIdOverride || DEMO_USER_ID;
+  let currentUserId = userIdOverride || "";
 
-  if (!isDemoGroup) {
+  if (!currentUserId) {
     try {
       const serverClient = await createServerSupabase();
       const { data } = await serverClient.auth.getUser();

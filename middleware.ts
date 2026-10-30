@@ -6,74 +6,79 @@ export async function middleware(request: NextRequest) {
     request,
   });
 
-  const demoCookie = request.cookies.get("demo_mode")?.value;
-  const isDemo = Boolean(demoCookie && demoCookie.length > 0);
-
   let user = null;
 
-  // If not already in demo mode, check Supabase session
-  if (!isDemo) {
-    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
-    const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "";
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
+  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "";
 
-    if (supabaseUrl && supabaseAnonKey) {
-      try {
-        const supabase = createServerClient(supabaseUrl, supabaseAnonKey, {
-          cookies: {
-            getAll() {
-              return request.cookies.getAll();
-            },
-            setAll(cookiesToSet) {
-              cookiesToSet.forEach(({ name, value }) =>
-                request.cookies.set(name, value)
-              );
-              supabaseResponse = NextResponse.next({
-                request,
-              });
-              cookiesToSet.forEach(({ name, value, options }) =>
-                supabaseResponse.cookies.set(name, value, options)
-              );
-            },
+  if (supabaseUrl && supabaseAnonKey) {
+    try {
+      const supabase = createServerClient(supabaseUrl, supabaseAnonKey, {
+        cookies: {
+          getAll() {
+            return request.cookies.getAll();
           },
-        });
+          setAll(cookiesToSet) {
+            cookiesToSet.forEach(({ name, value }) =>
+              request.cookies.set(name, value)
+            );
+            supabaseResponse = NextResponse.next({
+              request,
+            });
+            cookiesToSet.forEach(({ name, value, options }) =>
+              supabaseResponse.cookies.set(name, value, options)
+            );
+          },
+        },
+      });
 
-        const { data } = await supabase.auth.getUser();
-        user = data.user;
-      } catch {
-        user = null;
-      }
+      const { data } = await supabase.auth.getUser();
+      user = data.user;
+    } catch {
+      user = null;
     }
   }
 
-  const isAuthenticated = isDemo || Boolean(user);
+  const isDemo = request.cookies.get("demo_mode")?.value === "true";
+  const isAuthenticated = Boolean(user);
   const { pathname } = request.nextUrl;
 
-  // 1. If user is signed in / in demo mode and visits /login, redirect to /dashboard
-  if (pathname === "/login") {
-    if (isAuthenticated) {
-      const url = request.nextUrl.clone();
-      url.pathname = "/dashboard";
-      return NextResponse.redirect(url);
-    }
-    return supabaseResponse;
+  // Public routes that anyone can access without a session
+  const isPublicRoute =
+    pathname === "/" ||
+    pathname === "/login" ||
+    pathname === "/signup" ||
+    pathname.startsWith("/auth/") ||
+    pathname.startsWith("/api/") ||
+    pathname === "/how-scoring-works" ||
+    pathname.startsWith("/how-scoring-works/") ||
+    pathname === "/simulator" ||
+    pathname.startsWith("/simulator/") ||
+    (pathname.startsWith("/trust/") && !pathname.startsWith("/trust-score"));
+
+  // If authenticated user visits /, /login, or /signup, redirect to /dashboard
+  if (
+    isAuthenticated &&
+    (pathname === "/" || pathname === "/login" || pathname === "/signup")
+  ) {
+    const url = request.nextUrl.clone();
+    url.pathname = "/dashboard";
+    return NextResponse.redirect(url);
   }
 
-  // 2. Protected routes: /dashboard, /group/*, /groups/*, /trust-score
-  // Note: /trust/[id] is public and must NOT be protected
-  const isProtected =
-    pathname.startsWith("/dashboard") ||
-    pathname.startsWith("/group") ||
-    pathname.startsWith("/groups") ||
-    pathname === "/trust-score" ||
-    pathname.startsWith("/trust-score/");
+  // If isDemo is true, ALLOW access to /dashboard and /group/* even if no active session
+  const isDemoAllowed =
+    isDemo &&
+    (pathname.startsWith("/dashboard") ||
+      pathname.startsWith("/group/") ||
+      pathname.startsWith("/groups/") ||
+      pathname.startsWith("/trust-score"));
 
-  // Public exceptions check
-  const isPublicTrustCard = pathname.startsWith("/trust/") && !pathname.startsWith("/trust-score");
-
-  if (isProtected && !isPublicTrustCard && !isAuthenticated) {
+  // If unauthenticated user tries to access a protected route and is not in demo mode, redirect to /login
+  if (!isAuthenticated && !isDemoAllowed && !isPublicRoute) {
     const url = request.nextUrl.clone();
     url.pathname = "/login";
-    url.searchParams.set("redirect", pathname);
+    url.searchParams.set("next", pathname);
     return NextResponse.redirect(url);
   }
 

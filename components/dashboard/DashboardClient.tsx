@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useState, useTransition } from "react";
-import { DashboardData, getDashboardData } from "@/lib/data/dashboard";
+import { useRouter } from "next/navigation";
+import type { DashboardData } from "@/lib/data/dashboard";
 import { DashboardHeader } from "@/components/dashboard/DashboardHeader";
 import { SummaryCards } from "@/components/dashboard/SummaryCards";
 import { PendingActionsList } from "@/components/dashboard/PendingActionsList";
@@ -13,19 +14,15 @@ interface DashboardClientProps {
 }
 
 export function DashboardClient({ initialData }: DashboardClientProps) {
-  const [data, setData] = useState<DashboardData>(initialData);
+  const router = useRouter();
+  const [data] = useState<DashboardData>(initialData);
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
 
   const handleRetry = () => {
     setError(null);
-    startTransition(async () => {
-      try {
-        const fresh = await getDashboardData();
-        setData(fresh);
-      } catch (err: any) {
-        setError(err?.message || "Failed to reload data");
-      }
+    startTransition(() => {
+      router.refresh();
     });
   };
 

@@ -126,14 +126,21 @@ export function JoinGroupClient({
           ) : (
             <div className="space-y-3">
               <p className="text-xs text-[#5B5B72] leading-relaxed mb-4">
-                You need an account to join this group. Sign in with Google or continue with demo mode.
+                You need an account to join this group. Sign in, create an account, or continue with demo mode.
               </p>
 
               <Link
                 href={`/login?redirect=/join/${inviteCode}`}
-                className="w-full min-h-[48px] px-5 py-2.5 rounded-xl bg-[#4338CA] hover:bg-[#2E2A7A] text-white font-semibold text-sm flex items-center justify-center transition-colors shadow-sm"
+                className="w-full min-h-[48px] px-5 py-2.5 rounded-xl bg-[#2E2A7A] hover:bg-[#23205E] text-white font-semibold text-sm flex items-center justify-center transition-colors shadow-sm"
               >
                 Sign In to Join
+              </Link>
+
+              <Link
+                href={`/signup`}
+                className="w-full min-h-[44px] px-4 py-2 rounded-xl bg-[#4338CA] hover:bg-[#3730A3] text-white font-semibold text-xs flex items-center justify-center transition-colors shadow-sm"
+              >
+                Create Account
               </Link>
 
               <a
