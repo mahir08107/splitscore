@@ -1,0 +1,151 @@
+"use client";
+
+import React from "react";
+import {
+  ResponsiveContainer,
+  AreaChart,
+  Area,
+  XAxis,
+  YAxis,
+  Tooltip,
+  CartesianGrid,
+} from "recharts";
+import { ScoreEvent, TrustBand } from "@/lib/data/score";
+
+interface ScoreHistoryChartProps {
+  events: ScoreEvent[];
+  band: TrustBand;
+}
+
+const bandStroke: Record<TrustBand, string> = {
+  Excellent: "#22C55E",
+  Good: "#14B8A6",
+  Building: "#F59E0B",
+  Risky: "#EF4444",
+};
+
+const bandFill: Record<TrustBand, string> = {
+  Excellent: "#DCFCE7",
+  Good: "#CCFBF1",
+  Building: "#FEF3C7",
+  Risky: "#FECACA",
+};
+
+function formatShortDate(iso: string): string {
+  const d = new Date(iso);
+  return d.toLocaleDateString("en-IN", { day: "numeric", month: "short" });
+}
+
+export function ScoreHistoryChart({ events, band }: ScoreHistoryChartProps) {
+  // Events come newest-first from the fetcher; reverse for chart (oldest first)
+  const chronological = [...events].reverse();
+
+  const chartData = chronological.map((e) => ({
+    date: formatShortDate(e.created_at),
+    score: e.running_total,
+    reason: e.reason,
+  }));
+
+  if (chartData.length === 0) {
+    return (
+      <div className="bg-white rounded-2xl border border-[#E5E5EF] p-6">
+        <h2 className="text-sm font-semibold text-[#1F1D3D] mb-2">
+          Score History
+        </h2>
+        <p className="text-xs text-[#5B5B72]">
+          No score events yet. Your chart will appear here once you settle your first expense.
+        </p>
+      </div>
+    );
+  }
+
+  const scores = chartData.map((d) => d.score);
+  const minScore = Math.max(0, Math.min(...scores) - 30);
+  const maxScore = Math.min(900, Math.max(...scores) + 30);
+
+  return (
+    <div className="bg-white rounded-2xl border border-[#E5E5EF] p-4 sm:p-6">
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="text-sm font-semibold text-[#1F1D3D]">
+          Score History
+        </h2>
+        <span className="text-[10px] text-[#5B5B72] bg-[#F1F1FA] px-2 py-0.5 rounded-full">
+          {chartData.length} events
+        </span>
+      </div>
+
+      <div className="w-full h-[200px] sm:h-[240px]">
+        <ResponsiveContainer width="100%" height="100%">
+          <AreaChart
+            data={chartData}
+            margin={{ top: 4, right: 4, bottom: 0, left: -20 }}
+          >
+            <defs>
+              <linearGradient id="scoreGradient" x1="0" y1="0" x2="0" y2="1">
+                <stop
+                  offset="0%"
+                  stopColor={bandStroke[band]}
+                  stopOpacity={0.25}
+                />
+                <stop
+                  offset="100%"
+                  stopColor={bandFill[band]}
+                  stopOpacity={0.05}
+                />
+              </linearGradient>
+            </defs>
+            <CartesianGrid
+              strokeDasharray="3 3"
+              stroke="#E5E5EF"
+              vertical={false}
+            />
+            <XAxis
+              dataKey="date"
+              tick={{ fontSize: 10, fill: "#9CA3AF" }}
+              axisLine={false}
+              tickLine={false}
+              interval="preserveStartEnd"
+            />
+            <YAxis
+              domain={[minScore, maxScore]}
+              tick={{ fontSize: 10, fill: "#9CA3AF" }}
+              axisLine={false}
+              tickLine={false}
+              width={35}
+            />
+            <Tooltip
+              contentStyle={{
+                borderRadius: "8px",
+                border: "1px solid #E5E5EF",
+                boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
+                fontSize: "12px",
+                padding: "8px 12px",
+              }}
+              labelFormatter={(label) => `Date: ${label}`}
+              formatter={(value) => [`${value}`, "Score"]}
+            />
+            <Area
+              type="monotone"
+              dataKey="score"
+              stroke={bandStroke[band]}
+              strokeWidth={2.5}
+              fill="url(#scoreGradient)"
+              dot={{
+                r: 3,
+                fill: bandStroke[band],
+                stroke: "white",
+                strokeWidth: 2,
+              }}
+              activeDot={{
+                r: 5,
+                fill: bandStroke[band],
+                stroke: "white",
+                strokeWidth: 2,
+              }}
+            />
+          </AreaChart>
+        </ResponsiveContainer>
+      </div>
+    </div>
+  );
+}
