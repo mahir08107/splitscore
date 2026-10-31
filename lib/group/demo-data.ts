@@ -16,8 +16,8 @@ export const DEMO_USER_ID = "00000000-0000-0000-0000-000000000000";
 
 export const DEMO_STUDENT_USER: UserSummary = {
   id: DEMO_USER_ID,
-  name: "Student User",
-  email: "student@college.edu",
+  name: "Aarav Sharma",
+  email: "aarav@demo.splitscore.app",
   avatar: null,
 };
 
@@ -102,7 +102,7 @@ export const INITIAL_DEMO_EXPENSES: ExpenseModel[] = [
     date: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString().split("T")[0],
     split_type: "equal",
     splits: createEqualSplitsList("demo-exp-3", 3000),
-    payerName: "Student User",
+    payerName: "Aarav Sharma",
   },
   {
     id: "demo-exp-4",

@@ -7,11 +7,23 @@ import { Header } from "@/components/layout/Header";
 export default function LandingPage() {
   const [loadingDemo, setLoadingDemo] = useState(false);
 
-  const handleTryDemo = (e: React.MouseEvent) => {
+  const handleTryDemo = async (e: React.MouseEvent) => {
     e.preventDefault();
     setLoadingDemo(true);
-    document.cookie = "demo_mode=true; path=/; max-age=86400; SameSite=Lax";
-    window.location.href = "/dashboard";
+    try {
+      const { signInAsDemoUserAction } = await import("@/lib/auth/demo-action");
+      const res = await signInAsDemoUserAction();
+      if (!res.success) {
+        alert(res.error || "Failed to sign in as demo user.");
+        setLoadingDemo(false);
+        return;
+      }
+      document.cookie = "demo_mode=true; path=/; max-age=86400; SameSite=Lax";
+      window.location.href = "/dashboard";
+    } catch (err: any) {
+      alert(err?.message || "Failed to launch demo mode.");
+      setLoadingDemo(false);
+    }
   };
 
   const pillars = [

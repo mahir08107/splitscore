@@ -14,21 +14,30 @@ export default async function DashboardPage() {
   const cookieStore = await cookies();
   const isDemo = cookieStore.get("demo_mode")?.value === "true";
 
-  let currentUserId: string;
+  let currentUserId: string | null = null;
 
-  if (isDemo) {
-    currentUserId = DEMO_USER_ID;
-  } else {
+  // Always try to get the real auth user first (demo mode now signs in as a real user)
+  try {
     const supabase = await createClient();
     const { data } = await supabase.auth.getUser();
-
-    if (!data?.user) {
-      redirect("/login");
+    if (data?.user) {
+      currentUserId = data.user.id;
     }
-
-    currentUserId = data.user.id;
+  } catch {
+    // Supabase credentials may be unconfigured in dev
   }
 
-  const initialData = await getDashboardData(currentUserId);
+  // If still no user and not demo mode, redirect to login
+  if (!currentUserId) {
+    if (isDemo) {
+      // Fallback for demo mode when auth failed
+      currentUserId = DEMO_USER_ID;
+    } else {
+      redirect("/login");
+    }
+  }
+
+  const isDemoEffective = isDemo || currentUserId === DEMO_USER_ID;
+  const initialData = await getDashboardData(currentUserId, isDemoEffective);
   return <DashboardClient initialData={initialData} />;
 }

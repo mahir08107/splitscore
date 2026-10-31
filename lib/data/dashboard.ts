@@ -1,4 +1,5 @@
 import { supabase } from "@/lib/supabase";
+import { DEMO_GROUP_ID, INITIAL_DEMO_EXPENSES, DEMO_MEMBERS_USERS } from "@/lib/group/demo-data";
 
 export const DEMO_USER_ID = "00000000-0000-0000-0000-000000000000";
 
@@ -109,7 +110,8 @@ export function computeGroupBalances(
  * Returns clean empty states if tables have no data or Supabase is not configured yet.
  */
 export async function getDashboardData(
-  userId: string = DEMO_USER_ID
+  userId: string = DEMO_USER_ID,
+  isDemo: boolean = false
 ): Promise<DashboardData> {
   const activeUserId = userId || DEMO_USER_ID;
 
@@ -220,8 +222,57 @@ export async function getDashboardData(
       });
     }
 
+    // Check if a Goa Trip group already exists from database
+    const hasGoaTrip = groups.some(
+      (g) => g.id === DEMO_GROUP_ID || g.name.toLowerCase().trim() === "goa trip"
+    );
+
+    // Inject demo Goa Trip group when in demo mode and no Goa Trip exists
+    if (isDemo && !hasGoaTrip) {
+      let demoBalance = 0;
+      for (const exp of INITIAL_DEMO_EXPENSES) {
+        if (exp.paid_by === activeUserId) {
+          demoBalance += Number(exp.amount) || 0;
+        }
+        const userSplit = exp.splits?.find((s) => s.user_id === activeUserId);
+        if (userSplit) {
+          demoBalance -= Number(userSplit.share_amount) || 0;
+        }
+      }
+      groups.unshift({
+        id: DEMO_GROUP_ID,
+        name: "Goa Trip",
+        type: "trip",
+        memberCount: DEMO_MEMBERS_USERS.length,
+        userBalance: demoBalance,
+      });
+    }
+
+    // Strictly deduplicate groups by lowercase trimmed name so duplicates never appear
+    const seenNames = new Set<string>();
+    const seenIds = new Set<string>();
+    groups = groups.filter((g) => {
+      const nameKey = g.name.toLowerCase().trim();
+      if (seenNames.has(nameKey) || seenIds.has(g.id)) {
+        return false;
+      }
+      seenNames.add(nameKey);
+      seenIds.add(g.id);
+      return true;
+    });
+
+    // Compute totalOwe and totalOwed across all groups so summary cards match group cards
+    totalOwe = 0;
+    totalOwed = 0;
+    for (const g of groups) {
+      if (g.userBalance > 0) {
+        totalOwed += g.userBalance;
+      } else if (g.userBalance < 0) {
+        totalOwe += Math.abs(g.userBalance);
+      }
+    }
+
     // 3. Fetch all pending/marked_paid settlements for this user in one query
-    // Then derive BOTH the summary card totals AND the pending actions from the same data
     const { data: settlements, error: settlementError } = await supabase
       .from("settlements")
       .select("id, group_id, from_user, to_user, amount, status")
@@ -234,20 +285,7 @@ export async function getDashboardData(
 
     const settlementList = settlements || [];
 
-    // "You owe" = sum of amount where from_user = activeUserId AND status = 'pending'
-    // "You are owed" = sum of amount where to_user = activeUserId AND status = 'pending'
-    // This strictly matches the pending actions so the cards and the list always agree
-    for (const s of settlementList) {
-      const amt = Number(s.amount) || 0;
-      if (s.from_user === activeUserId && s.status === "pending") {
-        totalOwe += amt;
-      }
-      if (s.to_user === activeUserId && s.status === "pending") {
-        totalOwed += amt;
-      }
-    }
-
-    // Build pending actions list from the same settlement data
+    // Build pending actions list from the settlement data
     const pendingActions: PendingAction[] = [];
 
     if (settlementList.length > 0) {

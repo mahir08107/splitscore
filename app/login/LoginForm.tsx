@@ -89,10 +89,28 @@ export function LoginForm() {
     }
   };
 
-  const handleTryDemo = () => {
+  const handleTryDemo = async (e?: React.MouseEvent) => {
+    if (e) e.preventDefault();
+    setErrorMessage(null);
     setLoadingDemo(true);
-    document.cookie = "demo_mode=true; path=/; max-age=86400; SameSite=Lax";
-    window.location.href = "/dashboard";
+
+    try {
+      const { signInAsDemoUserAction } = await import("@/lib/auth/demo-action");
+      const res = await signInAsDemoUserAction();
+
+      if (!res.success) {
+        setErrorMessage(res.error || "Failed to sign in as demo user.");
+        setLoadingDemo(false);
+        return;
+      }
+
+      document.cookie = "demo_mode=true; path=/; max-age=86400; SameSite=Lax";
+      router.push("/dashboard");
+      router.refresh();
+    } catch (err: any) {
+      setErrorMessage(err?.message || "Failed to start demo mode.");
+      setLoadingDemo(false);
+    }
   };
 
   const isSubmitting = loading || loadingDemo;

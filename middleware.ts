@@ -72,7 +72,8 @@ export async function middleware(request: NextRequest) {
     (pathname.startsWith("/dashboard") ||
       pathname.startsWith("/group/") ||
       pathname.startsWith("/groups/") ||
-      pathname.startsWith("/trust-score"));
+      pathname.startsWith("/trust-score") ||
+      pathname.startsWith("/receipt/"));
 
   // If unauthenticated user tries to access a protected route and is not in demo mode, redirect to /login
   if (!isAuthenticated && !isDemoAllowed && !isPublicRoute) {

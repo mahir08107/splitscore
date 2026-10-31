@@ -17,6 +17,7 @@ import {
   Home,
   ShoppingBag,
   Sparkles,
+  Camera,
 } from "lucide-react";
 
 interface ExpensesTabProps {
@@ -85,13 +86,22 @@ export function ExpensesTab({
             All expenses recorded in this group.
           </p>
         </div>
-        <Link
-          href={`/group/${groupId}/add-expense`}
-          className="inline-flex items-center justify-center gap-1.5 min-h-[44px] px-4 py-2 rounded-lg bg-[#2E2A7A] hover:bg-[#252263] text-white font-semibold text-xs uppercase tracking-wide transition-all shadow-sm self-start sm:self-auto"
-        >
-          <Plus className="w-4 h-4" />
-          <span>Add Expense</span>
-        </Link>
+        <div className="flex items-center gap-2 self-start sm:self-auto">
+          <Link
+            href={`/receipt/new?group_id=${groupId}`}
+            className="inline-flex items-center justify-center gap-1.5 min-h-[44px] px-3.5 py-2 rounded-lg border border-[#4338CA]/30 bg-[#EEF2FF] hover:bg-[#E0E7FF] text-[#4338CA] font-semibold text-xs uppercase tracking-wide transition-all shadow-sm"
+          >
+            <Camera className="w-4 h-4" />
+            <span>Scan Bill</span>
+          </Link>
+          <Link
+            href={`/group/${groupId}/add-expense`}
+            className="inline-flex items-center justify-center gap-1.5 min-h-[44px] px-4 py-2 rounded-lg bg-[#2E2A7A] hover:bg-[#252263] text-white font-semibold text-xs uppercase tracking-wide transition-all shadow-sm"
+          >
+            <Plus className="w-4 h-4" />
+            <span>Add Expense</span>
+          </Link>
+        </div>
       </div>
 
       {/* Search, Filter & Sort Bar */}
