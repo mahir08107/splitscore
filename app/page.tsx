@@ -95,7 +95,7 @@ export default function LandingPage() {
 
       <main className="w-full pt-20">
         {/* DIRECTION 2: 50/50 EDITORIAL SPLIT HERO */}
-        <section className="relative w-full overflow-hidden px-6 sm:px-8 lg:px-12 pt-12 pb-24 lg:pt-16 lg:pb-32 bg-gradient-to-b from-[#FCFBF7] via-[#FFF8F8] to-[#FAF6F0]">
+        <section className="relative isolate w-full overflow-hidden px-6 sm:px-8 lg:px-12 pt-12 pb-24 lg:pt-16 lg:pb-32 bg-gradient-to-b from-[#FCFBF7] via-[#FFF8F8] to-[#FAF6F0]">
           {/* Blended ambient blush orbs */}
           <div className="absolute top-10 left-1/4 w-[500px] h-[500px] bg-[#FECDD3]/25 rounded-full blur-[140px] pointer-events-none -z-10" />
           <div className="absolute bottom-0 right-10 w-[600px] h-[600px] bg-[#FFE4E6]/40 rounded-full blur-[160px] pointer-events-none -z-10" />
@@ -121,7 +121,7 @@ export default function LandingPage() {
               {/* Headline with modern oversized clamp */}
               <h1 className="font-display font-extrabold text-4xl sm:text-5xl lg:text-6xl tracking-tight text-[#1C1917] leading-[1.08]">
                 Split bills with clarity. <br />
-                <span className="bg-gradient-to-r from-[#E11D48] via-[#F43F5E] to-[#BE123C] bg-clip-text text-transparent underline decoration-[#FECDD3] decoration-wavy decoration-2">
+                <span className="bg-gradient-to-r from-[#E11D48] via-[#F43F5E] to-[#BE123C] bg-clip-text text-transparent">
                   Never chase a friend
                 </span>{" "}
                 for money again.
@@ -287,8 +287,10 @@ export default function LandingPage() {
                 {/* Ledger Showcase Card */}
                 <div className="mt-5 p-5 rounded-2xl bg-gradient-to-br from-[#FCFBF7] to-[#FFF8F8] border border-[rgba(225,29,72,0.09)]">
                   <div className="flex items-center justify-between mb-3">
-                    <div className="flex items-center gap-2">
-                      <span className="text-xl">🏖️</span>
+                    <div className="flex items-center gap-2.5">
+                      <div className="w-8 h-8 rounded-lg bg-rose-50 border border-rose-100 flex items-center justify-center text-[#E11D48] shrink-0">
+                        <span className="material-symbols-outlined text-[18px]">cottage</span>
+                      </div>
                       <div>
                         <h3 className="font-display font-bold text-sm text-[#1C1917]">
                           Goa Beachhouse Retreat
@@ -353,7 +355,7 @@ export default function LandingPage() {
                           <span className="material-symbols-outlined text-[12px]">
                             bolt
                           </span>{" "}
-                          Paid in 12m (⚡ Auto-Settled)
+                          Paid in 12m (Auto-Settled)
                         </div>
                       </div>
                     </div>
@@ -407,7 +409,7 @@ export default function LandingPage() {
                     </span>
                     <span>
                       {settled
-                        ? "✓ Verified & Reconciled Instantly!"
+                        ? "Verified & Reconciled Instantly!"
                         : "1-Tap Settle via Instant UPI"}
                     </span>
                     <span className="px-2 py-0.5 rounded-full bg-white/20 text-[11px] font-normal ml-1">
@@ -771,7 +773,7 @@ export default function LandingPage() {
                     <span className="material-symbols-outlined text-[18px]">star</span>
                   </div>
                   <span className="px-2.5 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-[10px] font-bold">
-                    ✓ Verified Settle History
+                    Verified Settle History
                   </span>
                 </div>
                 <p className="font-body text-sm sm:text-base text-[#1C1917] leading-relaxed italic">
@@ -810,7 +812,7 @@ export default function LandingPage() {
                     <span className="material-symbols-outlined text-[18px]">star</span>
                   </div>
                   <span className="px-2.5 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-[10px] font-bold">
-                    ✓ Verified Settle History
+                    Verified Settle History
                   </span>
                 </div>
                 <p className="font-body text-sm sm:text-base text-[#1C1917] leading-relaxed italic">
@@ -849,7 +851,7 @@ export default function LandingPage() {
                     <span className="material-symbols-outlined text-[18px]">star</span>
                   </div>
                   <span className="px-2.5 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-[10px] font-bold">
-                    ✓ Verified Settle History
+                    Verified Settle History
                   </span>
                 </div>
                 <p className="font-body text-sm sm:text-base text-[#1C1917] leading-relaxed italic">
@@ -888,7 +890,7 @@ export default function LandingPage() {
                     <span className="material-symbols-outlined text-[18px]">star</span>
                   </div>
                   <span className="px-2.5 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-[10px] font-bold">
-                    ✓ Verified Settle History
+                    Verified Settle History
                   </span>
                 </div>
                 <p className="font-body text-sm sm:text-base text-[#1C1917] leading-relaxed italic">

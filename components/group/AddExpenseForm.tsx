@@ -692,7 +692,7 @@ export function AddExpenseForm({
               >
                 <span>
                   {calculation.isValid
-                    ? "✓ Exact amounts balance perfectly"
+                    ? "Exact amounts balance perfectly"
                     : calculation.validationError}
                 </span>
                 <span className="font-bold">
@@ -766,7 +766,7 @@ export function AddExpenseForm({
               >
                 <span>
                   {calculation.isValid
-                    ? "✓ Total equals 100%"
+                    ? "Total equals 100%"
                     : calculation.validationError}
                 </span>
                 <span className="font-bold">

@@ -454,7 +454,7 @@ export function SettleClient({
                         : "bg-[#FEE2E2] text-[#B91C1C]"
                     }`}
                   >
-                    {isConfirmed ? "Confirmed ✓" : "Disputed ✕"}
+                    {isConfirmed ? "Confirmed" : "Disputed"}
                   </span>
                 </div>
               );
