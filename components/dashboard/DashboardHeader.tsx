@@ -1,7 +1,8 @@
 import React from "react";
 import Link from "next/link";
 import { UserProfile } from "@/lib/data/dashboard";
-import { ShieldCheck } from "lucide-react";
+import { ShieldCheck, Home, FlaskConical } from "lucide-react";
+import { SignOutButton } from "@/components/auth/SignOutButton";
 
 interface DashboardHeaderProps {
   user: UserProfile;
@@ -12,18 +13,18 @@ export function DashboardHeader({ user }: DashboardHeaderProps) {
   const initials = user.name ? user.name.charAt(0).toUpperCase() : "U";
 
   return (
-    <header className="w-full bg-[#FCFBF7]/90 backdrop-blur-md border-b hairline-rose-border sticky top-0 z-30 transition-colors">
+    <header className="w-full bg-white border-b border-[#E5E5F0] sticky top-0 z-30">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
         {/* Brand */}
         <div className="flex items-center gap-2">
           <Link
             href="/dashboard"
-            className="flex items-center gap-2.5 text-decoration-none group min-h-[44px] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#E11D48] rounded-xl"
+            className="flex items-center gap-2 text-decoration-none group min-h-[44px] flex items-center"
           >
-            <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[#E11D48] to-[#BE123C] flex items-center justify-center text-white font-bold text-sm shadow-sm shadow-[#E11D48]/20">
+            <div className="w-8 h-8 rounded-lg bg-[#2E2A7A] flex items-center justify-center text-white font-bold text-base shadow-sm">
               S
             </div>
-            <span className="font-display font-bold text-xl tracking-tight text-[#1C1917]">
+            <span className="font-bold text-xl tracking-tight text-[#1F1D3D]">
               SplitScore
             </span>
           </Link>
@@ -32,36 +33,50 @@ export function DashboardHeader({ user }: DashboardHeaderProps) {
         {/* Right side navigation & profile */}
         <div className="flex items-center gap-3 sm:gap-5">
           <Link
-            href="/trust-score"
-            className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-semibold text-[#E11D48] hover:bg-[#FFF1F2] border border-[rgba(225,29,72,0.12)] transition-all min-h-[44px]"
+            href="/"
+            className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium text-[#5B5B72] hover:bg-[#F1F1FA] transition-colors min-h-[44px]"
           >
-            <ShieldCheck className="w-4 h-4 text-[#E11D48]" />
-            <span className="hidden sm:inline">My Trust Score</span>
-            <span className="sm:hidden">Trust Score</span>
+            <Home className="w-4 h-4" />
+            <span className="hidden sm:inline">Home</span>
+          </Link>
+          <Link
+            href="/trust-score"
+            className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium text-[#4338CA] hover:bg-[#F1F1FA] transition-colors min-h-[44px]"
+          >
+            <ShieldCheck className="w-4 h-4 text-[#4338CA]" />
+            <span className="hidden sm:inline">Trust Score</span>
+          </Link>
+          <Link
+            href="/simulator"
+            className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium text-[#0F766E] hover:bg-[#F0FDF4] transition-colors min-h-[44px]"
+          >
+            <FlaskConical className="w-4 h-4 text-[#0F766E]" />
+            <span className="hidden sm:inline">Simulator</span>
           </Link>
 
           {/* User Profile / Avatar */}
-          <div className="flex items-center gap-2.5 pl-3 border-l border-[rgba(225,29,72,0.14)]">
+          <div className="flex items-center gap-2.5 pl-2 border-l border-[#E5E5F0]">
             {user.avatar ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img
                 src={user.avatar}
                 alt={user.name}
-                className="w-9 h-9 rounded-full object-cover border border-[#FECDD3]"
+                className="w-9 h-9 rounded-full object-cover border border-[#E5E5F0]"
               />
             ) : (
-              <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#E11D48] to-[#BE123C] text-white flex items-center justify-center font-bold text-sm shadow-sm shadow-[#E11D48]/20">
+              <div className="w-9 h-9 rounded-full bg-[#2E2A7A] text-white flex items-center justify-center font-semibold text-sm shadow-inner">
                 {initials}
               </div>
             )}
             <div className="hidden md:block text-left">
-              <p className="text-sm font-bold text-[#1C1917] leading-tight font-display">
+              <p className="text-sm font-semibold text-[#1F1D3D] leading-tight">
                 {user.name}
               </p>
-              <p className="text-xs text-[#57534E] truncate max-w-[120px]">
+              <p className="text-xs text-[#5B5B72] truncate max-w-[120px]">
                 {user.email}
               </p>
             </div>
+            <SignOutButton isDemo={user.id === "00000000-0000-0000-0000-000000000000"} />
           </div>
         </div>
       </div>

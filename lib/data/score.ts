@@ -1,4 +1,5 @@
 import { supabase } from "@/lib/supabase";
+import { cookies } from "next/headers";
 import { createClient as createServerSupabase } from "@/lib/supabase/server";
 import { DEMO_USER_ID, DEMO_MEMBERS_USERS } from "@/lib/group/demo-data";
 
@@ -210,26 +211,31 @@ export function isDemoUser(id: string): boolean {
 export async function getTrustScoreData(
   userIdOverride?: string
 ): Promise<TrustScoreData> {
-  // Determine current user
-  let currentUserId = userIdOverride || DEMO_USER_ID;
-  let isDemo = true;
-  let serverClient = null;
+  const cookieStore = await cookies();
+  const isDemo = cookieStore.get("demo_mode")?.value === "true";
 
-  if (!userIdOverride) {
-    try {
-      serverClient = await createServerSupabase();
-      const { data } = await serverClient.auth.getUser();
-      if (data?.user) {
-        currentUserId = data.user.id;
-        isDemo = false;
+  // Determine current user
+  let currentUserId = userIdOverride;
+  let serverClient: Awaited<ReturnType<typeof createServerSupabase>> | null = null;
+
+  if (!currentUserId) {
+    if (isDemo) {
+      currentUserId = DEMO_USER_ID;
+    } else {
+      try {
+        serverClient = await createServerSupabase();
+        const { data } = await serverClient.auth.getUser();
+        if (data?.user) {
+          currentUserId = data.user.id;
+        }
+      } catch {
+        // auth not configured
       }
-    } catch {
-      // auth not configured
     }
   }
 
-  // Check for demo mode
-  if (isDemo || isDemoUser(currentUserId) || !supabase) {
+  // Check for demo mode cookie or demo user
+  if (!currentUserId || isDemo || isDemoUser(currentUserId) || !supabase) {
     return buildDemoScoreData();
   }
 

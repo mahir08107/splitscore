@@ -5,7 +5,7 @@ import { cookies } from "next/headers";
 export async function GET(request: Request) {
   const { searchParams, origin } = new URL(request.url);
   const code = searchParams.get("code");
-  const next = searchParams.get("next") ?? "/dashboard";
+  const next = searchParams.get("next") || "/dashboard";
 
   if (code) {
     const cookieStore = await cookies();
@@ -24,7 +24,7 @@ export async function GET(request: Request) {
                 cookieStore.set(name, value, options)
               );
             } catch {
-              // Ignore in route handler
+              // Can be ignored if handled by middleware
             }
           },
         },
@@ -32,12 +32,11 @@ export async function GET(request: Request) {
 
       const { error } = await supabase.auth.exchangeCodeForSession(code);
       if (!error) {
-        return NextResponse.redirect(`${origin}${next}`);
+        return NextResponse.redirect(`${origin}/dashboard`);
       }
     }
   }
 
-  // Redirect to login with error indicator if exchange fails
-  return NextResponse.redirect(`${origin}/login?error=auth_callback_failed`);
+  // Redirect to login with error indicator if exchange fails or no code exists
+  return NextResponse.redirect(`${origin}/login?error=auth_failed`);
 }
-

@@ -233,12 +233,11 @@ function GroupClientInner({ initialData, isDemo = false }: GroupClientProps) {
           {activeTab === "members" && (
             <MembersTab
               groupId={data.group.id}
+              groupName={data.group.name}
               members={data.members}
-              currentUserRole={data.currentUserRole}
+              isCurrentUserOwner={data.group.owner_id === data.currentUser.id}
               currentUserId={data.currentUser.id}
               onOpenInvite={() => setIsInviteOpen(true)}
-              onUpdateRole={handleUpdateRole}
-              onRemoveMember={handleRemoveMember}
             />
           )}
         </div>

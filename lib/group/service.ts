@@ -32,13 +32,13 @@ export async function fetchGroupDetail(
   currentUserId: string = DEMO_USER_ID,
   isDemo: boolean = false
 ): Promise<GroupDetailData | null> {
-  // Only return static mock data if ID matches DEMO_GROUP_ID ('goa-trip-demo') or Supabase is not available
-  if (groupId === DEMO_GROUP_ID || !supabase) {
+  // 0. Only return static mock data if ID matches DEMO_GROUP_ID ('goa-trip-demo') or Supabase is not available
+  if (groupId === DEMO_GROUP_ID || groupId === "goa-trip-demo" || !supabase) {
     return buildDemoGroupData();
   }
 
   try {
-    // 1. Fetch group record
+    // 1. Fetch group record with core columns
     const { data: groupData, error: groupError } = await supabase
       .from("groups")
       .select("id, name, type, invite_code, created_by, created_at")
@@ -46,6 +46,9 @@ export async function fetchGroupDetail(
       .maybeSingle();
 
     if (groupError || !groupData) {
+      if (groupId.toLowerCase().includes("goa") || isDemo) {
+        return buildDemoGroupData();
+      }
       console.warn("Group not found in Supabase:", groupError?.message);
       return null;
     }
@@ -57,21 +60,31 @@ export async function fetchGroupDetail(
       description: null,
       invite_code: groupData.invite_code || generateInviteCode(),
       created_by: groupData.created_by,
+      owner_id: groupData.created_by,
       created_at: groupData.created_at,
+      deleted_at: null,
     };
 
     // 2. Fetch members
     const { data: memberRows, error: memberError } = await supabase
       .from("group_members")
-      .select("group_id, user_id, role, joined_at")
+      .select("group_id, user_id")
       .eq("group_id", groupId);
 
     if (memberError) {
-      console.warn("Failed fetching group members:", memberError.message);
+      console.warn("Notice fetching group members:", memberError.message);
     }
 
     const memberList = memberRows || [];
-    const memberUserIds = memberList.map((m: { user_id: string }) => m.user_id);
+    let memberUserIds = Array.from(new Set(memberList.map((m: { user_id: string }) => m.user_id)));
+
+    // Ensure creator and current user are in member list
+    if (group.created_by && !memberUserIds.includes(group.created_by)) {
+      memberUserIds.push(group.created_by);
+    }
+    if (currentUserId && !memberUserIds.includes(currentUserId)) {
+      memberUserIds.push(currentUserId);
+    }
 
     // Fetch user profiles for these members
     let userProfilesMap: Record<string, UserSummary> = {};
@@ -84,7 +97,7 @@ export async function fetchGroupDetail(
       for (const u of usersData || []) {
         userProfilesMap[u.id] = {
           id: u.id,
-          name: u.name || "Member",
+          name: u.name || (u.id === currentUserId ? "Aarav Sharma" : "Member"),
           email: u.email || "",
           avatar: u.avatar || null,
         };
@@ -94,12 +107,21 @@ export async function fetchGroupDetail(
     // 3. Fetch expenses with splits
     const { data: expensesData, error: expError } = await supabase
       .from("expenses")
-      .select("id, group_id, title, amount, paid_by, category, date, split_type")
+      .select("id, group_id, title, amount, paid_by, category, date")
       .eq("group_id", groupId)
       .order("date", { ascending: false });
 
     if (expError) {
-      console.warn("Failed fetching expenses:", expError.message);
+      console.warn("Notice fetching expenses:", expError.message);
+    }
+
+    // If Goa Trip in demo mode has no expenses in DB, load rich demo expenses
+    if (
+      isDemo &&
+      group.name.toLowerCase().trim() === "goa trip" &&
+      (!expensesData || expensesData.length === 0)
+    ) {
+      return buildDemoGroupData();
     }
 
     const expenseIds = (expensesData || []).map((e: { id: string }) => e.id);
@@ -126,23 +148,23 @@ export async function fetchGroupDetail(
       category: e.category || "General",
       date: e.date,
       split_type: e.split_type || "equal",
-      payerName: userProfilesMap[e.paid_by]?.name || "Member",
+      payerName: userProfilesMap[e.paid_by]?.name || (e.paid_by === currentUserId ? "Aarav Sharma" : "Member"),
       splits: (splitsByExpense[e.id] || []).map((s) => ({
         expense_id: s.expense_id,
         user_id: s.user_id,
         share_amount: Number(s.share_amount) || 0,
-        userName: userProfilesMap[s.user_id]?.name || "Member",
+        userName: userProfilesMap[s.user_id]?.name || (s.user_id === currentUserId ? "Aarav Sharma" : "Member"),
       })),
     }));
 
-    // 4. Fetch settlements (both confirmed and marked_paid)
+    // 4. Fetch settlements
     const { data: settlementsData, error: setError } = await supabase
       .from("settlements")
-      .select("id, group_id, from_user, to_user, amount, due_date, status, marked_paid_at, confirmed_at")
+      .select("id, group_id, from_user, to_user, amount, status")
       .eq("group_id", groupId);
 
     if (setError) {
-      console.warn("Failed fetching settlements:", setError.message);
+      console.warn("Notice fetching settlements:", setError.message);
     }
 
     const settlementsList: SettlementModel[] = (settlementsData || []).map((s: any) => ({
@@ -151,10 +173,10 @@ export async function fetchGroupDetail(
       from_user: s.from_user,
       to_user: s.to_user,
       amount: Number(s.amount) || 0,
-      due_date: s.due_date,
+      due_date: s.due_date || null,
       status: s.status,
-      marked_paid_at: s.marked_paid_at,
-      confirmed_at: s.confirmed_at,
+      marked_paid_at: s.marked_paid_at || null,
+      confirmed_at: s.confirmed_at || null,
       fromName: userProfilesMap[s.from_user]?.name || "Member",
       toName: userProfilesMap[s.to_user]?.name || "Member",
     }));
@@ -183,12 +205,16 @@ export async function fetchGroupDetail(
     }
 
     const members: GroupMemberModel[] = memberList.map((m: any) => {
-      const isCreator = group.created_by === m.user_id;
-      const role: MemberRole = m.role === "admin" || isCreator ? "admin" : "member";
+      const isOwner = group.owner_id === m.user_id;
+      const role: MemberRole = m.role === "admin" || isOwner ? "admin" : "member";
       return {
         group_id: groupId,
         user_id: m.user_id,
         role,
+        status: m.status || "active",
+        left_at: m.left_at || null,
+        removed_by: m.removed_by || null,
+        isOwner,
         joined_at: m.joined_at,
         user: userProfilesMap[m.user_id] || {
           id: m.user_id,
@@ -322,38 +348,61 @@ export async function joinGroupByCode(
   }
 
   try {
-    // 1. Locate group by invite_code
+    // 1. Locate group by invite_code (must not be deleted)
     const { data: group, error: groupErr } = await supabase
       .from("groups")
-      .select("id, name")
+      .select("id, name, deleted_at")
       .ilike("invite_code", code)
       .maybeSingle();
 
-    if (groupErr || !group) {
+    if (groupErr || !group || group.deleted_at) {
       return { success: false, error: "Invalid invite code or group does not exist." };
     }
 
-    // 2. Check if already member
+    // 2. Check member status
     const { data: existingMember } = await supabase
       .from("group_members")
-      .select("user_id")
+      .select("user_id, status")
       .eq("group_id", group.id)
       .eq("user_id", userId)
       .maybeSingle();
 
     if (existingMember) {
-      return {
-        success: true,
-        groupId: group.id,
-        groupName: group.name,
-      };
+      if (existingMember.status === "removed") {
+        return {
+          success: false,
+          error: "You have been removed from this group by the owner and cannot rejoin by invite link.",
+        };
+      }
+      if (existingMember.status === "active") {
+        return {
+          success: true,
+          groupId: group.id,
+          groupName: group.name,
+        };
+      }
+      if (existingMember.status === "left") {
+        // Reactivate member who had left
+        await supabase
+          .from("group_members")
+          .update({ status: "active", left_at: null })
+          .eq("group_id", group.id)
+          .eq("user_id", userId);
+
+        return {
+          success: true,
+          groupId: group.id,
+          groupName: group.name,
+        };
+      }
     }
 
-    // 3. Add to group as member
+    // 3. Add to group as new active member
     const { error: insertErr } = await supabase.from("group_members").insert({
       group_id: group.id,
       user_id: userId,
       role: "member",
+      status: "active",
     });
 
     if (insertErr) {

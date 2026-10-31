@@ -159,6 +159,8 @@ export function runSimulation(
         rawPenalty = Math.round(rawPenalty * 1.5);
       }
 
+      const wouldZeroOut = currentScore + rawPenalty <= MIN_SCORE;
+
       pushLog(
         "CRITICAL",
         `₹${event.amount.toLocaleString("en-IN")} paid ${event.daysLate} days late to ${event.toUser}! Asymmetric multiplier applied${event.isRecentNegative ? " (1.5x Recent Negative Time Decay)" : ""}.`
@@ -168,6 +170,12 @@ export function runSimulation(
         `Score adjusted: ${rawPenalty} points.`,
         rawPenalty
       );
+      if (wouldZeroOut) {
+        pushLog(
+          "CRITICAL",
+          `Score heavily penalized. Trust Score zeroed out.`
+        );
+      }
       continue;
     }
 

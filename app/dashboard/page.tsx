@@ -1,4 +1,5 @@
 import React from "react";
+import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import { getDashboardData, DEMO_USER_ID } from "@/lib/data/dashboard";
 import { DashboardClient } from "@/components/dashboard/DashboardClient";
@@ -11,24 +12,32 @@ export const metadata = {
 
 export default async function DashboardPage() {
   const cookieStore = await cookies();
-  const demoCookie = cookieStore.get("demo_mode")?.value;
-  const isDemo = Boolean(demoCookie && demoCookie.length > 0);
+  const isDemo = cookieStore.get("demo_mode")?.value === "true";
 
-  let currentUserId = DEMO_USER_ID;
+  let currentUserId: string | null = null;
 
-  if (!isDemo) {
-    try {
-      const supabase = await createClient();
-      const { data } = await supabase.auth.getUser();
-      if (data?.user) {
-        currentUserId = data.user.id;
-      }
-    } catch {
-      // Supabase credentials may be unconfigured in dev
+  // Always try to get the real auth user first (demo mode now signs in as a real user)
+  try {
+    const supabase = await createClient();
+    const { data } = await supabase.auth.getUser();
+    if (data?.user) {
+      currentUserId = data.user.id;
+    }
+  } catch {
+    // Supabase credentials may be unconfigured in dev
+  }
+
+  // If still no user and not demo mode, redirect to login
+  if (!currentUserId) {
+    if (isDemo) {
+      // Fallback for demo mode when auth failed
+      currentUserId = DEMO_USER_ID;
+    } else {
+      redirect("/login");
     }
   }
 
-  const initialData = await getDashboardData(currentUserId);
+  const isDemoEffective = isDemo || currentUserId === DEMO_USER_ID;
+  const initialData = await getDashboardData(currentUserId, isDemoEffective);
   return <DashboardClient initialData={initialData} />;
 }
-

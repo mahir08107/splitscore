@@ -16,13 +16,20 @@ export interface GroupModel {
   description?: string | null;
   invite_code: string;
   created_by: string;
+  owner_id?: string;
   created_at: string;
+  deleted_at?: string | null;
+  deleted_by?: string | null;
 }
 
 export interface GroupMemberModel {
   group_id: string;
   user_id: string;
   role: MemberRole;
+  status?: "active" | "left" | "removed";
+  left_at?: string | null;
+  removed_by?: string | null;
+  isOwner?: boolean;
   joined_at: string;
   user: UserSummary;
   totalContributed: number; // total amount paid in expenses

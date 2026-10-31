@@ -13,9 +13,9 @@ import {
   UserPlus,
   Plus,
   ChevronRight,
+  Camera,
 } from "lucide-react";
 import { GroupType } from "@/lib/data/dashboard";
-import PrimaryCTA from "@/components/ui/PrimaryCTA";
 
 interface GroupHeaderProps {
   group: GroupModel;
@@ -31,8 +31,8 @@ const typeConfig: Record<
 > = {
   trip: {
     label: "Trip",
-    bg: "#FFF1F2",
-    text: "#E11D48",
+    bg: "#EEF2FF",
+    text: "#4338CA",
     icon: Compass,
   },
   mess: {
@@ -69,11 +69,11 @@ export function GroupHeader({
     <div className="mb-6">
       {/* 1. Breadcrumbs */}
       <nav aria-label="Breadcrumb" className="mb-3">
-        <ol className="flex items-center gap-1.5 text-xs text-[#57534E]">
+        <ol className="flex items-center gap-1.5 text-xs text-[#5B5B72]">
           <li>
             <Link
               href="/dashboard"
-              className="hover:text-[#E11D48] transition-colors"
+              className="hover:text-[#4338CA] transition-colors"
             >
               Dashboard
             </Link>
@@ -84,7 +84,7 @@ export function GroupHeader({
           <li>
             <Link
               href="/dashboard"
-              className="hover:text-[#E11D48] transition-colors"
+              className="hover:text-[#4338CA] transition-colors"
             >
               Your Groups
             </Link>
@@ -92,19 +92,19 @@ export function GroupHeader({
           <li>
             <ChevronRight className="w-3.5 h-3.5 opacity-60" />
           </li>
-          <li className="font-semibold text-[#1C1917] truncate max-w-[200px] sm:max-w-none">
+          <li className="font-semibold text-[#1F1D3D] truncate max-w-[200px] sm:max-w-none">
             {group.name}
           </li>
         </ol>
       </nav>
 
       {/* 2. Title & Action Buttons Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[rgba(225,29,72,0.09)]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#E5E5F0]">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-[#1C1917] tracking-tight font-display">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-[#1F1D3D] tracking-tight">
             {group.name}
           </h1>
-          <p className="text-xs sm:text-sm text-[#57534E] mt-1 max-w-xl">
+          <p className="text-xs sm:text-sm text-[#5B5B72] mt-1 max-w-xl">
             {group.description ||
               "Manage shared expenses, track balances and keep your group financially organised."}
           </p>
@@ -115,17 +115,26 @@ export function GroupHeader({
           <button
             type="button"
             onClick={onOpenInvite}
-            className="inline-flex items-center justify-center gap-2 min-h-[44px] px-4 py-2.5 rounded-lg border border-[rgba(225,29,72,0.09)] bg-white hover:bg-rose-50 text-[#1C1917] font-semibold text-xs uppercase tracking-wide transition-all shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#E11D48]"
+            className="inline-flex items-center justify-center gap-2 min-h-[44px] px-4 py-2.5 rounded-lg border border-[#E5E5F0] bg-white hover:bg-[#F1F1FA] text-[#1F1D3D] font-semibold text-xs uppercase tracking-wide transition-all shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#4338CA]"
           >
-            <UserPlus className="w-4 h-4 text-[#E11D48]" />
+            <UserPlus className="w-4 h-4 text-[#4338CA]" />
             <span>Invite Members</span>
           </button>
 
-          <Link href={`/group/${group.id}/add-expense`}>
-            <PrimaryCTA className="px-5 py-2.5 text-xs uppercase tracking-wide">
-              <Plus className="w-4 h-4 mr-1.5" />
-              <span>Add Expense</span>
-            </PrimaryCTA>
+          <Link
+            href={`/receipt/new?group_id=${group.id}`}
+            className="inline-flex items-center justify-center gap-2 min-h-[44px] px-4 py-2.5 rounded-lg border border-[#4338CA]/30 bg-[#EEF2FF] hover:bg-[#E0E7FF] text-[#4338CA] font-semibold text-xs uppercase tracking-wide transition-all shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#4338CA]"
+          >
+            <Camera className="w-4 h-4" />
+            <span>Scan Bill</span>
+          </Link>
+
+          <Link
+            href={`/group/${group.id}/add-expense`}
+            className="inline-flex items-center justify-center gap-2 min-h-[44px] px-5 py-2.5 rounded-lg bg-[#2E2A7A] hover:bg-[#252263] text-white font-semibold text-xs uppercase tracking-wide transition-all shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#4338CA]"
+          >
+            <Plus className="w-4 h-4" />
+            <span>Add Expense</span>
           </Link>
         </div>
       </div>
@@ -146,7 +155,7 @@ export function GroupHeader({
           </span>
 
           {/* Member Count */}
-          <span className="inline-flex items-center gap-1 text-xs text-[#57534E]">
+          <span className="inline-flex items-center gap-1 text-xs text-[#5B5B72]">
             <Users className="w-3.5 h-3.5" />
             <span>
               {memberCount} member{memberCount !== 1 ? "s" : ""}
@@ -154,7 +163,7 @@ export function GroupHeader({
           </span>
 
           {/* Creation Date */}
-          <span className="inline-flex items-center gap-1 text-xs text-[#57534E]">
+          <span className="inline-flex items-center gap-1 text-xs text-[#5B5B72]">
             <Calendar className="w-3.5 h-3.5" />
             <span>Created {formattedDate}</span>
           </span>
@@ -164,7 +173,7 @@ export function GroupHeader({
         <button
           type="button"
           onClick={onOpenSettings}
-          className="inline-flex items-center gap-1.5 text-xs font-medium text-[#57534E] hover:text-[#1C1917] p-2 rounded-lg hover:bg-white border border-transparent hover:border-[rgba(225,29,72,0.09)] transition-all min-h-[44px] min-w-[44px] justify-center"
+          className="inline-flex items-center gap-1.5 text-xs font-medium text-[#5B5B72] hover:text-[#1F1D3D] p-2 rounded-lg hover:bg-white border border-transparent hover:border-[#E5E5F0] transition-all min-h-[44px] min-w-[44px] justify-center"
           title="Group Settings"
           aria-label="Open group settings"
         >
@@ -175,3 +184,4 @@ export function GroupHeader({
     </div>
   );
 }
+
