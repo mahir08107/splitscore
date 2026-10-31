@@ -40,15 +40,17 @@ export default function AppBackground() {
   }, []);
 
   // Exclude auth routes completely (login, signup, auth callbacks)
-  // Zero WebGL context creation on these routes
-  const isAuthRoute =
+  // Also exclude /dashboard if it has its own dedicated Lightfall background layer
+  const isExcludedRoute =
     pathname === "/login" ||
     pathname.startsWith("/login/") ||
     pathname.startsWith("/auth/") ||
     pathname === "/signup" ||
-    pathname === "/forgot-password";
+    pathname === "/forgot-password" ||
+    pathname === "/dashboard" ||
+    pathname.startsWith("/dashboard/");
 
-  if (isAuthRoute) {
+  if (isExcludedRoute) {
     return null;
   }
 
@@ -106,3 +108,4 @@ export default function AppBackground() {
     </div>
   );
 }
+
