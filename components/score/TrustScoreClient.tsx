@@ -8,7 +8,7 @@ import { ScoreHistoryChart } from "./ScoreHistoryChart";
 import { ScoreBreakdown } from "./ScoreBreakdown";
 import { ScoreTimeline } from "./ScoreTimeline";
 import Link from "next/link";
-import { HelpCircle, ArrowLeft, QrCode, ArrowRight } from "lucide-react";
+import { HelpCircle, ArrowLeft } from "lucide-react";
 
 interface TrustScoreClientProps {
   data: TrustScoreData;
@@ -34,13 +34,6 @@ export function TrustScoreClient({ data }: TrustScoreClientProps) {
         </Link>
         <div className="flex items-center gap-2">
           <Link
-            href={`/trust/${data.userId}`}
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-white bg-[#0F766E] hover:bg-[#0c5c56] transition-colors min-h-[44px] px-3.5 py-1.5 rounded-lg shadow-sm"
-          >
-            <QrCode className="w-3.5 h-3.5" />
-            <span>Public Card &amp; QR</span>
-          </Link>
-          <Link
             href="/how-scoring-works"
             className="inline-flex items-center gap-1.5 text-xs text-[#E11D48] hover:text-[#BE123C] transition-colors min-h-[44px] px-3 py-1.5 border border-[rgba(225,29,72,0.14)] rounded-lg hover:bg-rose-50"
           >
@@ -63,31 +56,13 @@ export function TrustScoreClient({ data }: TrustScoreClientProps) {
         band={data.band}
         userName={data.userName}
         confidenceLabel={data.confidence.label}
+        userId={data.userId}
+        stats={{
+          activeGroupsCount: data.activeGroupsCount,
+          completedSettlementsCount: data.completedSettlementsCount,
+          networkSize: data.networkSize,
+        }}
       />
-
-      {/* Shareable QR Card Banner */}
-      <div className="bg-white rounded-2xl border border-[rgba(225,29,72,0.09)] p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 soft-card-shadow">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-[#0F766E]/10 flex items-center justify-center text-[#0F766E] shrink-0 border border-[#99F6E4]">
-            <QrCode className="w-5 h-5" />
-          </div>
-          <div>
-            <p className="text-xs font-bold text-[#1C1917] font-display">
-              Portable Public Trust Card &amp; QR Code
-            </p>
-            <p className="text-[11px] text-[#57534E]">
-              Share your verified reputation with zero private expense history exposed.
-            </p>
-          </div>
-        </div>
-        <Link
-          href={`/trust/${data.userId}`}
-          className="inline-flex items-center justify-center gap-1.5 text-xs font-semibold text-white bg-gradient-to-r from-[#E11D48] to-[#BE123C] hover:shadow-lg hover:shadow-[#E11D48]/25 px-4 py-2 rounded-xl transition-all min-h-[40px] shrink-0 active:scale-95"
-        >
-          <span>View Shareable QR Card</span>
-          <ArrowRight className="w-3.5 h-3.5" />
-        </Link>
-      </div>
 
       {/* Context Toggle */}
       <ContextToggle

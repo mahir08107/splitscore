@@ -475,7 +475,7 @@ export function ReceiptScanClient({
   };
 
   return (
-    <div className="min-h-screen bg-[#F8F9FD] text-[#1F1D3D] pb-16">
+    <div className="min-h-screen bg-[#0A0C10] text-white pb-16">
       {/* Header bar */}
       <header className="sticky top-0 z-40 bg-white border-b border-[#E5E5EF]">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">

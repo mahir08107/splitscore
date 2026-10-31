@@ -17,7 +17,7 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "SplitScore — Editorial Split & Warm Alabaster Canvas",
+  title: "SplitScore — Split fair. Score fair.",
   description: "Split group expenses fairly and build a trust score from how you pay back.",
 };
 
@@ -34,7 +34,7 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className={`${inter.className} min-h-screen flex flex-col antialiased bg-[#FCFBF7] text-[#1C1917]`}>
+      <body className={`${inter.className} min-h-screen flex flex-col antialiased bg-[#0A0C10] text-white`}>
         {/* Single Global Background System mounted once in Root Layout */}
         <AppBackground />
         {children}

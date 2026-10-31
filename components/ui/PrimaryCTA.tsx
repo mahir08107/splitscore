@@ -18,9 +18,9 @@ export interface PrimaryCTAProps extends React.ButtonHTMLAttributes<HTMLButtonEl
  * for the single most important action.
  * 
  * Props & behavior:
- * - Color: #f43f5e, trailColor: #f43f5e
+ * - Color: #5BC5A7, trailColor: #5BC5A7
  * - clickPulse enabled for touch feedback
- * - Solid crimson styling: gradient from #E11D48 to #BE123C
+ * - Solid SplitScore mint styling
  * - Respects prefers-reduced-motion: reduce
  */
 export default function PrimaryCTA({
@@ -37,8 +37,8 @@ export default function PrimaryCTA({
       type={type}
       onClick={onClick}
       disabled={disabled}
-      color="#f43f5e"
-      trailColor="#f43f5e"
+      color="#5BC5A7"
+      trailColor="#5BC5A7"
       duration={4}
       direction="clockwise"
       stars={1}
@@ -50,7 +50,10 @@ export default function PrimaryCTA({
       sparkle={false}
       clickPulse
       theme="dark"
-      className={`inline-flex items-center justify-center font-display font-bold text-sm tracking-wide text-white bg-gradient-to-r from-[#E11D48] to-[#BE123C] hover:shadow-lg hover:shadow-[#E11D48]/25 active:scale-95 transition-all disabled:opacity-50 disabled:pointer-events-none rounded-xl cursor-pointer ${className}`}
+      backgroundColor="#5BC5A7"
+      textColor="#07110E"
+      borderColor="rgba(91, 197, 167, 0.42)"
+      className={`inline-flex items-center justify-center rounded-md font-display text-sm font-bold tracking-wide transition-all hover:shadow-[0_0_18px_rgba(91,197,167,0.25)] active:scale-95 disabled:pointer-events-none disabled:opacity-50 ${className}`}
       {...rest}
     >
       {children}

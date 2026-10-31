@@ -16,28 +16,28 @@ const bandStyleConfig: Record<
   { bg: string; text: string; badgeBg: string; border: string }
 > = {
   Excellent: {
-    bg: "#F0FDF4",
-    text: "#15803D",
-    badgeBg: "#DCFCE7",
-    border: "#BBF7D0",
+    bg: "rgba(91, 197, 167, 0.08)",
+    text: "#5BC5A7",
+    badgeBg: "rgba(91, 197, 167, 0.12)",
+    border: "rgba(91, 197, 167, 0.35)",
   },
   Good: {
-    bg: "#F0FDFA",
-    text: "#0F766E",
-    badgeBg: "#CCFBF1",
-    border: "#99F6E4",
+    bg: "rgba(91, 197, 167, 0.08)",
+    text: "#5BC5A7",
+    badgeBg: "rgba(91, 197, 167, 0.12)",
+    border: "rgba(91, 197, 167, 0.35)",
   },
   Building: {
-    bg: "#FFFBEB",
-    text: "#B45309",
-    badgeBg: "#FEF3C7",
-    border: "#FDE68A",
+    bg: "rgba(233, 168, 73, 0.08)",
+    text: "#E9A849",
+    badgeBg: "rgba(233, 168, 73, 0.12)",
+    border: "rgba(233, 168, 73, 0.35)",
   },
   Risky: {
-    bg: "#FFF1F2",
-    text: "#BE123C",
-    badgeBg: "#FFE4E6",
-    border: "#FECDD3",
+    bg: "rgba(248, 113, 113, 0.08)",
+    text: "#F87171",
+    badgeBg: "rgba(248, 113, 113, 0.12)",
+    border: "rgba(248, 113, 113, 0.35)",
   },
 };
 
@@ -53,15 +53,15 @@ export function SummaryCards({
       {/* 1. You owe card */}
       <div className="bg-white rounded-2xl p-5 sm:p-6 border border-[rgba(225,29,72,0.09)] soft-card-shadow flex flex-col justify-between transition-all hover:border-[#FECDD3]">
         <div className="flex items-center justify-between">
-          <span className="text-xs font-semibold uppercase tracking-wider text-[#57534E]">
-            You owe
+          <span className="text-xs font-semibold uppercase tracking-wider text-gray-400">
+            Total you owe
           </span>
-          <div className="w-8 h-8 rounded-full bg-[#FFF1F2] border border-[#FECDD3] flex items-center justify-center text-[#BE123C]">
+          <div className="w-8 h-8 rounded-full bg-red-500/10 border border-red-500/30 flex items-center justify-center text-red-400">
             <ArrowUpRight className="w-4 h-4" />
           </div>
         </div>
         <div className="mt-4">
-          <p className="font-display text-2xl sm:text-3xl font-black tracking-tight text-[#BE123C]">
+          <p className="font-display text-2xl sm:text-3xl font-black tracking-tight text-red-400">
             {formatRupees(totalOwe)}
           </p>
           <p className="text-xs text-[#57534E] mt-1 font-medium">
@@ -73,10 +73,10 @@ export function SummaryCards({
       {/* 2. You are owed card */}
       <div className="bg-white rounded-2xl p-5 sm:p-6 border border-[rgba(225,29,72,0.09)] soft-card-shadow flex flex-col justify-between transition-all hover:border-[#FECDD3]">
         <div className="flex items-center justify-between">
-          <span className="text-xs font-semibold uppercase tracking-wider text-[#57534E]">
-            You are owed
+          <span className="text-xs font-semibold uppercase tracking-wider text-gray-400">
+            Total you are owed
           </span>
-          <div className="w-8 h-8 rounded-full bg-[#F0FDF4] border border-[#BBF7D0] flex items-center justify-center text-[#15803D]">
+          <div className="w-8 h-8 rounded-full bg-[#5BC5A7]/10 border border-[#5BC5A7]/30 flex items-center justify-center text-[#5BC5A7]">
             <ArrowDownLeft className="w-4 h-4" />
           </div>
         </div>
@@ -93,7 +93,7 @@ export function SummaryCards({
       {/* 3. Trust Score card */}
       <Link
         href="/trust-score"
-        className="block bg-white rounded-2xl p-5 sm:p-6 border border-[rgba(225,29,72,0.09)] soft-card-shadow flex flex-col justify-between transition-all hover:border-[#E11D48] group"
+          className="group block rounded-xl border border-slate-700/70 bg-[#10151C] p-5 shadow-[0_0_15px_rgba(91,197,167,0.08)] transition-all hover:border-[#5BC5A7]/50 sm:p-6"
       >
         <div className="flex items-center justify-between">
           <span className="text-xs font-semibold uppercase tracking-wider text-[#57534E]">
@@ -105,7 +105,7 @@ export function SummaryCards({
         </div>
         <div className="mt-4 flex items-baseline justify-between">
           <div className="flex items-baseline gap-2">
-            <span className="font-display text-2xl sm:text-3xl font-black tracking-tight text-[#1C1917]">
+            <span className="font-display text-3xl sm:text-4xl font-black tracking-tight text-white">
               {trustScore.score}
             </span>
             <span
@@ -119,7 +119,10 @@ export function SummaryCards({
               {trustScore.band}
             </span>
           </div>
-          <span className="text-xs text-[#E11D48] font-bold group-hover:underline">
+          <svg className="h-8 w-20 text-[#5BC5A7]" viewBox="0 0 80 32" fill="none" aria-label="Trust score trend">
+            <path d="M2 25 15 20 27 22 39 12 51 16 63 7 78 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+          <span className="text-xs text-[#5BC5A7] font-bold group-hover:underline">
             View details &rarr;
           </span>
         </div>

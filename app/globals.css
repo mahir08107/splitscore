@@ -5,41 +5,43 @@
   --font-body: var(--font-inter), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-display: var(--font-display), "Plus Jakarta Sans", system-ui, sans-serif;
   
-  --color-rose-primary: #E11D48;
-  --color-rose-mid: #F43F5E;
-  --color-rose-deep: #BE123C;
-  --color-teal: #0F766E;
+  --color-rose-primary: #5BC5A7;
+  --color-rose-mid: #79D9BD;
+  --color-rose-deep: #278F76;
+  --color-teal: #5BC5A7;
   --color-blush: #FECDD3;
-  --color-alabaster: #FCFBF7;
-  --color-brand-text: #1C1917;
-  --color-brand-grey: #57534E;
+  --color-alabaster: #0A0C10;
+  --color-brand-text: #FFFFFF;
+  --color-brand-grey: #D1D5DB;
 
-  --color-score-excellent: #15803D;
-  --color-score-good: #0F766E;
-  --color-score-building: #B45309;
-  --color-score-risky: #B91C1C;
+  --color-score-excellent: #5BC5A7;
+  --color-score-good: #5BC5A7;
+  --color-score-building: #E9A849;
+  --color-score-risky: #F87171;
 
   --animate-aurora-tl: aurora-tl 50s ease-in-out infinite;
   --animate-aurora-tr: aurora-tr 55s ease-in-out infinite;
   --animate-aurora-bl: aurora-bl 60s ease-in-out infinite;
   --animate-aurora-br: aurora-br 48s ease-in-out infinite;
+  --animate-shimmer: shimmer 1.5s ease-in-out;
 }
 
 :root {
-  --background: #FCFBF7;
-  --foreground: #1C1917;
-  --rose-primary: #E11D48;
-  --rose-mid: #F43F5E;
-  --rose-deep: #BE123C;
-  --teal: #0F766E;
+  color-scheme: dark;
+  --background: #0A0C10;
+  --foreground: #FFFFFF;
+  --rose-primary: #5BC5A7;
+  --rose-mid: #79D9BD;
+  --rose-deep: #278F76;
+  --teal: #5BC5A7;
   --blush: #FECDD3;
-  --brand-text: #1C1917;
-  --brand-grey: #57534E;
+  --brand-text: #FFFFFF;
+  --brand-grey: #D1D5DB;
 
-  --score-excellent: #15803D;
-  --score-good: #0F766E;
-  --score-building: #B45309;
-  --score-risky: #B91C1C;
+  --score-excellent: #5BC5A7;
+  --score-good: #5BC5A7;
+  --score-building: #E9A849;
+  --score-risky: #F87171;
 }
 
 /* Aurora corner-blob keyframes for DashboardAmbientBackground */
@@ -68,6 +70,15 @@
   90% { transform: translate(-8px, 18px) scale(1.01); }
 }
 
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(200%);
+  }
+}
+
 body {
   background-color: var(--background);
   color: var(--foreground);
@@ -75,6 +86,73 @@ body {
   min-height: 100vh;
   margin: 0;
   padding: 0;
+}
+
+/* SplitScore dark hardware-spec visual system. These compatibility rules
+   keep legacy route components on the shared palette while their flows remain intact. */
+html { background: #0A0C10; scroll-behavior: smooth; }
+body { background: #0A0C10; color: #F9FAFB; }
+::selection { background: rgba(91, 197, 167, .3); color: #fff; }
+
+[class*="bg-[#FCFBF7]"], [class*="bg-[#FAF6F0]"], [class*="bg-[#F1F1FA]"], [class*="bg-[#F8F9FD]"],
+[class*="bg-white"], [class*="bg-gray-50"], [class*="bg-gray-100"] {
+  background-color: #10151C !important;
+}
+[class*="bg-[#FFF1F2]"], [class*="bg-rose-50"], [class*="bg-rose-100"] {
+  background-color: rgba(91, 197, 167, .1) !important;
+}
+[class*="bg-[#F0FDFA]"], [class*="bg-[#F0FDF4]"], [class*="bg-[#EEF2FF]"],
+[class*="bg-[#E0E7FF]"], [class*="bg-[#FFFBEB]"], [class*="bg-[#FFF7ED]"], [class*="bg-[#FEF2F2]"],
+[class*="bg-[#DCFCE7]"], [class*="bg-[#FEE2E2]"], [class*="bg-yellow-50"] {
+  background-color: #121A1B !important;
+}
+[class*="bg-red-50"], [class*="bg-emerald-50"], [class*="bg-green-50"] {
+  background-color: #121A1B !important;
+}
+[class*="bg-[#2E2A7A]"], [class*="bg-[#4338CA]"], [class*="bg-[#0F766E]"] {
+  background-color: #5BC5A7 !important;
+  color: #07110E !important;
+}
+[class*="from-[#E11D48]"], [class*="from-[#BE123C]"] {
+  background-image: linear-gradient(90deg, #5BC5A7, #79D9BD) !important;
+  color: #07110E !important;
+}
+[class*="text-[#1C1917]"], [class*="text-[#1F1D3D]"], [class*="text-[#2E2A7A]"],
+[class*="text-gray-900"], [class*="text-gray-800"] { color: #F9FAFB !important; }
+[class*="text-[#57534E]"], [class*="text-[#5B5B72]"], [class*="text-[#9B9BAF]"] { color: #9CA3AF !important; }
+[class*="text-emerald-800"] { color: #A7F3D0 !important; }
+[class*="text-[#E11D48]"], [class*="text-[#BE123C]"], [class*="text-[#F43F5E]"],
+[class*="text-[#4338CA]"], [class*="text-[#2E2A7A]"] { color: #5BC5A7 !important; }
+[class*="border-[#E5E5EF]"], [class*="border-[#D1D1DF]"], [class*="border-[rgba(225,29,72"] {
+  border-color: rgba(71, 85, 105, .55) !important;
+}
+[class*="border-[#FECDD3]"], [class*="border-rose-100"], [class*="border-rose-200"] {
+  border-color: rgba(91, 197, 167, .28) !important;
+}
+[class*="hover:border-[#FECDD3]"]:hover, [class*="hover:border-gray-300"]:hover {
+  border-color: rgba(91, 197, 167, .55) !important;
+}
+*[class*="border-"]:hover { border-color: rgba(91, 197, 167, .45); }
+
+button, [role="button"] { transition-property: transform, color, background-color, border-color, box-shadow, opacity; }
+button:active, [role="button"]:active { transform: scale(.95); }
+input, textarea, select {
+  color: #F9FAFB;
+  background-color: transparent;
+  border-color: #4B5563;
+  border-radius: 0 !important;
+  border-width: 0 0 1px !important;
+  box-shadow: none !important;
+}
+input::placeholder, textarea::placeholder { color: #6B7280; }
+input:focus, textarea:focus, select:focus { border-color: #5BC5A7 !important; outline-color: #5BC5A7; }
+
+.soft-rose-glow { box-shadow: 0 0 22px rgba(91, 197, 167, .18); }
+.soft-card-shadow { box-shadow: 0 0 15px rgba(91, 197, 167, .08); }
+.hairline-rose-border { border-color: rgba(91, 197, 167, .18); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
 
 .font-display {

@@ -12,6 +12,8 @@ import type { ReceiptParseResponse, ParsedReceipt } from "@/lib/receipt/schema";
 
 const DEMO_USER_ID = "00000000-0000-0000-0000-000000000000";
 
+export const maxDuration = 60;
+
 /** Returns the current date string in America/Los_Angeles timezone */
 function getTodayLA(): string {
   return new Date().toLocaleDateString("en-CA", {

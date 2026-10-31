@@ -31,20 +31,20 @@ const typeConfig: Record<
 > = {
   trip: {
     label: "Trip",
-    bg: "#EEF2FF",
-    text: "#4338CA",
+    bg: "#10151C",
+    text: "#D1D5DB",
     icon: Compass,
   },
   mess: {
     label: "Mess",
-    bg: "#F0FDFA",
-    text: "#0F766E",
+    bg: "rgba(91, 197, 167, 0.10)",
+    text: "#5BC5A7",
     icon: Utensils,
   },
   event: {
     label: "Event",
-    bg: "#FFFBEB",
-    text: "#B45309",
+    bg: "rgba(233, 168, 73, 0.10)",
+    text: "#E9A849",
     icon: CalendarDays,
   },
 };
@@ -111,27 +111,36 @@ export function GroupHeader({
         </div>
 
         {/* Action buttons */}
-        <div className="flex items-center gap-2.5 shrink-0">
+        <div className="flex flex-wrap items-center gap-2.5 sm:shrink-0">
           <button
             type="button"
             onClick={onOpenInvite}
-            className="inline-flex items-center justify-center gap-2 min-h-[44px] px-4 py-2.5 rounded-lg border border-[#E5E5F0] bg-white hover:bg-[#F1F1FA] text-[#1F1D3D] font-semibold text-xs uppercase tracking-wide transition-all shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#4338CA]"
+            className="inline-flex items-center justify-center gap-2 min-h-[44px] px-4 py-2.5 rounded-md border border-slate-700 bg-[#10151C] hover:border-[#5BC5A7]/50 text-gray-200 font-semibold text-xs uppercase tracking-wide transition-all shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#5BC5A7] active:scale-95"
           >
-            <UserPlus className="w-4 h-4 text-[#4338CA]" />
+            <UserPlus className="w-4 h-4 text-[#5BC5A7]" />
             <span>Invite Members</span>
           </button>
 
           <Link
             href={`/receipt/new?group_id=${group.id}`}
-            className="inline-flex items-center justify-center gap-2 min-h-[44px] px-4 py-2.5 rounded-lg border border-[#4338CA]/30 bg-[#EEF2FF] hover:bg-[#E0E7FF] text-[#4338CA] font-semibold text-xs uppercase tracking-wide transition-all shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#4338CA]"
+            className="inline-flex items-center justify-center gap-2 min-h-[44px] px-4 py-2.5 rounded-md border border-[#5BC5A7]/50 bg-transparent hover:bg-[#5BC5A7]/10 text-[#5BC5A7] font-semibold text-xs uppercase tracking-wide transition-all shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#5BC5A7] active:scale-95"
           >
             <Camera className="w-4 h-4" />
             <span>Scan Bill</span>
           </Link>
 
+          <button
+            type="button"
+            disabled
+            title="Smart Paste is in development"
+            className="inline-flex min-h-[44px] cursor-not-allowed items-center justify-center gap-2 rounded-md border border-slate-700 bg-transparent px-4 py-2.5 text-xs font-semibold uppercase tracking-wide text-gray-500 opacity-70"
+          >
+            Smart Paste <span className="text-[9px] tracking-widest">SOON</span>
+          </button>
+
           <Link
             href={`/group/${group.id}/add-expense`}
-            className="inline-flex items-center justify-center gap-2 min-h-[44px] px-5 py-2.5 rounded-lg bg-[#2E2A7A] hover:bg-[#252263] text-white font-semibold text-xs uppercase tracking-wide transition-all shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#4338CA]"
+            className="inline-flex items-center justify-center gap-2 min-h-[44px] px-5 py-2.5 rounded-md bg-[#5BC5A7] hover:bg-[#79D9BD] text-black font-bold text-xs uppercase tracking-wide transition-all shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#5BC5A7] active:scale-95"
           >
             <Plus className="w-4 h-4" />
             <span>Add Expense</span>
@@ -142,6 +151,7 @@ export function GroupHeader({
       {/* 3. Metadata strip: Type Badge, Member Count, Created Date, Settings */}
       <div className="flex flex-wrap items-center justify-between gap-3 pt-3">
         <div className="flex flex-wrap items-center gap-3">
+          <span className="rounded border border-[#5BC5A7]/25 bg-[#5BC5A7]/[0.06] px-2 py-1 font-mono text-[10px] uppercase tracking-widest text-[#5BC5A7]">{currentUserRole}</span>
           {/* Group Type Badge */}
           <span
             className="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-full"

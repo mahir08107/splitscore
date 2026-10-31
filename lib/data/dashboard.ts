@@ -1,5 +1,6 @@
 import { supabase } from "@/lib/supabase";
 import { DEMO_GROUP_ID, INITIAL_DEMO_EXPENSES, DEMO_MEMBERS_USERS } from "@/lib/group/demo-data";
+import { getCalculatedTrustScore } from "@/lib/data/score";
 
 export const DEMO_USER_ID = "00000000-0000-0000-0000-000000000000";
 
@@ -19,6 +20,9 @@ export interface TrustScoreInfo {
   band: TrustBand;
   confidenceNote: string;
   verifiedCount?: number;
+  activeGroupsCount?: number;
+  completedSettlementsCount?: number;
+  networkSize?: number;
 }
 
 export interface PendingAction {
@@ -127,10 +131,13 @@ function getDemoDashboardData(userId: string): DashboardData {
     totalOwe: 1400,
     totalOwed: 0,
     trustScore: {
-      score: 540,
-      band: "Building",
-      confidenceNote: "based on 3 people and 7 settlements",
-      verifiedCount: 7,
+      score: 760,
+      band: "Good",
+      confidenceNote: "Based on 12 settlements across 8 peers",
+      verifiedCount: 12,
+      activeGroupsCount: 4,
+      completedSettlementsCount: 12,
+      networkSize: 8,
     },
     pendingActions: [
       {
@@ -393,48 +400,25 @@ export async function getDashboardData(
       }
     }
 
-    // 4. Fetch user's latest trust score from score_events or user score
-    const { data: scoreEvents, error: scoreError } = await supabase
-      .from("score_events")
-      .select("id, points_change, reason, created_at")
-      .eq("user_id", activeUserId)
-      .order("created_at", { ascending: false });
-
-    if (scoreError) {
-      console.warn("Error fetching score events:", scoreError.message);
-    }
-
-    const settlementCount = scoreEvents?.length || 0;
-    // Base score starts at 650 (mid) + sum of points changes
-    const totalPointsChange = (scoreEvents || []).reduce(
-      (acc: number, curr: { points_change: number }) => acc + (Number(curr.points_change) || 0),
-      0
+    // 4. Fetch user's latest trust score using the centralized scoring engine
+    const calculatedScore = await getCalculatedTrustScore(
+      activeUserId,
+      isDemo,
+      supabase
     );
-
-    const isDemoUser = activeUserId === DEMO_USER_ID;
-    const scoreVal =
-      isDemoUser && settlementCount === 0
-        ? 760
-        : Math.min(900, Math.max(300, 650 + totalPointsChange));
-    const band = getTrustBand(scoreVal);
-    const confidenceNote =
-      isDemoUser && settlementCount === 0
-        ? "Based on 8 settlements across 4 peers"
-        : settlementCount > 0
-          ? `Based on ${settlementCount} settlement${settlementCount > 1 ? "s" : ""}`
-          : "Cold start (neutral)";
-    const verifiedCount =
-      isDemoUser && settlementCount === 0 ? 8 : settlementCount;
 
     return {
       user,
       totalOwe,
       totalOwed,
       trustScore: {
-        score: scoreVal,
-        band,
-        confidenceNote,
-        verifiedCount,
+        score: calculatedScore.score,
+        band: calculatedScore.band,
+        confidenceNote: calculatedScore.confidenceNote,
+        verifiedCount: calculatedScore.verifiedCount,
+        activeGroupsCount: calculatedScore.activeGroupsCount,
+        completedSettlementsCount: calculatedScore.completedSettlementsCount,
+        networkSize: calculatedScore.networkSize,
       },
       pendingActions,
       groups,

@@ -19,11 +19,6 @@ import {
   FastForward,
   Copy,
   Check,
-  AlertTriangle,
-  Flame,
-  Scale,
-  Clock,
-  Sparkles,
 } from "lucide-react";
 
 type ScenarioKey =
@@ -351,11 +346,12 @@ export function SimulatorClient() {
   };
 
   useEffect(() => {
-    startSimulation(activeScenario);
+    const kickoff = window.setTimeout(() => startSimulation(activeScenario), 0);
     return () => {
+      window.clearTimeout(kickoff);
       if (timerRef.current) clearInterval(timerRef.current);
     };
-  }, [activeKey]);
+  }, [activeScenario]);
 
   useEffect(() => {
     if (terminalEndRef.current) {
@@ -420,11 +416,11 @@ export function SimulatorClient() {
               key={scenario.key}
               onClick={() => handleSelectScenario(scenario.key)}
               className={`
-                cursor-pointer rounded-2xl p-5 bg-white border transition-all duration-200 flex flex-col justify-between text-left
+                cursor-pointer rounded-xl p-5 border transition-all duration-200 flex flex-col justify-between text-left
                 ${
                   isActive
-                    ? "border-[#E11D48] ring-2 ring-[#E11D48] shadow-md"
-                    : "border-[rgba(225,29,72,0.09)] hover:border-[#FECDD3] hover:shadow-sm"
+                    ? "border-[#5BC5A7] bg-[#5BC5A7] text-black shadow-[0_0_20px_rgba(91,197,167,0.18)]"
+                    : "border-slate-700/70 bg-[#10151C] text-white hover:border-[#5BC5A7]/50 hover:shadow-sm"
                 }
               `}
             >
@@ -442,7 +438,7 @@ export function SimulatorClient() {
                   </span>
 
                   {isActive && (
-                    <span className="flex items-center gap-1 text-[11px] font-bold text-[#E11D48]">
+                    <span className="flex items-center gap-1 text-[11px] font-bold text-black">
                       <Play className="w-3 h-3 fill-current" />
                       Active
                     </span>
@@ -450,22 +446,22 @@ export function SimulatorClient() {
                 </div>
 
                 {/* Title */}
-                <h3 className="text-base font-bold text-[#1C1917] leading-snug mb-1 font-display">
+                <h3 className={`text-base font-bold leading-snug mb-1 font-display ${isActive ? "text-black" : "text-white"}`}>
                   {scenario.title}
                 </h3>
 
                 {/* Description */}
-                <p className="text-xs text-[#57534E] leading-relaxed line-clamp-3">
+                <p className={`text-xs leading-relaxed line-clamp-3 ${isActive ? "text-slate-900" : "text-gray-400"}`}>
                   {scenario.description}
                 </p>
               </div>
 
               {/* Card Footer: Event count + Run Test link */}
-              <div className="mt-4 pt-3 border-t border-[rgba(225,29,72,0.06)] flex items-center justify-between text-xs">
-                <span className="text-[#57534E] font-medium">
+              <div className={`mt-4 pt-3 border-t flex items-center justify-between text-xs ${isActive ? "border-black/20" : "border-slate-700/70"}`}>
+                <span className={`${isActive ? "text-slate-800" : "text-gray-500"} font-medium`}>
                   {scenario.eventCountText}
                 </span>
-                <span className="font-semibold text-[#E11D48] flex items-center gap-0.5 hover:underline">
+                <span className={`font-semibold flex items-center gap-0.5 hover:underline ${isActive ? "text-black" : "text-[#5BC5A7]"}`}>
                   Run Test <span className="text-sm">→</span>
                 </span>
               </div>
@@ -531,7 +527,7 @@ export function SimulatorClient() {
               {isStreaming ? (
                 <button
                   onClick={handleFastForward}
-                  className="inline-flex items-center gap-1 text-[11px] font-mono font-medium text-blue-400 hover:text-white bg-gray-700/60 px-2.5 py-1 rounded transition-colors"
+                className="inline-flex items-center gap-1 text-[11px] font-mono font-medium text-gray-300 hover:text-white bg-gray-700/60 px-2.5 py-1 rounded transition-colors"
                   title="Fast forward to end"
                 >
                   <FastForward className="w-3 h-3" />
@@ -540,7 +536,7 @@ export function SimulatorClient() {
               ) : (
                 <button
                   onClick={() => startSimulation(activeScenario)}
-                  className="inline-flex items-center gap-1 text-[11px] font-mono font-medium text-green-400 hover:text-white bg-gray-700/60 px-2.5 py-1 rounded transition-colors"
+                className="inline-flex items-center gap-1 text-[11px] font-mono font-medium text-[#5BC5A7] hover:text-white bg-gray-700/60 px-2.5 py-1 rounded transition-colors"
                   title="Re-run simulation"
                 >
                   <Play className="w-3 h-3 fill-current" />
@@ -589,7 +585,7 @@ export function SimulatorClient() {
                     <span
                       className={`shrink-0 font-bold text-[11px] ${
                         log.pointsDelta > 0
-                          ? "text-green-400"
+                          ? "text-[#5BC5A7]"
                           : "text-red-400"
                       }`}
                     >
@@ -720,8 +716,8 @@ export function SimulatorClient() {
 }
 
 // Color coding mapping based on exact user specification:
-// [INFO] -> Blue
-// [SUCCESS] -> Green
+// [INFO] -> White
+// [SUCCESS] -> SplitScore mint
 // [WARNING] -> Yellow
 // [CRITICAL] -> Red
 // [PENALTY] -> Red
@@ -733,13 +729,13 @@ function getLogFormatting(level: TerminalLogLevel): {
   switch (level) {
     case "INFO":
       return {
-        badge: "bg-blue-900/60 text-blue-400 border border-blue-600/40",
-        text: "text-blue-400 font-medium",
+        badge: "bg-gray-800 text-gray-300 border border-gray-700",
+        text: "text-gray-200 font-medium",
       };
     case "SUCCESS":
       return {
-        badge: "bg-green-900/60 text-green-400 border border-green-600/40",
-        text: "text-green-400",
+        badge: "bg-[#5BC5A7]/10 text-[#5BC5A7] border border-[#5BC5A7]/30",
+        text: "text-[#5BC5A7]",
       };
     case "WARNING":
       return {
