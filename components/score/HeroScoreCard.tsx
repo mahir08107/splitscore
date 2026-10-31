@@ -148,7 +148,7 @@ export function HeroScoreCard({
             {/* Score number in center */}
             <div className="absolute inset-0 flex flex-col items-center justify-center">
               <span
-                className="text-4xl sm:text-5xl font-extrabold tracking-tight leading-none"
+                className="text-4xl sm:text-5xl font-extrabold tracking-tight leading-none font-display"
                 style={{ color: config.color }}
               >
                 {score}
@@ -164,16 +164,16 @@ export function HeroScoreCard({
 
           {/* Info section */}
           <div className="text-center sm:text-left flex-1">
-            <p className="text-sm font-medium text-[#1F1D3D] mb-1">
+            <p className="text-sm font-medium text-[#1C1917] mb-1">
               {userName}
             </p>
-            <p className="text-xs text-[#5B5B72] leading-relaxed mb-3">
+            <p className="text-xs text-[#57534E] leading-relaxed mb-3">
               {confidenceLabel}
             </p>
 
             {/* Score bar */}
             <div className="w-full max-w-[260px] mx-auto sm:mx-0">
-              <div className="flex justify-between text-[10px] text-[#5B5B72] mb-1">
+              <div className="flex justify-between text-[10px] text-[#57534E] mb-1">
                 <span>0</span>
                 <span>300</span>
                 <span>500</span>
@@ -211,8 +211,8 @@ export function HeroScoreCard({
 
         {/* Bottom confidence chip */}
         <div className="mt-5 flex items-center justify-center sm:justify-start gap-2">
-          <Users className="w-3.5 h-3.5 text-[#5B5B72]" />
-          <span className="text-xs text-[#5B5B72]">{confidenceLabel}</span>
+          <Users className="w-3.5 h-3.5 text-[#57534E]" />
+          <span className="text-xs text-[#57534E]">{confidenceLabel}</span>
         </div>
       </div>
     </div>

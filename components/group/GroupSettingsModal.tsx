@@ -95,26 +95,26 @@ export function GroupSettingsModal({
       onClick={onClose}
     >
       <div
-        className="bg-white w-full max-w-lg rounded-2xl border border-[#E5E5F0] shadow-xl p-6 sm:p-7 relative max-h-[90vh] overflow-y-auto"
+        className="bg-white w-full max-w-lg rounded-2xl border border-[rgba(225,29,72,0.09)] shadow-xl p-6 sm:p-7 relative max-h-[90vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
         <button
           onClick={onClose}
-          className="absolute top-5 right-5 p-2 rounded-lg text-[#5B5B72] hover:text-[#1F1D3D] hover:bg-[#F1F1FA] transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
+          className="absolute top-5 right-5 p-2 rounded-lg text-[#57534E] hover:text-[#1C1917] hover:bg-rose-50 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
           aria-label="Close modal"
         >
           <X className="w-5 h-5" />
         </button>
 
         <div className="flex items-center gap-3 mb-6">
-          <div className="w-10 h-10 rounded-xl bg-[#EEF2FF] text-[#4338CA] flex items-center justify-center shrink-0">
+          <div className="w-10 h-10 rounded-xl bg-[#FFF1F2] text-[#E11D48] border border-[#FECDD3] flex items-center justify-center shrink-0">
             <Settings className="w-5 h-5" />
           </div>
           <div>
-            <h2 id="settings-modal-title" className="text-xl font-bold text-[#1F1D3D]">
+            <h2 id="settings-modal-title" className="text-xl font-bold font-display text-[#1C1917]">
               Group Settings
             </h2>
-            <p className="text-xs text-[#5B5B72]">
+            <p className="text-xs text-[#57534E]">
               {isAdmin ? "Manage group details, invite access, and roles" : "View group details and preferences"}
             </p>
           </div>
@@ -124,7 +124,7 @@ export function GroupSettingsModal({
         {isAdmin ? (
           <form onSubmit={handleSave} className="space-y-4 mb-8">
             <div>
-              <label className="text-xs font-bold uppercase tracking-wider text-[#5B5B72] block mb-1">
+              <label className="text-xs font-bold uppercase tracking-wider text-[#57534E] block mb-1">
                 Group Name
               </label>
               <input
@@ -132,18 +132,18 @@ export function GroupSettingsModal({
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 required
-                className="w-full px-3.5 min-h-[44px] rounded-lg border border-[#E5E5F0] bg-white text-sm text-[#1F1D3D] focus:outline-none focus:border-[#4338CA] focus:ring-1 focus:ring-[#4338CA]"
+                className="w-full px-3.5 min-h-[44px] rounded-lg border border-[rgba(225,29,72,0.09)] bg-white text-sm text-[#1C1917] focus:outline-none focus:border-[#E11D48] focus:ring-1 focus:ring-[#E11D48]"
               />
             </div>
 
             <div>
-              <label className="text-xs font-bold uppercase tracking-wider text-[#5B5B72] block mb-1">
+              <label className="text-xs font-bold uppercase tracking-wider text-[#57534E] block mb-1">
                 Group Type
               </label>
               <select
                 value={type}
                 onChange={(e) => setType(e.target.value as GroupType)}
-                className="w-full px-3.5 min-h-[44px] rounded-lg border border-[#E5E5F0] bg-white text-sm text-[#1F1D3D] focus:outline-none focus:border-[#4338CA] focus:ring-1 focus:ring-[#4338CA]"
+                className="w-full px-3.5 min-h-[44px] rounded-lg border border-[rgba(225,29,72,0.09)] bg-white text-sm text-[#1C1917] focus:outline-none focus:border-[#E11D48] focus:ring-1 focus:ring-[#E11D48]"
               >
                 <option value="trip">Trip (Vacations, road trips, travel)</option>
                 <option value="mess">Mess (Hostel, shared meals, groceries)</option>
@@ -152,7 +152,7 @@ export function GroupSettingsModal({
             </div>
 
             <div>
-              <label className="text-xs font-bold uppercase tracking-wider text-[#5B5B72] block mb-1">
+              <label className="text-xs font-bold uppercase tracking-wider text-[#57534E] block mb-1">
                 Description (Optional)
               </label>
               <textarea
@@ -160,21 +160,21 @@ export function GroupSettingsModal({
                 onChange={(e) => setDescription(e.target.value)}
                 rows={2}
                 placeholder="What is this group for?"
-                className="w-full p-3 rounded-lg border border-[#E5E5F0] bg-white text-sm text-[#1F1D3D] focus:outline-none focus:border-[#4338CA] focus:ring-1 focus:ring-[#4338CA]"
+                className="w-full p-3 rounded-lg border border-[rgba(225,29,72,0.09)] bg-white text-sm text-[#1C1917] focus:outline-none focus:border-[#E11D48] focus:ring-1 focus:ring-[#E11D48]"
               />
             </div>
 
             <div className="flex justify-end pt-2">
               <button
                 type="submit"
-                className="min-h-[44px] px-5 py-2 rounded-lg bg-[#2E2A7A] hover:bg-[#252263] text-white font-semibold text-xs uppercase tracking-wide transition-colors shadow-sm"
+                className="min-h-[44px] px-5 py-2 rounded-lg bg-gradient-to-r from-[#E11D48] to-[#BE123C] hover:shadow-lg hover:shadow-[#E11D48]/25 text-white font-semibold text-xs uppercase tracking-wide transition-all shadow-sm active:scale-95"
               >
                 Save Changes
               </button>
             </div>
           </form>
         ) : (
-          <div className="bg-[#F8F9FD] p-4 rounded-xl border border-[#E5E5F0] mb-6 space-y-2 text-sm text-[#1F1D3D]">
+          <div className="bg-[#FCFBF7] p-4 rounded-xl border border-[rgba(225,29,72,0.09)] mb-6 space-y-2 text-sm text-[#1C1917]">
             <p><strong>Name:</strong> {group.name}</p>
             <p><strong>Type:</strong> <span className="capitalize">{group.type}</span></p>
             {group.description && <p><strong>Description:</strong> {group.description}</p>}
@@ -183,17 +183,17 @@ export function GroupSettingsModal({
 
         {/* 2. Regenerate Invite Code (Admins only) */}
         {isAdmin && (
-          <div className="p-4 rounded-xl border border-[#E5E5F0] bg-[#FAFBFD] mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div className="p-4 rounded-xl border border-[rgba(225,29,72,0.09)] bg-[#FCFBF7] mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
-              <h4 className="text-sm font-bold text-[#1F1D3D]">Invite Code</h4>
-              <p className="text-xs text-[#5B5B72]">
-                Current code: <span className="font-mono font-bold text-[#4338CA]">{group.invite_code}</span>
+              <h4 className="text-sm font-bold text-[#1C1917]">Invite Code</h4>
+              <p className="text-xs text-[#57534E]">
+                Current code: <span className="font-mono font-bold text-[#E11D48]">{group.invite_code}</span>
               </p>
             </div>
             <button
               type="button"
               onClick={onRegenerateCode}
-              className="inline-flex items-center justify-center gap-1.5 min-h-[44px] px-4 py-2 rounded-lg border border-[#E5E5F0] bg-white hover:bg-[#F1F1FA] text-[#1F1D3D] text-xs font-semibold uppercase tracking-wider transition-colors shrink-0"
+              className="inline-flex items-center justify-center gap-1.5 min-h-[44px] px-4 py-2 rounded-lg border border-[rgba(225,29,72,0.09)] bg-white hover:bg-rose-50 text-[#1C1917] text-xs font-semibold uppercase tracking-wider transition-colors shrink-0"
             >
               <RefreshCw className="w-3.5 h-3.5" />
               <span>Regenerate code</span>
@@ -202,7 +202,7 @@ export function GroupSettingsModal({
         )}
 
         {/* 3. Danger Zone: Leave Group or Delete Group */}
-        <div className="pt-6 border-t border-[#E5E5F0] space-y-4">
+        <div className="pt-6 border-t border-[rgba(225,29,72,0.09)] space-y-4">
           <h4 className="text-xs font-bold uppercase tracking-wider text-[#B91C1C]">
             Danger Zone
           </h4>
@@ -211,8 +211,8 @@ export function GroupSettingsModal({
           {!showLeaveConfirm ? (
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-bold text-[#1F1D3D]">Leave Group</p>
-                <p className="text-xs text-[#5B5B72]">
+                <p className="text-sm font-bold text-[#1C1917]">Leave Group</p>
+                <p className="text-xs text-[#57534E]">
                   {isOnlyAdmin
                     ? "Blocked: You are the sole admin."
                     : "Remove yourself from this group."}
@@ -237,7 +237,7 @@ export function GroupSettingsModal({
                 <button
                   type="button"
                   onClick={() => setShowLeaveConfirm(false)}
-                  className="min-h-[40px] px-3 rounded-lg bg-white border border-[#FECACA] text-xs font-semibold text-[#5B5B72]"
+                  className="min-h-[40px] px-3 rounded-lg bg-white border border-[#FECACA] text-xs font-semibold text-[#57534E]"
                 >
                   Cancel
                 </button>
@@ -254,12 +254,12 @@ export function GroupSettingsModal({
 
           {/* Delete Group Action (Admins only with typed confirmation) */}
           {isAdmin && (
-            <div className="pt-3 border-t border-[#F1F1FA]">
+            <div className="pt-3 border-t border-[rgba(225,29,72,0.06)]">
               {!showDeleteConfirm ? (
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm font-bold text-[#B91C1C]">Delete Group</p>
-                    <p className="text-xs text-[#5B5B72]">
+                    <p className="text-xs text-[#57534E]">
                       Permanently delete this group and its expenses.
                     </p>
                   </div>
@@ -283,7 +283,7 @@ export function GroupSettingsModal({
                     value={deleteConfirmationText}
                     onChange={(e) => setDeleteConfirmationText(e.target.value)}
                     placeholder={group.name}
-                    className="w-full px-3.5 min-h-[44px] rounded-lg border border-[#FECACA] bg-white text-xs text-[#1F1D3D] focus:outline-none"
+                    className="w-full px-3.5 min-h-[44px] rounded-lg border border-[#FECACA] bg-white text-xs text-[#1C1917] focus:outline-none"
                   />
                   <div className="flex items-center justify-end gap-2">
                     <button
@@ -292,7 +292,7 @@ export function GroupSettingsModal({
                         setShowDeleteConfirm(false);
                         setDeleteConfirmationText("");
                       }}
-                      className="min-h-[40px] px-3 rounded-lg bg-white border border-[#E5E5F0] text-xs font-semibold text-[#5B5B72]"
+                      className="min-h-[40px] px-3 rounded-lg bg-white border border-[rgba(225,29,72,0.09)] text-xs font-semibold text-[#57534E]"
                     >
                       Cancel
                     </button>

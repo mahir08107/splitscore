@@ -186,10 +186,10 @@ export function SettleClient({
   return (
     <div className="space-y-6 pb-16">
       {/* 1. Header with back link */}
-      <div className="flex items-center justify-between pb-4 border-b border-[#E5E5EF]">
+      <div className="flex items-center justify-between pb-4 border-b border-[rgba(225,29,72,0.09)]">
         <Link
           href={`/group/${groupId}`}
-          className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#4338CA] hover:text-[#2E2A7A] transition-colors min-h-[44px] px-2 -ml-2 rounded-lg"
+          className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#E11D48] hover:text-[#BE123C] transition-colors min-h-[44px] px-2 -ml-2 rounded-lg"
         >
           <ArrowLeft className="w-4 h-4" />
           <span>Back to Group</span>
@@ -225,10 +225,10 @@ export function SettleClient({
               <Clock className="w-4 h-4" />
             </div>
             <div>
-              <h2 className="text-base font-bold text-[#1F1D3D]">
+              <h2 className="text-base font-bold text-[#1C1917]">
                 Awaiting Mutual Confirmation ({markedPaidSettlements.length})
               </h2>
-              <p className="text-xs text-[#5B5B72]">
+              <p className="text-xs text-[#57534E]">
                 Payments already marked as paid. Only confirmed payments change trust scores and balances.
               </p>
             </div>
@@ -250,18 +250,18 @@ export function SettleClient({
                 >
                   <div>
                     <div className="flex items-center gap-2 flex-wrap">
-                      <span className="font-bold text-sm text-[#1F1D3D]">
+                      <span className="font-bold text-sm text-[#1C1917]">
                         {isPayer ? "You" : s.fromName}
                       </span>
-                      <ArrowRight className="w-3.5 h-3.5 text-[#5B5B72]" />
-                      <span className="font-bold text-sm text-[#1F1D3D]">
+                      <ArrowRight className="w-3.5 h-3.5 text-[#57534E]" />
+                      <span className="font-bold text-sm text-[#1C1917]">
                         {isReceiver ? "You" : s.toName}
                       </span>
-                      <span className="font-extrabold text-sm text-[#0F766E] bg-white px-2 py-0.5 rounded border border-[#E5E5EF]">
+                      <span className="font-extrabold text-sm text-[#0F766E] bg-white px-2 py-0.5 rounded border border-[rgba(225,29,72,0.09)]">
                         {formatRupees(s.amount)}
                       </span>
                     </div>
-                    <p className="text-xs text-[#5B5B72] mt-1">
+                    <p className="text-xs text-[#57534E] mt-1">
                       Status: <span className="font-semibold text-[#B45309]">Marked as paid</span>
                     </p>
                   </div>
@@ -306,17 +306,17 @@ export function SettleClient({
       )}
 
       {/* 3. SECTION: Suggested Settlements (Debt Simplification) */}
-      <div className="bg-white rounded-2xl border border-[#E5E5EF] p-5 sm:p-6 shadow-sm space-y-4">
+      <div className="bg-white rounded-2xl border border-[rgba(225,29,72,0.09)] p-5 sm:p-6 shadow-sm space-y-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-[#EEF2FF] text-[#4338CA] flex items-center justify-center">
+            <div className="w-8 h-8 rounded-lg bg-[#FFF1F2] text-[#E11D48] flex items-center justify-center">
               <Sparkles className="w-4 h-4" />
             </div>
             <div>
-              <h2 className="text-base font-bold text-[#1F1D3D]">
+              <h2 className="text-base font-bold text-[#1C1917]">
                 Suggested Direct Payments
               </h2>
-              <p className="text-xs text-[#5B5B72]">
+              <p className="text-xs text-[#57534E]">
                 Debt simplification algorithm: eliminates middlemen to minimize total transactions.
               </p>
             </div>
@@ -324,10 +324,10 @@ export function SettleClient({
         </div>
 
         {suggestedPayments.length === 0 ? (
-          <div className="text-center py-8 px-4 bg-[#F8F9FD] rounded-xl border border-[#E5E5EF]">
+          <div className="text-center py-8 px-4 bg-[#FCFBF7] rounded-xl border border-[rgba(225,29,72,0.09)]">
             <CheckCircle2 className="w-10 h-10 text-[#15803D] mx-auto mb-2" />
-            <h3 className="text-sm font-bold text-[#1F1D3D]">All balances are settled</h3>
-            <p className="text-xs text-[#5B5B72] mt-0.5">
+            <h3 className="text-sm font-bold text-[#1C1917]">All balances are settled</h3>
+            <p className="text-xs text-[#57534E] mt-0.5">
               No one in this group currently owes money.
             </p>
           </div>
@@ -351,25 +351,25 @@ export function SettleClient({
                       ? "bg-[#FEF2F2]/60 border-[#FECACA]"
                       : isCurrentUserReceiver
                       ? "bg-[#F0FDF4]/60 border-[#BBF7D0]"
-                      : "bg-white border-[#E5E5EF]"
+                      : "bg-white border-[rgba(225,29,72,0.09)]"
                   }`}
                 >
                   {/* Payer -> Receiver Info */}
                   <div>
                     <div className="flex items-center gap-2.5 flex-wrap">
-                      <span className="font-bold text-sm text-[#1F1D3D]">
+                      <span className="font-bold text-sm text-[#1C1917]">
                         {isCurrentUserPayer ? "You" : p.fromName}
                       </span>
-                      <ArrowRight className="w-4 h-4 text-[#5B5B72]" />
-                      <span className="font-bold text-sm text-[#1F1D3D]">
+                      <ArrowRight className="w-4 h-4 text-[#57534E]" />
+                      <span className="font-bold text-sm text-[#1C1917]">
                         {isCurrentUserReceiver ? "You" : p.toName}
                       </span>
-                      <span className="font-extrabold text-base text-[#1F1D3D] bg-white px-2.5 py-0.5 rounded-md border border-[#E5E5EF]">
+                      <span className="font-extrabold text-base text-[#1C1917] bg-white px-2.5 py-0.5 rounded-md border border-[rgba(225,29,72,0.09)]">
                         {formatRupees(p.amount)}
                       </span>
                     </div>
 
-                    <p className="text-xs text-[#5B5B72] mt-1">
+                    <p className="text-xs text-[#57534E] mt-1">
                       {isCurrentUserPayer
                         ? "You owe this amount."
                         : isCurrentUserReceiver
@@ -398,8 +398,8 @@ export function SettleClient({
                           onClick={() => handleMarkAsPaid(p, existingMarkedPaid?.id)}
                           className={`min-h-[44px] px-4 py-2 rounded-xl font-bold text-xs uppercase tracking-wider transition-all shadow-sm flex items-center gap-1.5 ${
                             existingMarkedPaid
-                              ? "bg-[#F1F1FA] text-[#7E7E94] cursor-not-allowed border border-[#D1D1DF]"
-                              : "bg-[#2E2A7A] hover:bg-[#252263] text-white"
+                              ? "bg-[#FCFBF7] text-[#7E7E94] cursor-not-allowed border border-[#D1D1DF]"
+                              : "bg-gradient-to-r from-[#E11D48] to-[#BE123C] hover:shadow-lg hover:shadow-[#E11D48]/25 active:scale-95 text-white"
                           }`}
                         >
                           {isBusy ? (
@@ -413,7 +413,7 @@ export function SettleClient({
                         </button>
                       </>
                     ) : (
-                      <span className="text-xs font-semibold text-[#5B5B72] bg-[#F1F1FA] px-3 py-2 rounded-xl">
+                      <span className="text-xs font-semibold text-[#57534E] bg-[#FCFBF7] px-3 py-2 rounded-xl">
                         {isCurrentUserReceiver ? "Waiting for payment" : "Direct settlement"}
                       </span>
                     )}
@@ -427,21 +427,21 @@ export function SettleClient({
 
       {/* 4. SECTION: Past Settlements History */}
       {otherSettlements.length > 0 && (
-        <div className="bg-white rounded-2xl border border-[#E5E5EF] p-5 sm:p-6 shadow-sm space-y-3">
-          <h2 className="text-sm font-bold text-[#1F1D3D] uppercase tracking-wider text-[#5B5B72]">
+        <div className="bg-white rounded-2xl border border-[rgba(225,29,72,0.09)] p-5 sm:p-6 shadow-sm space-y-3">
+          <h2 className="text-sm font-bold text-[#1C1917] uppercase tracking-wider text-[#57534E]">
             Recent Settlement Activity
           </h2>
-          <div className="divide-y divide-[#F1F1FA]">
+          <div className="divide-y divide-[#FFF1F2]">
             {otherSettlements.map((s) => {
               const isConfirmed = s.status === "confirmed";
               return (
                 <div
                   key={s.id}
-                  className="py-2.5 flex items-center justify-between text-xs sm:text-sm text-[#1F1D3D]"
+                  className="py-2.5 flex items-center justify-between text-xs sm:text-sm text-[#1C1917]"
                 >
                   <div className="flex items-center gap-2">
                     <span className="font-semibold">{s.fromName}</span>
-                    <ArrowRight className="w-3.5 h-3.5 text-[#5B5B72]" />
+                    <ArrowRight className="w-3.5 h-3.5 text-[#57534E]" />
                     <span className="font-semibold">{s.toName}</span>
                     <span className="font-bold text-[#0F766E]">
                       {formatRupees(s.amount)}
@@ -454,7 +454,7 @@ export function SettleClient({
                         : "bg-[#FEE2E2] text-[#B91C1C]"
                     }`}
                   >
-                    {isConfirmed ? "Confirmed ✓" : "Disputed ✕"}
+                    {isConfirmed ? "Confirmed" : "Disputed"}
                   </span>
                 </div>
               );

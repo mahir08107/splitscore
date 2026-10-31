@@ -182,7 +182,8 @@ function GroupClientInner({ initialData, isDemo = false }: GroupClientProps) {
   };
 
   return (
-    <div className="min-h-screen bg-[#F8F9FD] text-[#1F1D3D] flex flex-col font-sans">
+    <div className="min-h-screen bg-[#FCFBF7] text-[#1C1917] flex flex-col font-body relative">
+      {/* Ambient Background (Corner Aurora + Ledger Grid) */}
       {/* 1. Header (Reusing existing Dashboard Header) */}
       <DashboardHeader user={userProfile} />
 

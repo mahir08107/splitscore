@@ -27,7 +27,7 @@ export function ContextToggle({
   contextScores,
 }: ContextToggleProps) {
   return (
-    <div className="w-full bg-white rounded-xl border border-[#E5E5EF] p-1.5 sm:p-2">
+    <div className="w-full bg-white rounded-xl border border-[rgba(225,29,72,0.09)] p-1.5 sm:p-2">
       <div className="flex gap-1">
         {contexts.map(({ key, label, icon: Icon }) => {
           const isActive = active === key;
@@ -43,9 +43,9 @@ export function ContextToggle({
                 min-h-[44px] text-xs font-medium transition-all duration-200
                 ${
                   isActive
-                    ? "bg-[#2E2A7A] text-white shadow-sm"
+                    ? "bg-gradient-to-r from-[#E11D48] to-[#BE123C] text-white shadow-sm"
                     : hasData
-                    ? "text-[#5B5B72] hover:bg-[#F1F1FA] hover:text-[#1F1D3D]"
+                    ? "text-[#57534E] hover:bg-rose-50 hover:text-[#1C1917]"
                     : "text-[#C4C4D4] cursor-default"
                 }
               `}
@@ -57,7 +57,7 @@ export function ContextToggle({
               {hasData && (
                 <span
                   className={`text-[10px] font-bold ${
-                    isActive ? "text-white/80" : "text-[#5B5B72]"
+                    isActive ? "text-white/80" : "text-[#57534E]"
                   }`}
                 >
                   {score}

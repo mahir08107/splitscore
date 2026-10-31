@@ -63,38 +63,38 @@ export function InviteMembersModal({
       onClick={onClose}
     >
       <div
-        className="bg-white w-full max-w-md rounded-2xl border border-[#E5E5F0] shadow-xl p-6 sm:p-7 relative"
+        className="bg-white w-full max-w-md rounded-2xl border border-[rgba(225,29,72,0.09)] shadow-xl p-6 sm:p-7 relative"
         onClick={(e) => e.stopPropagation()}
       >
         <button
           onClick={onClose}
-          className="absolute top-5 right-5 p-2 rounded-lg text-[#5B5B72] hover:text-[#1F1D3D] hover:bg-[#F1F1FA] transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
+          className="absolute top-5 right-5 p-2 rounded-lg text-[#57534E] hover:text-[#1C1917] hover:bg-rose-50 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
           aria-label="Close modal"
         >
           <X className="w-5 h-5" />
         </button>
 
         <div className="flex items-center gap-3 mb-4">
-          <div className="w-10 h-10 rounded-xl bg-[#EEF2FF] text-[#4338CA] flex items-center justify-center shrink-0">
+          <div className="w-10 h-10 rounded-xl bg-[#FFF1F2] text-[#E11D48] border border-[#FECDD3] flex items-center justify-center shrink-0">
             <Users className="w-5 h-5" />
           </div>
           <div>
-            <span className="text-xs font-semibold uppercase tracking-wider text-[#4338CA]">
+            <span className="text-xs font-semibold uppercase tracking-wider text-[#E11D48]">
               Invite Friends
             </span>
-            <h2 id="invite-modal-title" className="text-xl font-bold text-[#1F1D3D]">
+            <h2 id="invite-modal-title" className="text-xl font-bold font-display text-[#1C1917]">
               {groupName}
             </h2>
           </div>
         </div>
 
-        <p className="text-xs sm:text-sm text-[#5B5B72] mb-5 leading-relaxed">
+        <p className="text-xs sm:text-sm text-[#57534E] mb-5 leading-relaxed">
           Share this link with your friends to join the group. Only invited members can add expenses and view balances.
         </p>
 
         {/* Invite Code & Link Display */}
         <div className="space-y-3 mb-6">
-          <label className="text-xs font-bold uppercase tracking-wider text-[#5B5B72] block">
+          <label className="text-xs font-bold uppercase tracking-wider text-[#57534E] block">
             Invite Link
           </label>
           <div className="flex items-center gap-2">
@@ -102,12 +102,12 @@ export function InviteMembersModal({
               type="text"
               readOnly
               value={inviteUrl}
-              className="flex-1 min-h-[44px] px-3.5 rounded-lg border border-[#E5E5F0] bg-[#F8F9FD] text-xs sm:text-sm text-[#1F1D3D] select-all font-mono focus:outline-none"
+              className="flex-1 min-h-[44px] px-3.5 rounded-lg border border-[rgba(225,29,72,0.09)] bg-[#FCFBF7] text-xs sm:text-sm text-[#1C1917] select-all font-mono focus:outline-none"
             />
             <button
               type="button"
               onClick={handleCopyLink}
-              className="inline-flex items-center justify-center gap-1.5 min-h-[44px] px-4 rounded-lg bg-[#2E2A7A] hover:bg-[#252263] text-white text-xs font-semibold uppercase tracking-wide transition-colors shrink-0 shadow-sm"
+              className="inline-flex items-center justify-center gap-1.5 min-h-[44px] px-4 rounded-lg bg-gradient-to-r from-[#E11D48] to-[#BE123C] hover:shadow-lg hover:shadow-[#E11D48]/25 text-white text-xs font-semibold uppercase tracking-wide transition-all shrink-0 shadow-sm active:scale-95"
             >
               {copied ? (
                 <>
@@ -123,16 +123,16 @@ export function InviteMembersModal({
             </button>
           </div>
 
-          <div className="flex items-center justify-between text-xs text-[#5B5B72] pt-1">
+          <div className="flex items-center justify-between text-xs text-[#57534E] pt-1">
             <span>Invite Code:</span>
-            <span className="font-mono font-bold text-[#1F1D3D] tracking-wider text-sm bg-[#F1F1FA] px-2 py-0.5 rounded">
+            <span className="font-mono font-bold text-[#1C1917] tracking-wider text-sm bg-rose-50 px-2 py-0.5 rounded">
               {inviteCode}
             </span>
           </div>
         </div>
 
         {/* WhatsApp Share Button */}
-        <div className="pt-4 border-t border-[#E5E5F0]">
+        <div className="pt-4 border-t border-[rgba(225,29,72,0.09)]">
           <a
             href={whatsappUrl}
             target="_blank"

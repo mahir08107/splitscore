@@ -195,6 +195,17 @@ function buildDemoScoreData(): TrustScoreData {
   };
 }
 
+export function isDemoUser(id: string): boolean {
+  return (
+    !id ||
+    id === DEMO_USER_ID ||
+    id === "demo123" ||
+    id === "demo-user-123" ||
+    id === process.env.NEXT_PUBLIC_DEMO_USER_ID ||
+    id === "00000000-0000-0000-0000-000000000000"
+  );
+}
+
 // ─── Main Fetcher ────────────────────────────────────────────────────
 
 export async function getTrustScoreData(
@@ -205,13 +216,14 @@ export async function getTrustScoreData(
 
   // Determine current user
   let currentUserId = userIdOverride;
+  let serverClient: Awaited<ReturnType<typeof createServerSupabase>> | null = null;
 
   if (!currentUserId) {
     if (isDemo) {
       currentUserId = DEMO_USER_ID;
     } else {
       try {
-        const serverClient = await createServerSupabase();
+        serverClient = await createServerSupabase();
         const { data } = await serverClient.auth.getUser();
         if (data?.user) {
           currentUserId = data.user.id;
@@ -223,13 +235,15 @@ export async function getTrustScoreData(
   }
 
   // Check for demo mode cookie or demo user
-  if (currentUserId === DEMO_USER_ID || isDemo || !currentUserId || !supabase) {
+  if (!currentUserId || isDemo || isDemoUser(currentUserId) || !supabase) {
     return buildDemoScoreData();
   }
 
+  const client = serverClient || supabase;
+
   try {
     // 1. Fetch user profile
-    const { data: userData } = await supabase
+    const { data: userData } = await client
       .from("users")
       .select("id, name, email")
       .eq("id", currentUserId)
@@ -238,7 +252,7 @@ export async function getTrustScoreData(
     const userName = userData?.name || "User";
 
     // 2. Fetch score_events ordered chronologically
-    const { data: eventsRaw, error: eventsErr } = await supabase
+    const { data: eventsRaw, error: eventsErr } = await client
       .from("score_events")
       .select("id, user_id, settlement_id, points_change, reason, created_at")
       .eq("user_id", currentUserId)
@@ -268,13 +282,13 @@ export async function getTrustScoreData(
     const currentScore = runningTotal;
 
     // 4. Fetch settlements for confidence + metrics
-    const { data: settlementsAsFrom } = await supabase
+    const { data: settlementsAsFrom } = await client
       .from("settlements")
       .select("id, from_user, to_user, amount, status, due_date, confirmed_at, marked_paid_at")
       .eq("from_user", currentUserId)
       .eq("status", "confirmed");
 
-    const { data: settlementsAsTo } = await supabase
+    const { data: settlementsAsTo } = await client
       .from("settlements")
       .select("id, from_user, to_user, amount, status, due_date, confirmed_at, marked_paid_at")
       .eq("to_user", currentUserId)
@@ -413,11 +427,12 @@ export async function getPublicTrustCardData(
   userId: string
 ): Promise<PublicTrustCardData> {
   // Check if it's one of the demo users
+  const isDemo = isDemoUser(userId) || DEMO_MEMBERS_USERS.some((m) => m.id === userId);
   const demoMatch = DEMO_MEMBERS_USERS.find(
-    (m) => m.id === userId || (userId === "demo-user-123" && m.id === DEMO_USER_ID)
+    (m) => m.id === userId || (isDemo && m.id === DEMO_USER_ID)
   );
 
-  if (demoMatch || userId === DEMO_USER_ID || userId === "demo-user-123") {
+  if (demoMatch || isDemo) {
     const isRahul = userId === "demo-user-rahul";
     const isArjun = userId === "demo-user-arjun";
     const isKaran = userId === "demo-user-karan";

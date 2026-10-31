@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   ResponsiveContainer,
   AreaChart,
@@ -37,8 +37,16 @@ function formatShortDate(iso: string): string {
 }
 
 export function ScoreHistoryChart({ events, band }: ScoreHistoryChartProps) {
-  // Events come newest-first from the fetcher; reverse for chart (oldest first)
-  const chronological = [...events].reverse();
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  // Sort chronologically (oldest first) so the timeline progresses left-to-right
+  const chronological = [...events].sort(
+    (a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
+  );
 
   const chartData = chronological.map((e) => ({
     date: formatShortDate(e.created_at),
@@ -48,11 +56,11 @@ export function ScoreHistoryChart({ events, band }: ScoreHistoryChartProps) {
 
   if (chartData.length === 0) {
     return (
-      <div className="bg-white rounded-2xl border border-[#E5E5EF] p-6">
-        <h2 className="text-sm font-semibold text-[#1F1D3D] mb-2">
+      <div className="bg-white rounded-2xl border border-[rgba(225,29,72,0.09)] p-6 soft-card-shadow">
+        <h2 className="text-sm font-semibold text-[#1C1917] mb-2 font-display">
           Score History
         </h2>
-        <p className="text-xs text-[#5B5B72]">
+        <p className="text-xs text-[#57534E]">
           No score events yet. Your chart will appear here once you settle your first expense.
         </p>
       </div>
@@ -64,87 +72,93 @@ export function ScoreHistoryChart({ events, band }: ScoreHistoryChartProps) {
   const maxScore = Math.min(900, Math.max(...scores) + 30);
 
   return (
-    <div className="bg-white rounded-2xl border border-[#E5E5EF] p-4 sm:p-6">
+    <div className="bg-white rounded-2xl border border-[rgba(225,29,72,0.09)] p-4 sm:p-6 soft-card-shadow">
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-sm font-semibold text-[#1F1D3D]">
+        <h2 className="text-sm font-semibold text-[#1C1917] font-display">
           Score History
         </h2>
-        <span className="text-[10px] text-[#5B5B72] bg-[#F1F1FA] px-2 py-0.5 rounded-full">
+        <span className="text-[10px] text-[#57534E] bg-rose-50 text-[#BE123C] px-2 py-0.5 rounded-full border border-[#FECDD3]">
           {chartData.length} events
         </span>
       </div>
 
       <div className="w-full h-[200px] sm:h-[240px]">
-        <ResponsiveContainer width="100%" height="100%">
-          <AreaChart
-            data={chartData}
-            margin={{ top: 4, right: 4, bottom: 0, left: -20 }}
-          >
-            <defs>
-              <linearGradient id="scoreGradient" x1="0" y1="0" x2="0" y2="1">
-                <stop
-                  offset="0%"
-                  stopColor={bandStroke[band]}
-                  stopOpacity={0.25}
-                />
-                <stop
-                  offset="100%"
-                  stopColor={bandFill[band]}
-                  stopOpacity={0.05}
-                />
-              </linearGradient>
-            </defs>
-            <CartesianGrid
-              strokeDasharray="3 3"
-              stroke="#E5E5EF"
-              vertical={false}
-            />
-            <XAxis
-              dataKey="date"
-              tick={{ fontSize: 10, fill: "#9CA3AF" }}
-              axisLine={false}
-              tickLine={false}
-              interval="preserveStartEnd"
-            />
-            <YAxis
-              domain={[minScore, maxScore]}
-              tick={{ fontSize: 10, fill: "#9CA3AF" }}
-              axisLine={false}
-              tickLine={false}
-              width={35}
-            />
-            <Tooltip
-              contentStyle={{
-                borderRadius: "8px",
-                border: "1px solid #E5E5EF",
-                boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
-                fontSize: "12px",
-                padding: "8px 12px",
-              }}
-              labelFormatter={(label) => `Date: ${label}`}
-              formatter={(value) => [`${value}`, "Score"]}
-            />
-            <Area
-              type="monotone"
-              dataKey="score"
-              stroke={bandStroke[band]}
-              strokeWidth={2.5}
-              fill="url(#scoreGradient)"
-              dot={{
-                r: 3,
-                fill: bandStroke[band],
-                stroke: "white",
-                strokeWidth: 2,
-              }}
-              activeDot={{
-                r: 5,
-                fill: bandStroke[band],
-                stroke: "white",
-                strokeWidth: 2,
-              }}
-            />
-          </AreaChart>
-        </ResponsiveContainer>
+        {isMounted ? (
+          <ResponsiveContainer width="100%" height="100%">
+            <AreaChart
+              data={chartData}
+              margin={{ top: 4, right: 4, bottom: 0, left: -20 }}
+            >
+              <defs>
+                <linearGradient id="scoreGradient" x1="0" y1="0" x2="0" y2="1">
+                  <stop
+                    offset="0%"
+                    stopColor={bandStroke[band]}
+                    stopOpacity={0.25}
+                  />
+                  <stop
+                    offset="100%"
+                    stopColor={bandFill[band]}
+                    stopOpacity={0.05}
+                  />
+                </linearGradient>
+              </defs>
+              <CartesianGrid
+                strokeDasharray="3 3"
+                stroke="rgba(225,29,72,0.09)"
+                vertical={false}
+              />
+              <XAxis
+                dataKey="date"
+                tick={{ fontSize: 10, fill: "#9CA3AF" }}
+                axisLine={false}
+                tickLine={false}
+                interval="preserveStartEnd"
+              />
+              <YAxis
+                domain={[minScore, maxScore]}
+                tick={{ fontSize: 10, fill: "#9CA3AF" }}
+                axisLine={false}
+                tickLine={false}
+                width={35}
+              />
+              <Tooltip
+                contentStyle={{
+                  borderRadius: "8px",
+                  border: "1px solid rgba(225,29,72,0.09)",
+                  boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
+                  fontSize: "12px",
+                  padding: "8px 12px",
+                }}
+                labelFormatter={(label) => `Date: ${label}`}
+                formatter={(value) => [`${value}`, "Score"]}
+              />
+              <Area
+                type="monotone"
+                dataKey="score"
+                stroke={bandStroke[band]}
+                strokeWidth={2.5}
+                fill="url(#scoreGradient)"
+                dot={{
+                  r: 3,
+                  fill: bandStroke[band],
+                  stroke: "white",
+                  strokeWidth: 2,
+                }}
+                activeDot={{
+                  r: 5,
+                  fill: bandStroke[band],
+                  stroke: "white",
+                  strokeWidth: 2,
+                }}
+              />
+            </AreaChart>
+          </ResponsiveContainer>
+        ) : (
+          <div className="w-full h-full flex items-center justify-center text-xs text-[#57534E]">
+            Loading chart...
+          </div>
+        )}
       </div>
     </div>
   );

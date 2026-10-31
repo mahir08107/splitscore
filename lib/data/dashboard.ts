@@ -105,6 +105,56 @@ export function computeGroupBalances(
   return balances;
 }
 
+function isDemoUser(id?: string): boolean {
+  return (
+    !id ||
+    id === DEMO_USER_ID ||
+    id === "demo123" ||
+    id === "demo-user-123" ||
+    id === process.env.NEXT_PUBLIC_DEMO_USER_ID ||
+    id === "00000000-0000-0000-0000-000000000000"
+  );
+}
+
+function getDemoDashboardData(userId: string): DashboardData {
+  return {
+    user: {
+      id: userId,
+      name: "Student User",
+      email: "demo@splitscore.in",
+      avatar: null,
+    },
+    totalOwe: 1400,
+    totalOwed: 0,
+    trustScore: {
+      score: 540,
+      band: "Building",
+      confidenceNote: "based on 3 people and 7 settlements",
+      verifiedCount: 7,
+    },
+    pendingActions: [
+      {
+        id: "demo-pending-1",
+        type: "pay_someone",
+        counterpartyName: "Rahul Verma",
+        amount: 1400,
+        groupId: "goa-trip-demo",
+        settlementId: "demo-stl-1",
+        description: "You owe Rahul Verma ₹1,400",
+      },
+    ],
+    groups: [
+      {
+        id: "goa-trip-demo",
+        name: "Goa Trip",
+        type: "trip",
+        memberCount: 4,
+        userBalance: -1400,
+      },
+    ],
+  };
+}
+
 /**
  * Fetch all dashboard data for a given user from Supabase.
  * Returns clean empty states if tables have no data or Supabase is not configured yet.
@@ -115,9 +165,11 @@ export async function getDashboardData(
 ): Promise<DashboardData> {
   const activeUserId = userId || DEMO_USER_ID;
 
-  // If Supabase credentials are missing, provide clean graceful mock/empty state
+  // If Supabase credentials are missing, provide graceful fallback/demo state
   if (!supabase) {
-    return getFallbackEmptyData(activeUserId);
+    return isDemoUser(activeUserId)
+      ? getDemoDashboardData(activeUserId)
+      : getFallbackEmptyData(activeUserId);
   }
 
   try {

@@ -367,10 +367,10 @@ export function AddExpenseForm({
   return (
     <form onSubmit={handleSubmit} className="space-y-6 pb-12">
       {/* 1. Header with Cancel link and Group Context */}
-      <div className="flex items-center justify-between pb-4 border-b border-[#E5E5EF]">
+      <div className="flex items-center justify-between pb-4 border-b border-[rgba(225,29,72,0.09)]">
         <Link
           href={`/group/${groupId}`}
-          className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#4338CA] hover:text-[#2E2A7A] transition-colors min-h-[44px] px-2 -ml-2 rounded-lg"
+          className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#E11D48] hover:text-[#BE123C] transition-colors min-h-[44px] px-2 -ml-2 rounded-lg"
         >
           <ArrowLeft className="w-4 h-4" />
           <span>Cancel</span>
@@ -389,15 +389,15 @@ export function AddExpenseForm({
       )}
 
       {/* 2. Basic Details Card */}
-      <div className="bg-white rounded-2xl border border-[#E5E5EF] p-5 sm:p-6 shadow-sm space-y-4">
-        <h2 className="text-base font-bold text-[#1F1D3D] flex items-center gap-2">
-          <ReceiptIndianRupee className="w-4 h-4 text-[#2E2A7A]" />
+      <div className="bg-white rounded-2xl border border-[rgba(225,29,72,0.09)] p-5 sm:p-6 shadow-sm space-y-4">
+        <h2 className="text-base font-bold text-[#1C1917] flex items-center gap-2">
+          <ReceiptIndianRupee className="w-4 h-4 text-[#BE123C]" />
           <span>Expense Details</span>
         </h2>
 
         {/* Title */}
         <div>
-          <label className="block text-xs font-bold uppercase tracking-wider text-[#5B5B72] mb-1.5">
+          <label className="block text-xs font-bold uppercase tracking-wider text-[#57534E] mb-1.5">
             Expense Title <span className="text-[#B91C1C]">*</span>
           </label>
           <input
@@ -406,7 +406,7 @@ export function AddExpenseForm({
             placeholder="e.g. Airport cab, Dinner, Groceries"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="w-full min-h-[44px] px-3.5 py-2.5 rounded-xl border border-[#D1D1DF] text-[#1F1D3D] text-sm focus:outline-none focus:ring-2 focus:ring-[#4338CA] focus:border-transparent transition-all placeholder:text-[#9E9EAF]"
+            className="w-full min-h-[44px] px-3.5 py-2.5 rounded-xl border border-[#D1D1DF] text-[#1C1917] text-sm focus:outline-none focus:ring-2 focus:ring-[#E11D48] focus:border-transparent transition-all placeholder:text-[#9E9EAF]"
           />
         </div>
 
@@ -414,11 +414,11 @@ export function AddExpenseForm({
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {/* Total Amount */}
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-[#5B5B72] mb-1.5">
+            <label className="block text-xs font-bold uppercase tracking-wider text-[#57534E] mb-1.5">
               Total Amount (₹) <span className="text-[#B91C1C]">*</span>
             </label>
             <div className="relative">
-              <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-sm font-bold text-[#5B5B72]">
+              <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-sm font-bold text-[#57534E]">
                 ₹
               </span>
               <input
@@ -429,14 +429,14 @@ export function AddExpenseForm({
                 placeholder="0.00"
                 value={amountStr}
                 onChange={(e) => setAmountStr(e.target.value)}
-                className="w-full min-h-[44px] pl-8 pr-3.5 py-2.5 rounded-xl border border-[#D1D1DF] text-[#1F1D3D] font-bold text-base focus:outline-none focus:ring-2 focus:ring-[#4338CA] focus:border-transparent transition-all placeholder:text-[#9E9EAF]"
+                className="w-full min-h-[44px] pl-8 pr-3.5 py-2.5 rounded-xl border border-[#D1D1DF] text-[#1C1917] font-bold text-base focus:outline-none focus:ring-2 focus:ring-[#E11D48] focus:border-transparent transition-all placeholder:text-[#9E9EAF]"
               />
             </div>
           </div>
 
           {/* Date */}
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-[#5B5B72] mb-1.5">
+            <label className="block text-xs font-bold uppercase tracking-wider text-[#57534E] mb-1.5">
               Date
             </label>
             <div className="relative">
@@ -445,7 +445,7 @@ export function AddExpenseForm({
                 required
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
-                className="w-full min-h-[44px] px-3.5 py-2.5 rounded-xl border border-[#D1D1DF] text-[#1F1D3D] text-sm focus:outline-none focus:ring-2 focus:ring-[#4338CA] focus:border-transparent transition-all"
+                className="w-full min-h-[44px] px-3.5 py-2.5 rounded-xl border border-[#D1D1DF] text-[#1C1917] text-sm focus:outline-none focus:ring-2 focus:ring-[#E11D48] focus:border-transparent transition-all"
               />
             </div>
           </div>
@@ -455,14 +455,14 @@ export function AddExpenseForm({
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {/* Paid By */}
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-[#5B5B72] mb-1.5">
+            <label className="block text-xs font-bold uppercase tracking-wider text-[#57534E] mb-1.5">
               Paid By
             </label>
             <div className="relative">
               <select
                 value={paidBy}
                 onChange={(e) => setPaidBy(e.target.value)}
-                className="w-full min-h-[44px] px-3.5 py-2.5 rounded-xl border border-[#D1D1DF] bg-white text-[#1F1D3D] text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#4338CA] focus:border-transparent transition-all appearance-none cursor-pointer"
+                className="w-full min-h-[44px] px-3.5 py-2.5 rounded-xl border border-[#D1D1DF] bg-white text-[#1C1917] text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#E11D48] focus:border-transparent transition-all appearance-none cursor-pointer"
               >
                 {members.map((m) => (
                   <option key={m.id} value={m.id}>
@@ -470,20 +470,20 @@ export function AddExpenseForm({
                   </option>
                 ))}
               </select>
-              <User className="w-4 h-4 text-[#5B5B72] absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+              <User className="w-4 h-4 text-[#57534E] absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
             </div>
           </div>
 
           {/* Category */}
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-[#5B5B72] mb-1.5">
+            <label className="block text-xs font-bold uppercase tracking-wider text-[#57534E] mb-1.5">
               Category
             </label>
             <div className="relative">
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
-                className="w-full min-h-[44px] px-3.5 py-2.5 rounded-xl border border-[#D1D1DF] bg-white text-[#1F1D3D] text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#4338CA] focus:border-transparent transition-all appearance-none cursor-pointer"
+                className="w-full min-h-[44px] px-3.5 py-2.5 rounded-xl border border-[#D1D1DF] bg-white text-[#1C1917] text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#E11D48] focus:border-transparent transition-all appearance-none cursor-pointer"
               >
                 {CATEGORIES.map((cat) => (
                   <option key={cat} value={cat}>
@@ -491,28 +491,28 @@ export function AddExpenseForm({
                   </option>
                 ))}
               </select>
-              <Tag className="w-4 h-4 text-[#5B5B72] absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+              <Tag className="w-4 h-4 text-[#57534E] absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
             </div>
           </div>
         </div>
       </div>
 
       {/* 3. Member Selection */}
-      <div className="bg-white rounded-2xl border border-[#E5E5EF] p-5 sm:p-6 shadow-sm space-y-3">
+      <div className="bg-white rounded-2xl border border-[rgba(225,29,72,0.09)] p-5 sm:p-6 shadow-sm space-y-3">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-base font-bold text-[#1F1D3D] flex items-center gap-2">
-              <Users className="w-4 h-4 text-[#2E2A7A]" />
+            <h2 className="text-base font-bold text-[#1C1917] flex items-center gap-2">
+              <Users className="w-4 h-4 text-[#BE123C]" />
               <span>Split Between</span>
             </h2>
-            <p className="text-xs text-[#5B5B72]">
+            <p className="text-xs text-[#57534E]">
               Select which group members share this expense
             </p>
           </div>
           <button
             type="button"
             onClick={toggleSelectAll}
-            className="text-xs font-semibold text-[#4338CA] hover:text-[#2E2A7A] min-h-[44px] px-2 py-1"
+            className="text-xs font-semibold text-[#E11D48] hover:text-[#BE123C] min-h-[44px] px-2 py-1"
           >
             {includedUserIds.size === members.length ? "Deselect all" : "Select all"}
           </button>
@@ -526,14 +526,14 @@ export function AddExpenseForm({
                 key={member.id}
                 className={`flex items-center gap-3 p-3 rounded-xl border cursor-pointer select-none transition-all min-h-[44px] ${
                   isIncluded
-                    ? "bg-[#F1F1FA] border-[#4338CA] text-[#1F1D3D]"
-                    : "bg-white border-[#E5E5EF] text-[#5B5B72] opacity-70 hover:opacity-100"
+                    ? "bg-[#FCFBF7] border-[#E11D48] text-[#1C1917]"
+                    : "bg-white border-[rgba(225,29,72,0.09)] text-[#57534E] opacity-70 hover:opacity-100"
                 }`}
               >
                 <div
                   className={`w-5 h-5 rounded-md flex items-center justify-center transition-colors ${
                     isIncluded
-                      ? "bg-[#4338CA] text-white"
+                      ? "bg-[#E11D48] text-white"
                       : "border border-[#D1D1DF] bg-white"
                   }`}
                 >
@@ -546,7 +546,7 @@ export function AddExpenseForm({
                   className="sr-only"
                 />
                 <div className="flex items-center gap-2 min-w-0">
-                  <div className="w-7 h-7 rounded-full bg-[#2E2A7A] text-white flex items-center justify-center text-xs font-bold shrink-0">
+                  <div className="w-7 h-7 rounded-full bg-gradient-to-r from-[#E11D48] to-[#BE123C] text-white flex items-center justify-center text-xs font-bold shrink-0">
                     {member.name.charAt(0).toUpperCase()}
                   </div>
                   <span className="text-sm font-semibold truncate">
@@ -560,13 +560,13 @@ export function AddExpenseForm({
       </div>
 
       {/* 4. Split Mode Selector */}
-      <div className="bg-white rounded-2xl border border-[#E5E5EF] p-5 sm:p-6 shadow-sm space-y-4">
+      <div className="bg-white rounded-2xl border border-[rgba(225,29,72,0.09)] p-5 sm:p-6 shadow-sm space-y-4">
         <div>
-          <h2 className="text-base font-bold text-[#1F1D3D] flex items-center gap-2">
-            <Divide className="w-4 h-4 text-[#2E2A7A]" />
+          <h2 className="text-base font-bold text-[#1C1917] flex items-center gap-2">
+            <Divide className="w-4 h-4 text-[#BE123C]" />
             <span>Split Mode</span>
           </h2>
-          <p className="text-xs text-[#5B5B72]">
+          <p className="text-xs text-[#57534E]">
             Choose how to divide the ₹{totalAmount.toFixed(2)} cost
           </p>
         </div>
@@ -590,8 +590,8 @@ export function AddExpenseForm({
                 onClick={() => setSplitMode(tab.id)}
                 className={`min-h-[44px] px-3 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all ${
                   isActive
-                    ? "bg-[#2E2A7A] text-white shadow-sm"
-                    : "bg-[#F1F1FA] text-[#5B5B72] hover:bg-[#E5E5EF] hover:text-[#1F1D3D]"
+                    ? "bg-gradient-to-r from-[#E11D48] to-[#BE123C] text-white shadow-sm"
+                    : "bg-[#FCFBF7] text-[#57534E] hover:bg-[rgba(225,29,72,0.09)] hover:text-[#1C1917]"
                 }`}
               >
                 <Icon className="w-3.5 h-3.5" />
@@ -602,15 +602,15 @@ export function AddExpenseForm({
         </div>
 
         {/* 5. Dynamic Split Inputs Area */}
-        <div className="pt-2 border-t border-[#F1F1FA] space-y-3">
+        <div className="pt-2 border-t border-[rgba(225,29,72,0.06)] space-y-3">
           {/* EQUAL MODE UI */}
           {splitMode === "equal" && (
             <div className="space-y-2">
-              <p className="text-xs text-[#5B5B72]">
+              <p className="text-xs text-[#57534E]">
                 Split equally among {selectedMembers.length} member
                 {selectedMembers.length > 1 ? "s" : ""}:
               </p>
-              <div className="divide-y divide-[#F1F1FA] border border-[#E5E5EF] rounded-xl overflow-hidden bg-white">
+              <div className="divide-y divide-[#FFF1F2] border border-[rgba(225,29,72,0.09)] rounded-xl overflow-hidden bg-white">
                 {selectedMembers.map((m) => {
                   const share =
                     totalAmount > 0 && selectedMembers.length > 0
@@ -622,10 +622,10 @@ export function AddExpenseForm({
                       className="p-3 flex items-center justify-between text-sm"
                     >
                       <div className="flex items-center gap-2.5">
-                        <div className="w-7 h-7 rounded-full bg-[#E5E5EF] text-[#2E2A7A] flex items-center justify-center text-xs font-bold">
+                        <div className="w-7 h-7 rounded-full bg-[rgba(225,29,72,0.09)] text-[#BE123C] flex items-center justify-center text-xs font-bold">
                           {m.name.charAt(0).toUpperCase()}
                         </div>
-                        <span className="font-semibold text-[#1F1D3D]">
+                        <span className="font-semibold text-[#1C1917]">
                           {m.name}
                         </span>
                       </div>
@@ -642,25 +642,25 @@ export function AddExpenseForm({
           {/* EXACT MODE UI */}
           {splitMode === "exact" && (
             <div className="space-y-2">
-              <p className="text-xs text-[#5B5B72]">
+              <p className="text-xs text-[#57534E]">
                 Enter exact rupees for each member. Total must equal ₹{totalAmount.toFixed(2)}.
               </p>
               <div className="space-y-2">
                 {selectedMembers.map((m) => (
                   <div
                     key={m.id}
-                    className="flex items-center justify-between gap-3 p-2.5 rounded-xl border border-[#E5E5EF] bg-white"
+                    className="flex items-center justify-between gap-3 p-2.5 rounded-xl border border-[rgba(225,29,72,0.09)] bg-white"
                   >
                     <div className="flex items-center gap-2.5 min-w-0">
-                      <div className="w-7 h-7 rounded-full bg-[#E5E5EF] text-[#2E2A7A] flex items-center justify-center text-xs font-bold shrink-0">
+                      <div className="w-7 h-7 rounded-full bg-[rgba(225,29,72,0.09)] text-[#BE123C] flex items-center justify-center text-xs font-bold shrink-0">
                         {m.name.charAt(0).toUpperCase()}
                       </div>
-                      <span className="font-semibold text-sm text-[#1F1D3D] truncate">
+                      <span className="font-semibold text-sm text-[#1C1917] truncate">
                         {m.name}
                       </span>
                     </div>
                     <div className="relative w-36 shrink-0">
-                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs font-bold text-[#5B5B72]">
+                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs font-bold text-[#57534E]">
                         ₹
                       </span>
                       <input
@@ -675,7 +675,7 @@ export function AddExpenseForm({
                             [m.id]: e.target.value,
                           }))
                         }
-                        className="w-full min-h-[44px] pl-7 pr-3 py-2 text-right rounded-lg border border-[#D1D1DF] text-sm font-bold text-[#1F1D3D] focus:outline-none focus:ring-2 focus:ring-[#4338CA]"
+                        className="w-full min-h-[44px] pl-7 pr-3 py-2 text-right rounded-lg border border-[#D1D1DF] text-sm font-bold text-[#1C1917] focus:outline-none focus:ring-2 focus:ring-[#E11D48]"
                       />
                     </div>
                   </div>
@@ -692,7 +692,7 @@ export function AddExpenseForm({
               >
                 <span>
                   {calculation.isValid
-                    ? "✓ Exact amounts balance perfectly"
+                    ? "Exact amounts balance perfectly"
                     : calculation.validationError}
                 </span>
                 <span className="font-bold">
@@ -705,7 +705,7 @@ export function AddExpenseForm({
           {/* PERCENTAGE MODE UI */}
           {splitMode === "percentage" && (
             <div className="space-y-2">
-              <p className="text-xs text-[#5B5B72]">
+              <p className="text-xs text-[#57534E]">
                 Assign percentages. Must sum up to exactly 100%.
               </p>
               <div className="space-y-2">
@@ -719,11 +719,11 @@ export function AddExpenseForm({
                   return (
                     <div
                       key={m.id}
-                      className="flex items-center justify-between gap-3 p-2.5 rounded-xl border border-[#E5E5EF] bg-white"
+                      className="flex items-center justify-between gap-3 p-2.5 rounded-xl border border-[rgba(225,29,72,0.09)] bg-white"
                     >
                       <div className="min-w-0">
                         <div className="flex items-center gap-2">
-                          <span className="font-semibold text-sm text-[#1F1D3D] truncate">
+                          <span className="font-semibold text-sm text-[#1C1917] truncate">
                             {m.name}
                           </span>
                         </div>
@@ -745,9 +745,9 @@ export function AddExpenseForm({
                               [m.id]: e.target.value,
                             }))
                           }
-                          className="w-full min-h-[44px] pl-3 pr-7 py-2 text-right rounded-lg border border-[#D1D1DF] text-sm font-bold text-[#1F1D3D] focus:outline-none focus:ring-2 focus:ring-[#4338CA]"
+                          className="w-full min-h-[44px] pl-3 pr-7 py-2 text-right rounded-lg border border-[#D1D1DF] text-sm font-bold text-[#1C1917] focus:outline-none focus:ring-2 focus:ring-[#E11D48]"
                         />
-                        <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-bold text-[#5B5B72]">
+                        <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-bold text-[#57534E]">
                           %
                         </span>
                       </div>
@@ -766,7 +766,7 @@ export function AddExpenseForm({
               >
                 <span>
                   {calculation.isValid
-                    ? "✓ Total equals 100%"
+                    ? "Total equals 100%"
                     : calculation.validationError}
                 </span>
                 <span className="font-bold">
@@ -781,7 +781,7 @@ export function AddExpenseForm({
           {/* SHARES MODE UI */}
           {splitMode === "shares" && (
             <div className="space-y-2">
-              <p className="text-xs text-[#5B5B72]">
+              <p className="text-xs text-[#57534E]">
                 Assign share weights (e.g. 1 share, 2 shares for someone who invited a guest).
               </p>
               <div className="space-y-2">
@@ -799,10 +799,10 @@ export function AddExpenseForm({
                   return (
                     <div
                       key={m.id}
-                      className="flex items-center justify-between gap-3 p-2.5 rounded-xl border border-[#E5E5EF] bg-white"
+                      className="flex items-center justify-between gap-3 p-2.5 rounded-xl border border-[rgba(225,29,72,0.09)] bg-white"
                     >
                       <div className="min-w-0">
-                        <span className="font-semibold text-sm text-[#1F1D3D] truncate block">
+                        <span className="font-semibold text-sm text-[#1C1917] truncate block">
                           {m.name}
                         </span>
                         <span className="text-xs font-bold text-[#0F766E]">
@@ -822,9 +822,9 @@ export function AddExpenseForm({
                               [m.id]: e.target.value,
                             }))
                           }
-                          className="w-24 min-h-[44px] px-3 py-2 text-center rounded-lg border border-[#D1D1DF] text-sm font-bold text-[#1F1D3D] focus:outline-none focus:ring-2 focus:ring-[#4338CA]"
+                          className="w-24 min-h-[44px] px-3 py-2 text-center rounded-lg border border-[#D1D1DF] text-sm font-bold text-[#1C1917] focus:outline-none focus:ring-2 focus:ring-[#E11D48]"
                         />
-                        <span className="text-xs font-semibold text-[#5B5B72]">
+                        <span className="text-xs font-semibold text-[#57534E]">
                           share{s !== 1 ? "s" : ""}
                         </span>
                       </div>
@@ -851,7 +851,7 @@ export function AddExpenseForm({
           className={`w-full min-h-[48px] rounded-xl font-bold text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg transition-all ${
             !calculation.isValid || isSubmitting || totalAmount <= 0
               ? "bg-[#D1D1DF] text-[#7E7E94] cursor-not-allowed shadow-none"
-              : "bg-[#2E2A7A] hover:bg-[#252263] text-white active:scale-[0.99]"
+              : "bg-gradient-to-r from-[#E11D48] to-[#BE123C] hover:shadow-lg hover:shadow-[#E11D48]/25 active:scale-95 text-white active:scale-[0.99]"
           }`}
         >
           {isSubmitting ? (

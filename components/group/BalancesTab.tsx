@@ -25,15 +25,15 @@ export function BalancesTab({
     <section className="space-y-8">
       {/* Heading & Subtitle */}
       <div>
-        <h2 className="text-xl font-bold text-[#1F1D3D]">Group Balances</h2>
-        <p className="text-xs sm:text-sm text-[#5B5B72] mt-0.5">
+        <h2 className="text-xl font-bold text-[#1C1917] font-display">Group Balances</h2>
+        <p className="text-xs sm:text-sm text-[#57534E] mt-0.5">
           See who owes money and who should receive it.
         </p>
       </div>
 
       {/* 1. Member Net Balance Overview */}
-      <div className="bg-white rounded-xl border border-[#E5E5F0] p-6 shadow-sm">
-        <h3 className="text-sm uppercase font-bold text-[#5B5B72] tracking-wider mb-4">
+      <div className="bg-white rounded-2xl border border-[rgba(225,29,72,0.09)] p-6 soft-card-shadow">
+        <h3 className="text-sm uppercase font-bold text-[#57534E] tracking-wider mb-4">
           Member Net Standings ({members.length})
         </h3>
 
@@ -48,23 +48,23 @@ export function BalancesTab({
             return (
               <div
                 key={member.user_id}
-                className="p-4 rounded-xl border border-[#E5E5F0] flex items-center justify-between gap-3 bg-[#FAFBFD]"
+                className="p-4 rounded-xl border border-[rgba(225,29,72,0.09)] flex items-center justify-between gap-3 bg-[#FCFBF7]"
               >
                 {/* Member Avatar & Name */}
                 <div className="flex items-center gap-3 min-w-0">
-                  <div className="w-10 h-10 rounded-full bg-[#2E2A7A] text-white font-bold text-sm flex items-center justify-center shrink-0">
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-r from-[#E11D48] to-[#BE123C] text-white font-bold text-sm flex items-center justify-center shrink-0">
                     {member.user.name.charAt(0).toUpperCase()}
                   </div>
                   <div className="min-w-0">
-                    <p className="text-sm font-bold text-[#1F1D3D] truncate flex items-center gap-1.5">
+                    <p className="text-sm font-bold text-[#1C1917] truncate flex items-center gap-1.5">
                       <span>{member.user.name}</span>
                       {isCurrent && (
-                        <span className="text-[10px] bg-[#EEF2FF] text-[#4338CA] px-1.5 py-0.2 rounded font-semibold">
+                        <span className="text-[10px] bg-[#FFF1F2] text-[#E11D48] px-1.5 py-0.2 rounded font-semibold">
                           You
                         </span>
                       )}
                     </p>
-                    <p className="text-xs text-[#5B5B72] truncate">
+                    <p className="text-xs text-[#57534E] truncate">
                       Paid: {formatRupees(member.totalContributed)}
                     </p>
                   </div>
@@ -98,11 +98,11 @@ export function BalancesTab({
 
                   {isSettled && (
                     <div className="flex flex-col items-end">
-                      <span className="inline-flex items-center gap-1 text-xs font-semibold text-[#5B5B72] bg-[#F1F1FA] px-2 py-0.5 rounded-full">
+                      <span className="inline-flex items-center gap-1 text-xs font-semibold text-[#57534E] bg-rose-50 px-2 py-0.5 rounded-full">
                         <Check className="w-3 h-3" />
                         Settled
                       </span>
-                      <span className="text-sm font-semibold text-[#5B5B72] mt-1">
+                      <span className="text-sm font-semibold text-[#57534E] mt-1">
                         ₹0
                       </span>
                     </div>
@@ -124,4 +124,3 @@ export function BalancesTab({
     </section>
   );
 }
-

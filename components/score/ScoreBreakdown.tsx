@@ -32,19 +32,19 @@ function MetricCard({
   bgColor,
 }: MetricCardProps) {
   return (
-    <div className="bg-white rounded-xl border border-[#E5E5EF] p-4 hover:shadow-sm transition-shadow">
+    <div className="bg-white rounded-2xl border border-[rgba(225,29,72,0.09)] p-4 hover:shadow-sm transition-shadow soft-card-shadow">
       <div className="flex items-center gap-2 mb-2.5">
         <div
-          className="w-7 h-7 rounded-lg flex items-center justify-center"
-          style={{ background: bgColor }}
+          className="w-7 h-7 rounded-lg flex items-center justify-center border"
+          style={{ background: bgColor, borderColor: `${color}30` }}
         >
           <Icon className="w-3.5 h-3.5" style={{ color }} />
         </div>
-        <span className="text-[11px] font-medium text-[#5B5B72] uppercase tracking-wider">
+        <span className="text-[11px] font-medium text-[#57534E] uppercase tracking-wider">
           {label}
         </span>
       </div>
-      <p className="text-xl font-bold text-[#1F1D3D] mb-0.5">{value}</p>
+      <p className="text-xl font-bold text-[#1C1917] mb-0.5 font-display">{value}</p>
       <p className="text-[10px] text-[#9CA3AF]">{subtitle}</p>
     </div>
   );
@@ -73,8 +73,8 @@ export function ScoreBreakdown({ metrics }: ScoreBreakdownProps) {
       label: "Amount Reliability",
       value: `${metrics.amountReliability}%`,
       subtitle: "of owed amounts fully settled",
-      color: "#4338CA",
-      bgColor: "#EEF2FF",
+      color: "#E11D48",
+      bgColor: "#FFF1F2",
     },
     {
       icon: Repeat,
@@ -96,7 +96,7 @@ export function ScoreBreakdown({ metrics }: ScoreBreakdownProps) {
 
   return (
     <div className="space-y-3">
-      <h2 className="text-sm font-semibold text-[#1F1D3D]">
+      <h2 className="text-sm font-semibold text-[#1C1917] font-display">
         Score Breakdown
       </h2>
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">

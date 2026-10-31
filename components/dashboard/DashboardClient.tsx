@@ -10,6 +10,13 @@ import { PendingActionsList } from "@/components/dashboard/PendingActionsList";
 import { GroupsList } from "@/components/dashboard/GroupsList";
 import { DashboardErrorState } from "@/components/dashboard/DashboardErrorState";
 import { Camera } from "lucide-react";
+import dynamic from "next/dynamic";
+import type { LightfallProps } from "@/components/ui/Lightfall";
+
+const Lightfall = dynamic<LightfallProps>(
+  () => import("@/components/ui/Lightfall"),
+  { ssr: false }
+);
 
 interface DashboardClientProps {
   initialData: DashboardData;
@@ -30,14 +37,47 @@ export function DashboardClient({ initialData }: DashboardClientProps) {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-[#F8F9FD]">
+      <div className="min-h-screen bg-[#FCFBF7]">
         <DashboardErrorState message={error} onRetry={handleRetry} />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#F8F9FD] text-[#1F1D3D] flex flex-col font-sans">
+    <div className="min-h-screen bg-[#FCFBF7] text-[#1C1917] flex flex-col font-body relative overflow-hidden">
+      {/* Dashboard Ambient Lightfall Layer */}
+      <div
+        className="pointer-events-none fixed inset-0 -z-10 overflow-hidden flex items-center justify-center"
+        aria-hidden="true"
+      >
+        <div style={{ width: "100%", height: "600px", position: "relative" }}>
+          <Lightfall
+            colors={["#f43f5e"]}
+            backgroundColor="#ffffff"
+            speed={0.3}
+            streakCount={2}
+            streakWidth={0.8}
+            twinkle={0.3}
+            backgroundGlow={0.1}
+            headGlow={0.6}
+            bloom={0.35}
+            mouseInteraction
+            holdToWarp
+            intro
+            streakLength={1}
+            density={0.6}
+            glow={1}
+            depth={0.5}
+            zoom={3}
+            mouseStrength={0.4}
+            mouseRadius={0.45}
+            lens={0.5}
+            fade={0}
+            lightMode={false}
+          />
+        </div>
+      </div>
+
       {/* 1. Header with SplitScore brand, user name/avatar and link to My Trust Score */}
       <DashboardHeader user={data.user} />
 
@@ -45,7 +85,7 @@ export function DashboardClient({ initialData }: DashboardClientProps) {
       <main className="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-8">
         {/* Subtle refreshing indicator if background fetch is active */}
         {isPending && (
-          <div className="mb-4 text-xs font-semibold text-[#4338CA] bg-[#EEF2FF] px-3 py-1.5 rounded-md inline-block animate-pulse">
+          <div className="mb-4 text-xs font-semibold text-[#BE123C] bg-[#FFF1F2] border border-[#FECDD3] px-3.5 py-1.5 rounded-xl inline-block animate-pulse">
             Updating dashboard data...
           </div>
         )}
