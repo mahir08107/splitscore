@@ -15,6 +15,7 @@ import {
   ChevronRight,
 } from "lucide-react";
 import { GroupType } from "@/lib/data/dashboard";
+import PrimaryCTA from "@/components/ui/PrimaryCTA";
 
 interface GroupHeaderProps {
   group: GroupModel;
@@ -120,12 +121,11 @@ export function GroupHeader({
             <span>Invite Members</span>
           </button>
 
-          <Link
-            href={`/group/${group.id}/add-expense`}
-            className="inline-flex items-center justify-center gap-2 min-h-[44px] px-5 py-2.5 rounded-lg bg-gradient-to-r from-[#E11D48] to-[#BE123C] hover:shadow-lg hover:shadow-[#E11D48]/25 text-white font-semibold text-xs uppercase tracking-wide transition-all shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#E11D48] active:scale-95"
-          >
-            <Plus className="w-4 h-4" />
-            <span>Add Expense</span>
+          <Link href={`/group/${group.id}/add-expense`}>
+            <PrimaryCTA className="px-5 py-2.5 text-xs uppercase tracking-wide">
+              <Plus className="w-4 h-4 mr-1.5" />
+              <span>Add Expense</span>
+            </PrimaryCTA>
           </Link>
         </div>
       </div>

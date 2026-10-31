@@ -7,7 +7,6 @@ import { SummaryCards } from "@/components/dashboard/SummaryCards";
 import { PendingActionsList } from "@/components/dashboard/PendingActionsList";
 import { GroupsList } from "@/components/dashboard/GroupsList";
 import { DashboardErrorState } from "@/components/dashboard/DashboardErrorState";
-import DashboardAmbientBackground from "@/components/dashboard/DashboardAmbientBackground";
 
 interface DashboardClientProps {
   initialData: DashboardData;
@@ -41,8 +40,6 @@ export function DashboardClient({ initialData }: DashboardClientProps) {
   return (
     <div className="min-h-screen bg-[#FCFBF7] text-[#1C1917] flex flex-col font-body relative">
       {/* Ambient Background (Corner Aurora + Ledger Grid) */}
-      <DashboardAmbientBackground />
-
       {/* 1. Header with SplitScore brand, user name/avatar and link to My Trust Score */}
       <DashboardHeader user={data.user} />
 

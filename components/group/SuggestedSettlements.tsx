@@ -5,6 +5,7 @@ import Link from "next/link";
 import { SuggestedSettlement, SettlementModel } from "@/lib/group/types";
 import { formatRupees } from "@/lib/data/dashboard";
 import { ArrowRight, Sparkles, CheckCircle2, Clock } from "lucide-react";
+import PrimaryCTA from "@/components/ui/PrimaryCTA";
 
 interface SuggestedSettlementsProps {
   groupId: string;
@@ -126,12 +127,20 @@ export function SuggestedSettlements({
 
                   {/* Settle Up Action */}
                   <div className="flex items-center gap-2 shrink-0 self-end sm:self-auto">
-                    <Link
-                      href={settleUrl}
-                      className="inline-flex items-center justify-center min-h-[44px] px-4 py-2 rounded-lg bg-gradient-to-r from-[#E11D48] to-[#BE123C] hover:shadow-lg hover:shadow-[#E11D48]/25 text-white font-semibold text-xs uppercase tracking-wide transition-all shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#E11D48] active:scale-95"
-                    >
-                      {isCurrentUserPayer ? "Pay via UPI" : "Settle Up"}
-                    </Link>
+                    {idx === 0 ? (
+                      <Link href={settleUrl}>
+                        <PrimaryCTA className="px-4 py-2 text-xs uppercase tracking-wide">
+                          {isCurrentUserPayer ? "Pay via UPI" : "Settle Up"}
+                        </PrimaryCTA>
+                      </Link>
+                    ) : (
+                      <Link
+                        href={settleUrl}
+                        className="inline-flex items-center justify-center min-h-[40px] px-4 py-2 rounded-xl border border-[rgba(225,29,72,0.14)] bg-white hover:bg-[#FFF1F2] hover:text-[#E11D48] text-[#1C1917] font-semibold text-xs uppercase tracking-wide transition-all shadow-sm"
+                      >
+                        {isCurrentUserPayer ? "Pay via UPI" : "Settle Up"}
+                      </Link>
+                    )}
                   </div>
                 </div>
               );

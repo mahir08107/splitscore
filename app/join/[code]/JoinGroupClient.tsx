@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { joinGroupByCode } from "@/lib/group/service";
 import { Users, Compass, CheckCircle2, AlertCircle, ArrowRight } from "lucide-react";
+import PrimaryCTA from "@/components/ui/PrimaryCTA";
 
 interface JoinGroupClientProps {
   inviteCode: string;
@@ -114,14 +115,13 @@ export function JoinGroupClient({
                 You will be able to view expenses, split bills, and settle payments with this group.
               </p>
 
-              <button
-                type="button"
+              <PrimaryCTA
                 onClick={handleJoin}
                 disabled={loading}
-                className="w-full min-h-[48px] px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#E11D48] to-[#BE123C] hover:shadow-lg hover:shadow-[#E11D48]/25 active:scale-95 text-white font-semibold text-sm flex items-center justify-center transition-colors shadow-sm disabled:opacity-60"
+                className="w-full min-h-[48px] text-sm"
               >
                 {loading ? "Joining Group..." : "Join Group"}
-              </button>
+              </PrimaryCTA>
             </div>
           ) : (
             <div className="space-y-3">

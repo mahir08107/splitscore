@@ -6,6 +6,7 @@ import { DashboardGroup, GroupType, formatRupees } from "@/lib/data/dashboard";
 import { Plus, Users, Compass, Utensils, CalendarDays, ChevronRight } from "lucide-react";
 import { CreateGroupModal } from "@/components/group/CreateGroupModal";
 import { ToastProvider } from "@/components/group/ToastContext";
+import PrimaryCTA from "@/components/ui/PrimaryCTA";
 
 interface GroupsListProps {
   groups: DashboardGroup[];
@@ -53,14 +54,13 @@ export function GroupsList({ groups }: GroupsListProps) {
               Trips, mess bills and event costs
             </p>
           </div>
-          <button
-            type="button"
+          <PrimaryCTA
             onClick={() => setIsCreateOpen(true)}
-            className="inline-flex items-center gap-1.5 min-h-[42px] px-4 py-2 rounded-xl bg-gradient-to-r from-[#E11D48] to-[#BE123C] hover:shadow-lg hover:shadow-[#E11D48]/25 text-white font-bold text-xs tracking-wider uppercase transition-all shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#E11D48] active:scale-95"
+            className="px-4 py-2 text-xs uppercase tracking-wider"
           >
-            <Plus className="w-4 h-4" />
+            <Plus className="w-4 h-4 mr-1.5" />
             <span>Create group</span>
-          </button>
+          </PrimaryCTA>
         </div>
 
         {groups.length === 0 ? (

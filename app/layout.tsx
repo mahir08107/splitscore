@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
+import AppBackground from "@/components/layout/AppBackground";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -33,7 +34,9 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className={`${inter.className} min-h-screen flex flex-col antialiased`}>
+      <body className={`${inter.className} min-h-screen flex flex-col antialiased bg-[#FCFBF7] text-[#1C1917]`}>
+        {/* Single Global Background System mounted once in Root Layout */}
+        <AppBackground />
         {children}
       </body>
     </html>
