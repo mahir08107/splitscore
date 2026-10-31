@@ -46,7 +46,7 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
               toast.type === "error"
                 ? "bg-[#FEF2F2] border-[#FECACA] text-[#B91C1C]"
                 : toast.type === "info"
-                ? "bg-[#EEF2FF] border-[#C7D2FE] text-[#4338CA]"
+                ? "bg-[#FFF1F2] border-[#FECDD3] text-[#E11D48]"
                 : "bg-[#F0FDF4] border-[#BBF7D0] text-[#15803D]"
             }`}
           >

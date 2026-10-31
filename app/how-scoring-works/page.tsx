@@ -47,8 +47,8 @@ export default function HowScoringWorksPage() {
       icon: BadgePercent,
       title: "3. Amount Reliability",
       weight: "20% Weight",
-      color: "#4338CA",
-      bgColor: "#EEF2FF",
+      color: "#E11D48",
+      bgColor: "#FFF1F2",
       desc: "The ratio of total rupees owed that are successfully settled versus outstanding obligations. Repaying a high-stakes ₹2,500 trip share demonstrates higher commitment than clearing a ₹20 snack.",
     },
     {
@@ -189,26 +189,26 @@ export default function HowScoringWorksPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#F1F1FA] flex flex-col">
+    <div className="min-h-screen bg-[#FCFBF7] flex flex-col">
       <Header showBackToHome={true} />
 
       <main className="flex-1 max-w-5xl w-full mx-auto p-4 sm:p-6 lg:p-8 space-y-10 my-4">
         {/* Hero Section */}
-        <div className="bg-white rounded-3xl border border-[#E5E5EF] p-6 sm:p-10 shadow-sm relative overflow-hidden">
+        <div className="bg-white rounded-3xl border border-[rgba(225,29,72,0.09)] p-6 sm:p-10 shadow-sm relative overflow-hidden">
           <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#0F766E] mb-3">
             <Shield className="w-4 h-4" />
             <span>Problem Statement 6 • Fintech Reputation</span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-[#2E2A7A] tracking-tight mb-4">
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-[#BE123C] tracking-tight mb-4">
             How SplitScore Works
           </h1>
 
-          <p className="text-base sm:text-lg text-[#1F1D3D] font-medium leading-relaxed max-w-3xl mb-3">
+          <p className="text-base sm:text-lg text-[#1C1917] font-medium leading-relaxed max-w-3xl mb-3">
             A CIBIL score for student friendships. Everyone knows who owes money. Nobody knows who pays back.
           </p>
 
-          <p className="text-sm sm:text-base text-[#5B5B72] leading-relaxed max-w-3xl mb-6">
+          <p className="text-sm sm:text-base text-[#57534E] leading-relaxed max-w-3xl mb-6">
             Traditional expense splitters merely track running balances. SplitScore turns confirmed settlement behavior into a lightweight, portable trust score that follows students across trips, mess halls, and shared flats.
           </p>
 
@@ -216,28 +216,28 @@ export default function HowScoringWorksPage() {
           <div className="flex flex-wrap gap-2.5 pt-2">
             <a
               href="#inputs"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-[#F1F1FA] text-[#2E2A7A] hover:bg-[#E5E5EF] transition-colors"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-[#FCFBF7] text-[#BE123C] hover:bg-[rgba(225,29,72,0.09)] transition-colors"
             >
-              <Clock className="w-3.5 h-3.5 text-[#4338CA]" />
+              <Clock className="w-3.5 h-3.5 text-[#E11D48]" />
               5 Score Inputs
             </a>
             <a
               href="#defenses"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-[#F1F1FA] text-[#0F766E] hover:bg-[#E5E5EF] transition-colors"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-[#FCFBF7] text-[#0F766E] hover:bg-[rgba(225,29,72,0.09)] transition-colors"
             >
               <ShieldCheck className="w-3.5 h-3.5 text-[#0F766E]" />
               9 Anti-Gaming Defenses
             </a>
             <a
               href="#bands"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-[#F1F1FA] text-[#B45309] hover:bg-[#E5E5EF] transition-colors"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-[#FCFBF7] text-[#B45309] hover:bg-[rgba(225,29,72,0.09)] transition-colors"
             >
               <TrendingUp className="w-3.5 h-3.5 text-[#B45309]" />
               Score Bands
             </a>
             <Link
               href="/simulator"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-[#4338CA] text-white hover:bg-[#2E2A7A] transition-colors ml-auto"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-[#E11D48] text-white hover:bg-gradient-to-r from-[#E11D48] to-[#BE123C] transition-colors ml-auto"
             >
               <Sparkles className="w-3.5 h-3.5" />
               Interactive Simulator
@@ -248,13 +248,13 @@ export default function HowScoringWorksPage() {
         {/* Section 1: The 5 Scoring Inputs */}
         <section id="inputs" className="space-y-4">
           <div>
-            <div className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-[#4338CA] mb-1">
+            <div className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-[#E11D48] mb-1">
               <span>Section 1</span>
             </div>
-            <h2 className="text-2xl font-bold text-[#1F1D3D]">
+            <h2 className="text-2xl font-bold text-[#1C1917]">
               The 5 Core Scoring Inputs
             </h2>
-            <p className="text-sm text-[#5B5B72]">
+            <p className="text-sm text-[#57534E]">
               Every confirmed payment feeds into these five mathematical factors to calculate your net score.
             </p>
           </div>
@@ -265,7 +265,7 @@ export default function HowScoringWorksPage() {
               return (
                 <div
                   key={idx}
-                  className="bg-white rounded-2xl border border-[#E5E5EF] p-5 shadow-sm flex flex-col justify-between hover:border-[#4338CA]/30 transition-colors"
+                  className="bg-white rounded-2xl border border-[rgba(225,29,72,0.09)] p-5 shadow-sm flex flex-col justify-between hover:border-[#E11D48]/30 transition-colors"
                 >
                   <div>
                     <div className="flex items-center justify-between mb-3">
@@ -275,16 +275,16 @@ export default function HowScoringWorksPage() {
                       >
                         <Icon className="w-5 h-5" style={{ color: input.color }} />
                       </div>
-                      <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-[#F1F1FA] text-[#5B5B72]">
+                      <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-[#FCFBF7] text-[#57534E]">
                         {input.weight}
                       </span>
                     </div>
 
-                    <h3 className="text-base font-bold text-[#1F1D3D] mb-2">
+                    <h3 className="text-base font-bold text-[#1C1917] mb-2">
                       {input.title}
                     </h3>
 
-                    <p className="text-xs sm:text-sm text-[#5B5B72] leading-relaxed">
+                    <p className="text-xs sm:text-sm text-[#57534E] leading-relaxed">
                       {input.desc}
                     </p>
                   </div>
@@ -300,10 +300,10 @@ export default function HowScoringWorksPage() {
             <div className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-[#0F766E] mb-1">
               <span>Section 2</span>
             </div>
-            <h2 className="text-2xl font-bold text-[#1F1D3D]">
+            <h2 className="text-2xl font-bold text-[#1C1917]">
               9 Anti-Gaming Defenses
             </h2>
-            <p className="text-sm text-[#5B5B72]">
+            <p className="text-sm text-[#57534E]">
               Reputation systems fail when users can game them. Here is how SplitScore mathematically thwarts fraud and collusion.
             </p>
           </div>
@@ -314,11 +314,11 @@ export default function HowScoringWorksPage() {
               return (
                 <div
                   key={rule.num}
-                  className="bg-white rounded-2xl border border-[#E5E5EF] p-5 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow"
+                  className="bg-white rounded-2xl border border-[rgba(225,29,72,0.09)] p-5 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow"
                 >
                   <div>
                     <div className="flex items-center justify-between mb-3">
-                      <span className="w-7 h-7 rounded-lg bg-[#2E2A7A] text-white flex items-center justify-center text-xs font-bold">
+                      <span className="w-7 h-7 rounded-lg bg-gradient-to-r from-[#E11D48] to-[#BE123C] text-white flex items-center justify-center text-xs font-bold">
                         {rule.num}
                       </span>
                       <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#0F766E]/10 text-[#0F766E]">
@@ -326,21 +326,21 @@ export default function HowScoringWorksPage() {
                       </span>
                     </div>
 
-                    <h3 className="text-base font-bold text-[#1F1D3D] mb-1.5">
+                    <h3 className="text-base font-bold text-[#1C1917] mb-1.5">
                       {rule.name}
                     </h3>
 
-                    <p className="text-xs text-[#5B5B72] leading-relaxed mb-4">
+                    <p className="text-xs text-[#57534E] leading-relaxed mb-4">
                       {rule.desc}
                     </p>
                   </div>
 
                   {/* Practical Example Box */}
-                  <div className="bg-[#F8F8FC] rounded-xl p-3 border border-[#E5E5EF] text-xs">
-                    <span className="block text-[10px] font-bold uppercase tracking-wider text-[#4338CA] mb-1">
+                  <div className="bg-[#F8F8FC] rounded-xl p-3 border border-[rgba(225,29,72,0.09)] text-xs">
+                    <span className="block text-[10px] font-bold uppercase tracking-wider text-[#E11D48] mb-1">
                       Practical Example
                     </span>
-                    <p className="text-[#1F1D3D] leading-normal italic text-[11px]">
+                    <p className="text-[#1C1917] leading-normal italic text-[11px]">
                       "{rule.example}"
                     </p>
                   </div>
@@ -356,10 +356,10 @@ export default function HowScoringWorksPage() {
             <div className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-[#B45309] mb-1">
               <span>Section 3</span>
             </div>
-            <h2 className="text-2xl font-bold text-[#1F1D3D]">
+            <h2 className="text-2xl font-bold text-[#1C1917]">
               Score Bands & Interpretation
             </h2>
-            <p className="text-sm text-[#5B5B72]">
+            <p className="text-sm text-[#57534E]">
               Every user falls into one of four calibrated bands based on verified repayment history.
             </p>
           </div>
@@ -392,7 +392,7 @@ export default function HowScoringWorksPage() {
                   >
                     {band.range}
                   </p>
-                  <p className="text-xs text-[#1F1D3D] leading-relaxed">
+                  <p className="text-xs text-[#1C1917] leading-relaxed">
                     {band.desc}
                   </p>
                 </div>
@@ -402,7 +402,7 @@ export default function HowScoringWorksPage() {
         </section>
 
         {/* Section 4: Live Demo CTA */}
-        <div className="bg-gradient-to-br from-[#2E2A7A] to-[#1F1D3D] rounded-3xl p-6 sm:p-10 text-white shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="bg-gradient-to-br from-[#BE123C] to-[#1C1917] rounded-3xl p-6 sm:p-10 text-white shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="space-y-2 text-center md:text-left">
             <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#99F6E4] bg-white/10 px-3 py-1 rounded-full">
               <Sparkles className="w-3.5 h-3.5 text-[#22C55E]" />
@@ -419,7 +419,7 @@ export default function HowScoringWorksPage() {
           <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto shrink-0">
             <Link
               href="/simulator"
-              className="inline-flex items-center justify-center min-h-[44px] px-6 py-3 text-sm font-bold text-[#2E2A7A] bg-white hover:bg-[#F1F1FA] rounded-xl transition-all shadow-md active:scale-95 text-center"
+              className="inline-flex items-center justify-center min-h-[44px] px-6 py-3 text-sm font-bold text-[#BE123C] bg-white hover:bg-[#FCFBF7] rounded-xl transition-all shadow-md active:scale-95 text-center"
             >
               Open Simulator
               <ArrowRight className="w-4 h-4 ml-1.5" />
@@ -434,7 +434,7 @@ export default function HowScoringWorksPage() {
         </div>
       </main>
 
-      <footer className="w-full text-center text-xs text-[#5B5B72] py-8 border-t border-[#E5E5EF]">
+      <footer className="w-full text-center text-xs text-[#57534E] py-8 border-t border-[rgba(225,29,72,0.09)]">
         <p>Team Null Pointers • Split fair. Score fair.</p>
       </footer>
     </div>

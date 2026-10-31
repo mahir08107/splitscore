@@ -49,14 +49,14 @@ export function JoinGroupClient({
   };
 
   return (
-    <div className="min-h-screen bg-[#F8F9FD] flex flex-col justify-between p-4 sm:p-6">
+    <div className="min-h-screen bg-[#FCFBF7] flex flex-col justify-between p-4 sm:p-6">
       {/* Top Bar */}
       <div className="w-full max-w-md mx-auto pt-4 sm:pt-8 flex items-center justify-between">
         <Link
           href="/"
-          className="flex items-center gap-2 text-[#2E2A7A] font-bold text-lg tracking-tight"
+          className="flex items-center gap-2 text-[#BE123C] font-bold text-lg tracking-tight"
         >
-          <div className="w-8 h-8 rounded-lg bg-[#2E2A7A] flex items-center justify-center text-white font-bold text-sm">
+          <div className="w-8 h-8 rounded-lg bg-gradient-to-r from-[#E11D48] to-[#BE123C] flex items-center justify-center text-white font-bold text-sm">
             S
           </div>
           <span>SplitScore</span>
@@ -65,21 +65,21 @@ export function JoinGroupClient({
 
       {/* Main Join Card */}
       <div className="w-full max-w-md mx-auto my-auto py-8">
-        <div className="bg-white rounded-2xl border border-[#E5E5F0] p-6 sm:p-8 shadow-sm text-center">
-          <div className="w-14 h-14 mx-auto rounded-2xl bg-[#EEF2FF] text-[#4338CA] flex items-center justify-center mb-4">
+        <div className="bg-white rounded-2xl border border-[rgba(225,29,72,0.09)] p-6 sm:p-8 shadow-sm text-center">
+          <div className="w-14 h-14 mx-auto rounded-2xl bg-[#FFF1F2] text-[#E11D48] flex items-center justify-center mb-4">
             <Compass className="w-7 h-7" />
           </div>
 
-          <span className="text-xs font-semibold uppercase tracking-wider text-[#4338CA] bg-[#EEF2FF] px-3 py-1 rounded-full">
+          <span className="text-xs font-semibold uppercase tracking-wider text-[#E11D48] bg-[#FFF1F2] px-3 py-1 rounded-full">
             Group Invitation
           </span>
 
-          <h1 className="text-2xl font-extrabold text-[#1F1D3D] mt-3 mb-1">
+          <h1 className="text-2xl font-extrabold text-[#1C1917] mt-3 mb-1">
             {groupName}
           </h1>
 
-          <p className="text-xs text-[#5B5B72] flex items-center justify-center gap-1.5 mb-6">
-            <Users className="w-3.5 h-3.5 text-[#5B5B72]" />
+          <p className="text-xs text-[#57534E] flex items-center justify-center gap-1.5 mb-6">
+            <Users className="w-3.5 h-3.5 text-[#57534E]" />
             <span>{memberCount} active member{memberCount !== 1 ? "s" : ""}</span>
           </p>
 
@@ -102,7 +102,7 @@ export function JoinGroupClient({
 
               <Link
                 href={`/group/${groupId}`}
-                className="w-full min-h-[48px] px-5 py-2.5 rounded-xl bg-[#2E2A7A] hover:bg-[#252263] text-white font-semibold text-sm flex items-center justify-center gap-2 transition-colors shadow-sm"
+                className="w-full min-h-[48px] px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#E11D48] to-[#BE123C] hover:shadow-lg hover:shadow-[#E11D48]/25 active:scale-95 text-white font-semibold text-sm flex items-center justify-center gap-2 transition-colors shadow-sm"
               >
                 <span>Go to Group Page</span>
                 <ArrowRight className="w-4 h-4" />
@@ -110,7 +110,7 @@ export function JoinGroupClient({
             </div>
           ) : isAuthenticated ? (
             <div className="space-y-4">
-              <p className="text-xs text-[#5B5B72] leading-relaxed">
+              <p className="text-xs text-[#57534E] leading-relaxed">
                 You will be able to view expenses, split bills, and settle payments with this group.
               </p>
 
@@ -118,27 +118,27 @@ export function JoinGroupClient({
                 type="button"
                 onClick={handleJoin}
                 disabled={loading}
-                className="w-full min-h-[48px] px-5 py-2.5 rounded-xl bg-[#2E2A7A] hover:bg-[#252263] text-white font-semibold text-sm flex items-center justify-center transition-colors shadow-sm disabled:opacity-60"
+                className="w-full min-h-[48px] px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#E11D48] to-[#BE123C] hover:shadow-lg hover:shadow-[#E11D48]/25 active:scale-95 text-white font-semibold text-sm flex items-center justify-center transition-colors shadow-sm disabled:opacity-60"
               >
                 {loading ? "Joining Group..." : "Join Group"}
               </button>
             </div>
           ) : (
             <div className="space-y-3">
-              <p className="text-xs text-[#5B5B72] leading-relaxed mb-4">
+              <p className="text-xs text-[#57534E] leading-relaxed mb-4">
                 You need an account to join this group. Sign in with Google or continue with demo mode.
               </p>
 
               <Link
                 href={`/login?redirect=/join/${inviteCode}`}
-                className="w-full min-h-[48px] px-5 py-2.5 rounded-xl bg-[#4338CA] hover:bg-[#2E2A7A] text-white font-semibold text-sm flex items-center justify-center transition-colors shadow-sm"
+                className="w-full min-h-[48px] px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#E11D48] to-[#BE123C] hover:shadow-lg hover:shadow-[#E11D48]/25 active:scale-95 text-white font-semibold text-sm flex items-center justify-center transition-colors shadow-sm"
               >
                 Sign In to Join
               </Link>
 
               <a
                 href={`/api/demo`}
-                className="w-full min-h-[44px] px-4 py-2 rounded-xl bg-[#F1F1FA] hover:bg-[#E5E5F5] text-[#2E2A7A] font-semibold text-xs flex items-center justify-center border border-[#E0E0F0] transition-colors"
+                className="w-full min-h-[44px] px-4 py-2 rounded-xl bg-[#FCFBF7] hover:bg-[#E5E5F5] text-[#BE123C] font-semibold text-xs flex items-center justify-center border border-[#E0E0F0] transition-colors"
               >
                 Try Demo
               </a>
@@ -147,7 +147,7 @@ export function JoinGroupClient({
         </div>
       </div>
 
-      <footer className="w-full max-w-md mx-auto text-center text-xs text-[#5B5B72] pb-4">
+      <footer className="w-full max-w-md mx-auto text-center text-xs text-[#57534E] pb-4">
         <p>SplitScore — Split fair. Score fair.</p>
       </footer>
     </div>

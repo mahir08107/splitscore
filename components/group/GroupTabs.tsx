@@ -44,7 +44,7 @@ export function GroupTabs({
   ];
 
   return (
-    <div className="border-b border-[#E5E5F0] mb-6">
+    <div className="border-b border-[rgba(225,29,72,0.09)] mb-6">
       <div
         role="tablist"
         aria-label="Group sections"
@@ -62,10 +62,10 @@ export function GroupTabs({
               aria-controls={`${tab.id}-panel`}
               id={`${tab.id}-tab`}
               onClick={() => onChangeTab(tab.id)}
-              className={`flex items-center gap-2 py-3.5 px-3 sm:px-4 text-sm font-semibold transition-all relative whitespace-nowrap min-h-[44px] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#4338CA] rounded-t-lg ${
+              className={`flex items-center gap-2 py-3.5 px-3 sm:px-4 text-sm font-semibold transition-all relative whitespace-nowrap min-h-[44px] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#E11D48] rounded-t-lg ${
                 isActive
-                  ? "text-[#4338CA]"
-                  : "text-[#5B5B72] hover:text-[#1F1D3D]"
+                  ? "text-[#E11D48]"
+                  : "text-[#57534E] hover:text-[#1C1917]"
               }`}
             >
               <Icon className="w-4 h-4" />
@@ -74,8 +74,8 @@ export function GroupTabs({
                 <span
                   className={`text-xs px-2 py-0.5 rounded-full font-medium ${
                     isActive
-                      ? "bg-[#EEF2FF] text-[#4338CA]"
-                      : "bg-[#F1F1FA] text-[#5B5B72]"
+                      ? "bg-[#FFF1F2] text-[#E11D48]"
+                      : "bg-rose-50 text-[#57534E]"
                   }`}
                 >
                   {tab.badge}
@@ -83,7 +83,7 @@ export function GroupTabs({
               )}
               {/* Active tab bottom indicator */}
               {isActive && (
-                <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#4338CA] rounded-t-full" />
+                <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#E11D48] rounded-t-full" />
               )}
             </button>
           );
@@ -92,4 +92,3 @@ export function GroupTabs({
     </div>
   );
 }
-

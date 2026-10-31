@@ -12,6 +12,7 @@ import { MembersTab } from "./MembersTab";
 import { InviteMembersModal } from "./InviteMembersModal";
 import { GroupSettingsModal } from "./GroupSettingsModal";
 import { DashboardHeader } from "@/components/dashboard/DashboardHeader";
+import DashboardAmbientBackground from "@/components/dashboard/DashboardAmbientBackground";
 import { ToastProvider, useToast } from "./ToastContext";
 import {
   updateGroupSettings,
@@ -182,7 +183,10 @@ function GroupClientInner({ initialData, isDemo = false }: GroupClientProps) {
   };
 
   return (
-    <div className="min-h-screen bg-[#F8F9FD] text-[#1F1D3D] flex flex-col font-sans">
+    <div className="min-h-screen bg-[#FCFBF7] text-[#1C1917] flex flex-col font-body relative">
+      {/* Ambient Background (Corner Aurora + Ledger Grid) */}
+      <DashboardAmbientBackground />
+
       {/* 1. Header (Reusing existing Dashboard Header) */}
       <DashboardHeader user={userProfile} />
 

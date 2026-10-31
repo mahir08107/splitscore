@@ -80,14 +80,14 @@ export function ExpensesTab({
       {/* Heading & Subtitle */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
         <div>
-          <h2 className="text-xl font-bold text-[#1F1D3D]">Group Expenses</h2>
-          <p className="text-xs sm:text-sm text-[#5B5B72] mt-0.5">
+          <h2 className="text-xl font-bold text-[#1C1917] font-display">Group Expenses</h2>
+          <p className="text-xs sm:text-sm text-[#57534E] mt-0.5">
             All expenses recorded in this group.
           </p>
         </div>
         <Link
           href={`/group/${groupId}/add-expense`}
-          className="inline-flex items-center justify-center gap-1.5 min-h-[44px] px-4 py-2 rounded-lg bg-[#2E2A7A] hover:bg-[#252263] text-white font-semibold text-xs uppercase tracking-wide transition-all shadow-sm self-start sm:self-auto"
+          className="inline-flex items-center justify-center gap-1.5 min-h-[44px] px-4 py-2 rounded-lg bg-gradient-to-r from-[#E11D48] to-[#BE123C] hover:shadow-lg hover:shadow-[#E11D48]/25 text-white font-semibold text-xs uppercase tracking-wide transition-all shadow-sm self-start sm:self-auto active:scale-95"
         >
           <Plus className="w-4 h-4" />
           <span>Add Expense</span>
@@ -98,23 +98,23 @@ export function ExpensesTab({
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-5">
         {/* Search Input */}
         <div className="relative">
-          <Search className="w-4 h-4 text-[#5B5B72] absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+          <Search className="w-4 h-4 text-[#57534E] absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
           <input
             type="text"
             placeholder="Search by title or payer..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-10 pr-3.5 min-h-[44px] rounded-lg border border-[#E5E5F0] bg-white text-xs sm:text-sm text-[#1F1D3D] placeholder:text-[#5B5B72] focus:outline-none focus:border-[#4338CA] focus:ring-1 focus:ring-[#4338CA]"
+            className="w-full pl-10 pr-3.5 min-h-[44px] rounded-lg border border-[rgba(225,29,72,0.09)] bg-white text-xs sm:text-sm text-[#1C1917] placeholder:text-[#57534E] focus:outline-none focus:border-[#E11D48] focus:ring-1 focus:ring-[#E11D48]"
           />
         </div>
 
         {/* Category Filter */}
         <div className="relative">
-          <Filter className="w-4 h-4 text-[#5B5B72] absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+          <Filter className="w-4 h-4 text-[#57534E] absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
           <select
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
-            className="w-full pl-10 pr-8 min-h-[44px] rounded-lg border border-[#E5E5F0] bg-white text-xs sm:text-sm text-[#1F1D3D] appearance-none focus:outline-none focus:border-[#4338CA] focus:ring-1 focus:ring-[#4338CA]"
+            className="w-full pl-10 pr-8 min-h-[44px] rounded-lg border border-[rgba(225,29,72,0.09)] bg-white text-xs sm:text-sm text-[#1C1917] appearance-none focus:outline-none focus:border-[#E11D48] focus:ring-1 focus:ring-[#E11D48]"
           >
             <option value="all">All Categories</option>
             {categories.map((cat) => (
@@ -127,11 +127,11 @@ export function ExpensesTab({
 
         {/* Sort Order */}
         <div className="relative">
-          <ArrowUpDown className="w-4 h-4 text-[#5B5B72] absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+          <ArrowUpDown className="w-4 h-4 text-[#57534E] absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
           <select
             value={sortOrder}
             onChange={(e) => setSortOrder(e.target.value as "newest" | "oldest")}
-            className="w-full pl-10 pr-8 min-h-[44px] rounded-lg border border-[#E5E5F0] bg-white text-xs sm:text-sm text-[#1F1D3D] appearance-none focus:outline-none focus:border-[#4338CA] focus:ring-1 focus:ring-[#4338CA]"
+            className="w-full pl-10 pr-8 min-h-[44px] rounded-lg border border-[rgba(225,29,72,0.09)] bg-white text-xs sm:text-sm text-[#1C1917] appearance-none focus:outline-none focus:border-[#E11D48] focus:ring-1 focus:ring-[#E11D48]"
           >
             <option value="newest">Sort by Date: Newest First</option>
             <option value="oldest">Sort by Date: Oldest First</option>
@@ -141,12 +141,12 @@ export function ExpensesTab({
 
       {/* Expense List / Rows */}
       {filteredExpenses.length === 0 ? (
-        <div className="bg-white rounded-xl border border-[#E5E5F0] p-10 text-center shadow-sm">
-          <div className="w-12 h-12 mx-auto rounded-full bg-[#F1F1FA] flex items-center justify-center text-[#2E2A7A] mb-3">
+        <div className="bg-white rounded-2xl border border-[rgba(225,29,72,0.09)] p-10 text-center soft-card-shadow">
+          <div className="w-12 h-12 mx-auto rounded-full bg-rose-50 border border-[#FECDD3] flex items-center justify-center text-[#E11D48] mb-3">
             <Receipt className="w-6 h-6" />
           </div>
-          <h3 className="text-base font-bold text-[#1F1D3D]">No expenses found</h3>
-          <p className="text-xs text-[#5B5B72] max-w-sm mx-auto mt-1 mb-6">
+          <h3 className="text-base font-bold text-[#1C1917] font-display">No expenses found</h3>
+          <p className="text-xs text-[#57534E] max-w-sm mx-auto mt-1 mb-6">
             {expenses.length === 0
               ? "No expenses have been recorded in this group yet. Add your first shared bill to get started."
               : "No expenses match your search or filter criteria."}
@@ -154,7 +154,7 @@ export function ExpensesTab({
           <div className="flex flex-wrap items-center justify-center gap-3">
             <Link
               href={`/group/${groupId}/add-expense`}
-              className="inline-flex items-center gap-1.5 min-h-[44px] px-5 py-2 rounded-lg bg-[#2E2A7A] hover:bg-[#252263] text-white font-semibold text-xs uppercase tracking-wide transition-all shadow-sm"
+              className="inline-flex items-center gap-1.5 min-h-[44px] px-5 py-2 rounded-lg bg-gradient-to-r from-[#E11D48] to-[#BE123C] hover:shadow-lg hover:shadow-[#E11D48]/25 text-white font-semibold text-xs uppercase tracking-wide transition-all shadow-sm active:scale-95"
             >
               <Plus className="w-4 h-4" />
               <span>Add first expense</span>
@@ -162,15 +162,15 @@ export function ExpensesTab({
             <button
               type="button"
               onClick={onOpenInvite}
-              className="inline-flex items-center gap-1.5 min-h-[44px] px-4 py-2 rounded-lg border border-[#E5E5F0] bg-white hover:bg-[#F1F1FA] text-[#1F1D3D] font-semibold text-xs uppercase tracking-wide transition-all shadow-sm"
+              className="inline-flex items-center gap-1.5 min-h-[44px] px-4 py-2 rounded-lg border border-[rgba(225,29,72,0.09)] bg-white hover:bg-rose-50 text-[#1C1917] font-semibold text-xs uppercase tracking-wide transition-all shadow-sm"
             >
-              <UserPlus className="w-4 h-4 text-[#4338CA]" />
+              <UserPlus className="w-4 h-4 text-[#E11D48]" />
               <span>Invite members</span>
             </button>
           </div>
         </div>
       ) : (
-        <div className="bg-white rounded-xl border border-[#E5E5F0] shadow-sm divide-y divide-[#E5E5F0] overflow-hidden">
+        <div className="bg-white rounded-2xl border border-[rgba(225,29,72,0.09)] soft-card-shadow divide-y divide-stone-100 overflow-hidden">
           {filteredExpenses.map((expense) => {
             const CategoryIcon = getCategoryIcon(expense.category);
 
@@ -179,11 +179,11 @@ export function ExpensesTab({
             const isPayer = expense.paid_by === currentUserId;
 
             let shareLabel = "Not involved";
-            let shareColor = "text-[#5B5B72]";
+            let shareColor = "text-[#57534E]";
 
             if (userSplit) {
               shareLabel = `Your share: ${formatRupees(userSplit.share_amount)}`;
-              shareColor = "text-[#1F1D3D]";
+              shareColor = "text-[#1C1917]";
             }
             if (isPayer) {
               shareLabel = `You paid ${formatRupees(expense.amount)}`;
@@ -202,22 +202,22 @@ export function ExpensesTab({
                     setSelectedExpense(expense);
                   }
                 }}
-                className="p-4 sm:p-4.5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-[#F8F9FD] cursor-pointer transition-colors focus:outline-none focus:bg-[#F8F9FD]"
+                className="p-4 sm:p-4.5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-[#FFF8F8] cursor-pointer transition-colors focus:outline-none focus:bg-[#FFF8F8]"
                 title="Click to view detailed member splits"
               >
                 {/* Left: Category Icon + Title, Date, Payer */}
                 <div className="flex items-center gap-3.5 min-w-0">
-                  <div className="w-10 h-10 rounded-xl bg-[#EEF2FF] text-[#4338CA] flex items-center justify-center shrink-0">
+                  <div className="w-10 h-10 rounded-xl bg-[#FFF1F2] border border-[#FECDD3] text-[#E11D48] flex items-center justify-center shrink-0">
                     <CategoryIcon className="w-5 h-5" />
                   </div>
                   <div className="min-w-0">
-                    <h3 className="text-sm sm:text-base font-bold text-[#1F1D3D] truncate">
+                    <h3 className="text-sm sm:text-base font-bold text-[#1C1917] truncate">
                       {expense.title}
                     </h3>
-                    <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 mt-0.5 text-xs text-[#5B5B72]">
-                      <span className="font-medium text-[#4338CA]">{expense.category}</span>
+                    <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 mt-0.5 text-xs text-[#57534E]">
+                      <span className="font-medium text-[#E11D48]">{expense.category}</span>
                       <span>•</span>
-                      <span>Paid by <strong className="text-[#1F1D3D]">{expense.payerName || "Member"}</strong></span>
+                      <span>Paid by <strong className="text-[#1C1917]">{expense.payerName || "Member"}</strong></span>
                       <span>•</span>
                       <span>{expense.date}</span>
                     </div>
@@ -225,8 +225,8 @@ export function ExpensesTab({
                 </div>
 
                 {/* Right: Total Amount & User Share */}
-                <div className="flex items-center justify-between sm:flex-col sm:items-end shrink-0 pl-13 sm:pl-0 border-t sm:border-t-0 pt-2 sm:pt-0 border-[#F1F1FA]">
-                  <span className="text-base sm:text-lg font-extrabold text-[#1F1D3D]">
+                <div className="flex items-center justify-between sm:flex-col sm:items-end shrink-0 pl-13 sm:pl-0 border-t sm:border-t-0 pt-2 sm:pt-0 border-[rgba(225,29,72,0.06)]">
+                  <span className="text-base sm:text-lg font-extrabold text-[#1C1917]">
                     {formatRupees(expense.amount)}
                   </span>
                   <span className={`text-xs font-semibold ${shareColor}`}>
@@ -247,4 +247,3 @@ export function ExpensesTab({
     </section>
   );
 }
-

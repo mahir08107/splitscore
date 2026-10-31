@@ -32,7 +32,7 @@ export function MemberCard({
   const isOwing = member.netBalance < -0.01;
 
   return (
-    <div className="bg-white rounded-xl border border-[#E5E5F0] p-4 sm:p-5 shadow-sm hover:border-[#D1D1E9] transition-all flex flex-col justify-between relative">
+    <div className="bg-white rounded-2xl border border-[rgba(225,29,72,0.09)] p-4 sm:p-5 soft-card-shadow hover:border-[#FECDD3] transition-all flex flex-col justify-between relative">
       {/* Top: Avatar, Name, Email & Admin Options */}
       <div>
         <div className="flex items-start justify-between gap-2">
@@ -42,26 +42,26 @@ export function MemberCard({
               <img
                 src={member.user.avatar}
                 alt={member.user.name}
-                className="w-11 h-11 rounded-full object-cover border border-[#E5E5F0] shrink-0"
+                className="w-11 h-11 rounded-full object-cover border border-[rgba(225,29,72,0.09)] shrink-0"
               />
             ) : (
-              <div className="w-11 h-11 rounded-full bg-[#2E2A7A] text-white font-bold text-base flex items-center justify-center shrink-0">
+              <div className="w-11 h-11 rounded-full bg-gradient-to-r from-[#E11D48] to-[#BE123C] text-white font-bold text-base flex items-center justify-center shrink-0">
                 {member.user.name.charAt(0).toUpperCase()}
               </div>
             )}
 
             <div className="min-w-0">
               <div className="flex items-center gap-1.5 flex-wrap">
-                <h4 className="text-sm font-bold text-[#1F1D3D] truncate">
+                <h4 className="text-sm font-bold text-[#1C1917] truncate">
                   {member.user.name}
                 </h4>
                 {isSelf && (
-                  <span className="text-[10px] bg-[#EEF2FF] text-[#4338CA] px-1.5 py-0.2 rounded font-semibold">
+                  <span className="text-[10px] bg-[#FFF1F2] text-[#E11D48] px-1.5 py-0.2 rounded font-semibold">
                     You
                   </span>
                 )}
               </div>
-              <p className="text-xs text-[#5B5B72] truncate">
+              <p className="text-xs text-[#57534E] truncate">
                 {member.user.email || "No email available"}
               </p>
             </div>
@@ -73,7 +73,7 @@ export function MemberCard({
               <button
                 type="button"
                 onClick={() => setShowMenu((prev) => !prev)}
-                className="p-1.5 text-[#5B5B72] hover:text-[#1F1D3D] rounded-lg hover:bg-[#F1F1FA] transition-colors min-h-[36px] min-w-[36px] flex items-center justify-center"
+                className="p-1.5 text-[#57534E] hover:text-[#1C1917] rounded-lg hover:bg-rose-50 transition-colors min-h-[36px] min-w-[36px] flex items-center justify-center"
                 aria-label="Member options"
               >
                 <MoreVertical className="w-4 h-4" />
@@ -85,16 +85,16 @@ export function MemberCard({
                     className="fixed inset-0 z-20"
                     onClick={() => setShowMenu(false)}
                   />
-                  <div className="absolute right-0 top-full mt-1 w-44 bg-white rounded-xl shadow-lg border border-[#E5E5F0] py-1 z-30 animate-in fade-in">
+                  <div className="absolute right-0 top-full mt-1 w-44 bg-white rounded-xl shadow-lg border border-[rgba(225,29,72,0.09)] py-1 z-30 animate-in fade-in">
                     <button
                       type="button"
                       onClick={() => {
                         setShowMenu(false);
                         onUpdateRole(member.user_id, isAdmin ? "member" : "admin");
                       }}
-                      className="w-full text-left px-3.5 py-2 text-xs font-semibold text-[#1F1D3D] hover:bg-[#F8F9FD] flex items-center gap-2"
+                      className="w-full text-left px-3.5 py-2 text-xs font-semibold text-[#1C1917] hover:bg-[#FFF8F8] flex items-center gap-2"
                     >
-                      <Shield className="w-3.5 h-3.5 text-[#4338CA]" />
+                      <Shield className="w-3.5 h-3.5 text-[#E11D48]" />
                       <span>{isAdmin ? "Demote to Member" : "Promote to Admin"}</span>
                     </button>
                     <button
@@ -120,8 +120,8 @@ export function MemberCard({
           <span
             className={`inline-flex items-center gap-1 text-[11px] font-bold px-2 py-0.5 rounded-full ${
               isAdmin
-                ? "bg-[#2E2A7A] text-white"
-                : "bg-[#F1F1FA] text-[#5B5B72]"
+                ? "bg-gradient-to-r from-[#E11D48] to-[#BE123C] text-white"
+                : "bg-rose-50 text-[#57534E] border border-[#FECDD3]"
             }`}
           >
             {isAdmin ? "Admin" : "Member"}
@@ -138,15 +138,15 @@ export function MemberCard({
       </div>
 
       {/* Bottom: Financial Stats */}
-      <div className="mt-4 pt-3 border-t border-[#F1F1FA] grid grid-cols-2 gap-2 text-xs">
+      <div className="mt-4 pt-3 border-t border-[rgba(225,29,72,0.06)] grid grid-cols-2 gap-2 text-xs">
         <div>
-          <span className="text-[#5B5B72] block">Contributed</span>
-          <span className="font-bold text-[#1F1D3D] text-sm">
+          <span className="text-[#57534E] block">Contributed</span>
+          <span className="font-bold text-[#1C1917] text-sm">
             {formatRupees(member.totalContributed)}
           </span>
         </div>
         <div className="text-right">
-          <span className="text-[#5B5B72] block">Net Balance</span>
+          <span className="text-[#57534E] block">Net Balance</span>
           {isOwed && (
             <span className="font-extrabold text-[#15803D] text-sm flex items-center justify-end gap-0.5">
               <ArrowDownLeft className="w-3 h-3" />
@@ -160,7 +160,7 @@ export function MemberCard({
             </span>
           )}
           {!isOwed && !isOwing && (
-            <span className="font-semibold text-[#5B5B72] text-sm flex items-center justify-end gap-0.5">
+            <span className="font-semibold text-[#57534E] text-sm flex items-center justify-end gap-0.5">
               <Check className="w-3 h-3" />
               Settled
             </span>

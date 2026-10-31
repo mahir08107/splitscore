@@ -10,7 +10,7 @@ interface SummaryCardsProps {
 }
 
 // Band colors per SplitScore Project Context:
-// Excellent: 15803D, Good: 0F766E, Building: B45309, Risky: B91C1C
+// Excellent: 15803D, Good: 0F766E, Building: B45309, Risky: BE123C
 const bandStyleConfig: Record<
   TrustBand,
   { bg: string; text: string; badgeBg: string; border: string }
@@ -34,10 +34,10 @@ const bandStyleConfig: Record<
     border: "#FDE68A",
   },
   Risky: {
-    bg: "#FEF2F2",
-    text: "#B91C1C",
-    badgeBg: "#FEE2E2",
-    border: "#FECACA",
+    bg: "#FFF1F2",
+    text: "#BE123C",
+    badgeBg: "#FFE4E6",
+    border: "#FECDD3",
   },
 };
 
@@ -49,42 +49,42 @@ export function SummaryCards({
   const currentBandStyle = bandStyleConfig[trustScore.band] || bandStyleConfig.Good;
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5">
       {/* 1. You owe card */}
-      <div className="bg-white rounded-xl p-5 border border-[#E5E5F0] shadow-sm flex flex-col justify-between transition-all hover:border-[#D1D1E9]">
+      <div className="bg-white rounded-2xl p-5 sm:p-6 border border-[rgba(225,29,72,0.09)] soft-card-shadow flex flex-col justify-between transition-all hover:border-[#FECDD3]">
         <div className="flex items-center justify-between">
-          <span className="text-xs font-semibold uppercase tracking-wider text-[#5B5B72]">
+          <span className="text-xs font-semibold uppercase tracking-wider text-[#57534E]">
             You owe
           </span>
-          <div className="w-8 h-8 rounded-full bg-[#FEF2F2] flex items-center justify-center text-[#B91C1C]">
+          <div className="w-8 h-8 rounded-full bg-[#FFF1F2] border border-[#FECDD3] flex items-center justify-center text-[#BE123C]">
             <ArrowUpRight className="w-4 h-4" />
           </div>
         </div>
         <div className="mt-4">
-          <p className="text-2xl sm:text-3xl font-bold tracking-tight text-[#B91C1C]">
+          <p className="font-display text-2xl sm:text-3xl font-black tracking-tight text-[#BE123C]">
             {formatRupees(totalOwe)}
           </p>
-          <p className="text-xs text-[#5B5B72] mt-1">
+          <p className="text-xs text-[#57534E] mt-1 font-medium">
             {totalOwe === 0 ? "All settled up" : "To group members"}
           </p>
         </div>
       </div>
 
       {/* 2. You are owed card */}
-      <div className="bg-white rounded-xl p-5 border border-[#E5E5F0] shadow-sm flex flex-col justify-between transition-all hover:border-[#D1D1E9]">
+      <div className="bg-white rounded-2xl p-5 sm:p-6 border border-[rgba(225,29,72,0.09)] soft-card-shadow flex flex-col justify-between transition-all hover:border-[#FECDD3]">
         <div className="flex items-center justify-between">
-          <span className="text-xs font-semibold uppercase tracking-wider text-[#5B5B72]">
+          <span className="text-xs font-semibold uppercase tracking-wider text-[#57534E]">
             You are owed
           </span>
-          <div className="w-8 h-8 rounded-full bg-[#F0FDF4] flex items-center justify-center text-[#15803D]">
+          <div className="w-8 h-8 rounded-full bg-[#F0FDF4] border border-[#BBF7D0] flex items-center justify-center text-[#15803D]">
             <ArrowDownLeft className="w-4 h-4" />
           </div>
         </div>
         <div className="mt-4">
-          <p className="text-2xl sm:text-3xl font-bold tracking-tight text-[#15803D]">
+          <p className="font-display text-2xl sm:text-3xl font-black tracking-tight text-[#15803D]">
             {formatRupees(totalOwed)}
           </p>
-          <p className="text-xs text-[#5B5B72] mt-1">
+          <p className="text-xs text-[#57534E] mt-1 font-medium">
             {totalOwed === 0 ? "No pending returns" : "From group members"}
           </p>
         </div>
@@ -93,23 +93,23 @@ export function SummaryCards({
       {/* 3. Trust Score card */}
       <Link
         href="/trust-score"
-        className="block bg-white rounded-xl p-5 border border-[#E5E5F0] shadow-sm flex flex-col justify-between transition-all hover:border-[#4338CA] group"
+        className="block bg-white rounded-2xl p-5 sm:p-6 border border-[rgba(225,29,72,0.09)] soft-card-shadow flex flex-col justify-between transition-all hover:border-[#E11D48] group"
       >
         <div className="flex items-center justify-between">
-          <span className="text-xs font-semibold uppercase tracking-wider text-[#5B5B72]">
+          <span className="text-xs font-semibold uppercase tracking-wider text-[#57534E]">
             Trust Score
           </span>
-          <div className="w-8 h-8 rounded-full bg-[#F1F1FA] flex items-center justify-center text-[#2E2A7A]">
-            <Shield className="w-4 h-4" />
+          <div className="w-8 h-8 rounded-full bg-[#FFF1F2] border border-[#FECDD3] flex items-center justify-center text-[#E11D48] group-hover:scale-105 transition-transform">
+            <Shield className="w-4 h-4 text-[#E11D48]" />
           </div>
         </div>
         <div className="mt-4 flex items-baseline justify-between">
           <div className="flex items-baseline gap-2">
-            <span className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#1F1D3D]">
+            <span className="font-display text-2xl sm:text-3xl font-black tracking-tight text-[#1C1917]">
               {trustScore.score}
             </span>
             <span
-              className="text-xs font-semibold px-2 py-0.5 rounded-full border"
+              className="text-[11px] font-bold px-2.5 py-0.5 rounded-full border"
               style={{
                 backgroundColor: currentBandStyle.badgeBg,
                 color: currentBandStyle.text,
@@ -119,11 +119,11 @@ export function SummaryCards({
               {trustScore.band}
             </span>
           </div>
-          <span className="text-xs text-[#4338CA] font-medium group-hover:underline">
+          <span className="text-xs text-[#E11D48] font-bold group-hover:underline">
             View details &rarr;
           </span>
         </div>
-        <p className="text-xs text-[#5B5B72] mt-1">
+        <p className="text-xs text-[#57534E] mt-1 font-medium">
           {trustScore.confidenceNote}
         </p>
       </Link>

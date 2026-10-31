@@ -13,86 +13,86 @@ export function GroupSummaryCards({ summary }: GroupSummaryCardsProps) {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
       {/* 1. Total Expenses */}
-      <div className="bg-white rounded-xl p-5 border border-[#E5E5F0] shadow-sm flex flex-col justify-between transition-all hover:border-[#D1D1E9]">
+      <div className="bg-white rounded-2xl p-5 border border-[rgba(225,29,72,0.09)] soft-card-shadow flex flex-col justify-between transition-all hover:border-[#FECDD3]">
         <div className="flex items-center justify-between">
-          <span className="text-xs font-semibold uppercase tracking-wider text-[#5B5B72]">
+          <span className="text-xs font-semibold uppercase tracking-wider text-[#57534E]">
             Total Expenses
           </span>
-          <div className="w-8 h-8 rounded-full bg-[#F1F1FA] flex items-center justify-center text-[#2E2A7A]">
+          <div className="w-8 h-8 rounded-full bg-rose-50 border border-[#FECDD3] flex items-center justify-center text-[#E11D48]">
             <Receipt className="w-4 h-4" />
           </div>
         </div>
         <div className="mt-4">
-          <p className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#1F1D3D]">
+          <p className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#1C1917] font-display">
             {formatRupees(totalExpenses)}
           </p>
-          <p className="text-xs text-[#5B5B72] mt-1">Group cumulative total</p>
+          <p className="text-xs text-[#57534E] mt-1">Group cumulative total</p>
         </div>
       </div>
 
       {/* 2. You Owe */}
-      <div className="bg-white rounded-xl p-5 border border-[#E5E5F0] shadow-sm flex flex-col justify-between transition-all hover:border-[#D1D1E9]">
+      <div className="bg-white rounded-2xl p-5 border border-[rgba(225,29,72,0.09)] soft-card-shadow flex flex-col justify-between transition-all hover:border-[#FECDD3]">
         <div className="flex items-center justify-between">
-          <span className="text-xs font-semibold uppercase tracking-wider text-[#5B5B72]">
+          <span className="text-xs font-semibold uppercase tracking-wider text-[#57534E]">
             You Owe
           </span>
-          <div className="w-8 h-8 rounded-full bg-[#FEF2F2] flex items-center justify-center text-[#B91C1C]">
+          <div className="w-8 h-8 rounded-full bg-[#FEF2F2] border border-[#FECACA] flex items-center justify-center text-[#B91C1C]">
             <ArrowUpRight className="w-4 h-4" />
           </div>
         </div>
         <div className="mt-4">
           <p
-            className={`text-2xl sm:text-3xl font-extrabold tracking-tight ${
-              youOwe > 0 ? "text-[#B91C1C]" : "text-[#5B5B72]"
+            className={`text-2xl sm:text-3xl font-extrabold tracking-tight font-display ${
+              youOwe > 0 ? "text-[#B91C1C]" : "text-[#57534E]"
             }`}
           >
             {formatRupees(youOwe)}
           </p>
-          <p className="text-xs text-[#5B5B72] mt-1">
+          <p className="text-xs text-[#57534E] mt-1">
             {youOwe === 0 ? "All settled up" : "To group members"}
           </p>
         </div>
       </div>
 
       {/* 3. You Are Owed */}
-      <div className="bg-white rounded-xl p-5 border border-[#E5E5F0] shadow-sm flex flex-col justify-between transition-all hover:border-[#D1D1E9]">
+      <div className="bg-white rounded-2xl p-5 border border-[rgba(225,29,72,0.09)] soft-card-shadow flex flex-col justify-between transition-all hover:border-[#FECDD3]">
         <div className="flex items-center justify-between">
-          <span className="text-xs font-semibold uppercase tracking-wider text-[#5B5B72]">
+          <span className="text-xs font-semibold uppercase tracking-wider text-[#57534E]">
             You Are Owed
           </span>
-          <div className="w-8 h-8 rounded-full bg-[#F0FDF4] flex items-center justify-center text-[#15803D]">
+          <div className="w-8 h-8 rounded-full bg-[#F0FDF4] border border-[#BBF7D0] flex items-center justify-center text-[#15803D]">
             <ArrowDownLeft className="w-4 h-4" />
           </div>
         </div>
         <div className="mt-4">
           <p
-            className={`text-2xl sm:text-3xl font-extrabold tracking-tight ${
-              youAreOwed > 0 ? "text-[#15803D]" : "text-[#5B5B72]"
+            className={`text-2xl sm:text-3xl font-extrabold tracking-tight font-display ${
+              youAreOwed > 0 ? "text-[#15803D]" : "text-[#57534E]"
             }`}
           >
             {formatRupees(youAreOwed)}
           </p>
-          <p className="text-xs text-[#5B5B72] mt-1">
+          <p className="text-xs text-[#57534E] mt-1">
             {youAreOwed === 0 ? "No pending returns" : "From group members"}
           </p>
         </div>
       </div>
 
       {/* 4. Members */}
-      <div className="bg-white rounded-xl p-5 border border-[#E5E5F0] shadow-sm flex flex-col justify-between transition-all hover:border-[#D1D1E9]">
+      <div className="bg-white rounded-2xl p-5 border border-[rgba(225,29,72,0.09)] soft-card-shadow flex flex-col justify-between transition-all hover:border-[#FECDD3]">
         <div className="flex items-center justify-between">
-          <span className="text-xs font-semibold uppercase tracking-wider text-[#5B5B72]">
+          <span className="text-xs font-semibold uppercase tracking-wider text-[#57534E]">
             Members
           </span>
-          <div className="w-8 h-8 rounded-full bg-[#EEF2FF] flex items-center justify-center text-[#4338CA]">
+          <div className="w-8 h-8 rounded-full bg-[#FFF1F2] border border-[#FECDD3] flex items-center justify-center text-[#E11D48]">
             <Users className="w-4 h-4" />
           </div>
         </div>
         <div className="mt-4">
-          <p className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#1F1D3D]">
+          <p className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#1C1917] font-display">
             {memberCount}
           </p>
-          <p className="text-xs text-[#5B5B72] mt-1">
+          <p className="text-xs text-[#57534E] mt-1">
             {memberCount === 1 ? "Active participant" : "Active participants"}
           </p>
         </div>
@@ -100,4 +100,3 @@ export function GroupSummaryCards({ summary }: GroupSummaryCardsProps) {
     </div>
   );
 }
-

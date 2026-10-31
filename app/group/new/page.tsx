@@ -16,7 +16,7 @@ export default function NewGroupPage() {
 
   return (
     <ToastProvider>
-      <div className="min-h-screen bg-[#F8F9FD] flex items-center justify-center p-4">
+      <div className="min-h-screen bg-[#FCFBF7] flex items-center justify-center p-4">
         <CreateGroupModal isOpen={isOpen} onClose={handleClose} />
       </div>
     </ToastProvider>

@@ -24,11 +24,11 @@ function formatRelativeDate(iso: string): string {
 export function ScoreTimeline({ events }: ScoreTimelineProps) {
   if (events.length === 0) {
     return (
-      <div className="bg-white rounded-2xl border border-[#E5E5EF] p-6">
-        <h2 className="text-sm font-semibold text-[#1F1D3D] mb-2">
+      <div className="bg-white rounded-2xl border border-[rgba(225,29,72,0.09)] p-6 soft-card-shadow">
+        <h2 className="text-sm font-semibold text-[#1C1917] mb-2 font-display">
           Why did my score change?
         </h2>
-        <p className="text-xs text-[#5B5B72]">
+        <p className="text-xs text-[#57534E]">
           No score events yet. Events will appear here as you settle expenses.
         </p>
       </div>
@@ -41,12 +41,12 @@ export function ScoreTimeline({ events }: ScoreTimelineProps) {
   );
 
   return (
-    <div className="bg-white rounded-2xl border border-[#E5E5EF] p-4 sm:p-6">
+    <div className="bg-white rounded-2xl border border-[rgba(225,29,72,0.09)] p-4 sm:p-6 soft-card-shadow">
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-sm font-semibold text-[#1F1D3D]">
+        <h2 className="text-sm font-semibold text-[#1C1917] font-display">
           Why did my score change?
         </h2>
-        <div className="flex items-center gap-1 text-[10px] text-[#5B5B72]">
+        <div className="flex items-center gap-1 text-[10px] text-[#57534E]">
           <Info className="w-3 h-3" />
           <span>Latest {sortedEvents.length} events</span>
         </div>
@@ -54,7 +54,7 @@ export function ScoreTimeline({ events }: ScoreTimelineProps) {
 
       <div className="relative">
         {/* Vertical timeline line */}
-        <div className="absolute left-[15px] top-3 bottom-3 w-px bg-[#E5E5EF]" />
+        <div className="absolute left-[15px] top-3 bottom-3 w-px bg-stone-100" />
 
         <div className="space-y-0">
           {sortedEvents.map((event) => {
@@ -96,7 +96,7 @@ export function ScoreTimeline({ events }: ScoreTimelineProps) {
                 {/* Event info */}
                 <div className="flex-1 min-w-0 pt-0.5">
                   <div className="flex items-start justify-between gap-2">
-                    <p className="text-xs font-semibold text-[#1F1D3D] leading-tight">
+                    <p className="text-xs font-semibold text-[#1C1917] leading-tight">
                       {event.reason}
                     </p>
                     <span
@@ -107,7 +107,7 @@ export function ScoreTimeline({ events }: ScoreTimelineProps) {
                             ? "bg-[#DCFCE7] text-[#15803D]"
                             : isNegative
                             ? "bg-[#FEE2E2] text-[#B91C1C]"
-                            : "bg-[#F1F1FA] text-[#5B5B72]"
+                            : "bg-rose-50 text-[#57534E] border border-[#FECDD3]"
                         }
                       `}
                     >
@@ -120,7 +120,7 @@ export function ScoreTimeline({ events }: ScoreTimelineProps) {
                     <span>•</span>
                     <span>
                       Score after:{" "}
-                      <strong className="text-[#5B5B72]">
+                      <strong className="text-[#57534E]">
                         {event.running_total}
                       </strong>
                     </span>

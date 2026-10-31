@@ -5,33 +5,67 @@
   --font-body: var(--font-inter), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-display: var(--font-display), "Plus Jakarta Sans", system-ui, sans-serif;
   
-  --color-deep-indigo: #2E2A7A;
-  --color-indigo: #4338CA;
+  --color-rose-primary: #E11D48;
+  --color-rose-mid: #F43F5E;
+  --color-rose-deep: #BE123C;
   --color-teal: #0F766E;
-  --color-light-tint: #F1F1FA;
-  --color-brand-text: #1F1D3D;
-  --color-brand-grey: #5B5B72;
+  --color-blush: #FECDD3;
+  --color-alabaster: #FCFBF7;
+  --color-brand-text: #1C1917;
+  --color-brand-grey: #57534E;
 
   --color-score-excellent: #15803D;
   --color-score-good: #0F766E;
   --color-score-building: #B45309;
   --color-score-risky: #B91C1C;
+
+  --animate-aurora-tl: aurora-tl 50s ease-in-out infinite;
+  --animate-aurora-tr: aurora-tr 55s ease-in-out infinite;
+  --animate-aurora-bl: aurora-bl 60s ease-in-out infinite;
+  --animate-aurora-br: aurora-br 48s ease-in-out infinite;
 }
 
 :root {
-  --background: #FFFFFF;
-  --foreground: #1F1D3D;
-  --deep-indigo: #2E2A7A;
-  --indigo: #4338CA;
+  --background: #FCFBF7;
+  --foreground: #1C1917;
+  --rose-primary: #E11D48;
+  --rose-mid: #F43F5E;
+  --rose-deep: #BE123C;
   --teal: #0F766E;
-  --light-tint: #F1F1FA;
-  --brand-text: #1F1D3D;
-  --brand-grey: #5B5B72;
+  --blush: #FECDD3;
+  --brand-text: #1C1917;
+  --brand-grey: #57534E;
 
   --score-excellent: #15803D;
   --score-good: #0F766E;
   --score-building: #B45309;
   --score-risky: #B91C1C;
+}
+
+/* Aurora corner-blob keyframes for DashboardAmbientBackground */
+@keyframes aurora-tl {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(18px, 12px) scale(1.04); }
+  50% { transform: translate(-10px, 25px) scale(0.96); }
+  75% { transform: translate(22px, -8px) scale(1.02); }
+}
+@keyframes aurora-tr {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  30% { transform: translate(-20px, 15px) scale(1.03); }
+  60% { transform: translate(12px, 28px) scale(0.97); }
+  85% { transform: translate(-15px, -10px) scale(1.01); }
+}
+@keyframes aurora-bl {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  20% { transform: translate(15px, -20px) scale(1.05); }
+  55% { transform: translate(-18px, -10px) scale(0.95); }
+  80% { transform: translate(10px, 15px) scale(1.02); }
+}
+@keyframes aurora-br {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  35% { transform: translate(-22px, -12px) scale(1.03); }
+  65% { transform: translate(14px, -25px) scale(0.97); }
+  90% { transform: translate(-8px, 18px) scale(1.01); }
 }
 
 body {

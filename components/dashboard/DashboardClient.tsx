@@ -7,6 +7,7 @@ import { SummaryCards } from "@/components/dashboard/SummaryCards";
 import { PendingActionsList } from "@/components/dashboard/PendingActionsList";
 import { GroupsList } from "@/components/dashboard/GroupsList";
 import { DashboardErrorState } from "@/components/dashboard/DashboardErrorState";
+import DashboardAmbientBackground from "@/components/dashboard/DashboardAmbientBackground";
 
 interface DashboardClientProps {
   initialData: DashboardData;
@@ -31,14 +32,17 @@ export function DashboardClient({ initialData }: DashboardClientProps) {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-[#F8F9FD]">
+      <div className="min-h-screen bg-[#FCFBF7]">
         <DashboardErrorState message={error} onRetry={handleRetry} />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#F8F9FD] text-[#1F1D3D] flex flex-col font-sans">
+    <div className="min-h-screen bg-[#FCFBF7] text-[#1C1917] flex flex-col font-body relative">
+      {/* Ambient Background (Corner Aurora + Ledger Grid) */}
+      <DashboardAmbientBackground />
+
       {/* 1. Header with SplitScore brand, user name/avatar and link to My Trust Score */}
       <DashboardHeader user={data.user} />
 
@@ -46,7 +50,7 @@ export function DashboardClient({ initialData }: DashboardClientProps) {
       <main className="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-8">
         {/* Subtle refreshing indicator if background fetch is active */}
         {isPending && (
-          <div className="mb-4 text-xs font-semibold text-[#4338CA] bg-[#EEF2FF] px-3 py-1.5 rounded-md inline-block animate-pulse">
+          <div className="mb-4 text-xs font-semibold text-[#BE123C] bg-[#FFF1F2] border border-[#FECDD3] px-3.5 py-1.5 rounded-xl inline-block animate-pulse">
             Updating dashboard data...
           </div>
         )}

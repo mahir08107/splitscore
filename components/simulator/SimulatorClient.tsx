@@ -143,8 +143,8 @@ const SCENARIOS: ScenarioConfig[] = [
   {
     key: "velocity_spam",
     badge: "WEEKLY GROWTH CAP",
-    badgeBg: "#EEF2FF",
-    badgeColor: "#4338CA",
+    badgeBg: "#FFF1F2",
+    badgeColor: "#E11D48",
     title: "Velocity Spamming",
     description:
       "User triggers 20 legitimate ₹500 payments to 20 different people in a single afternoon.",
@@ -400,12 +400,12 @@ export function SimulatorClient() {
       {/* ─── SECTION TITLE ─── */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <Zap className="w-4 h-4 text-[#4338CA] fill-[#4338CA]" />
-          <h2 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#1F1D3D]">
+          <Zap className="w-4 h-4 text-[#E11D48] fill-[#E11D48]" />
+          <h2 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#1C1917] font-display">
             CHOOSE ANTI-GAMING SCENARIO TO TEST
           </h2>
         </div>
-        <span className="text-xs text-[#5B5B72] hidden sm:inline">
+        <span className="text-xs text-[#57534E] hidden sm:inline">
           Interactive scoring engine sandbox
         </span>
       </div>
@@ -423,8 +423,8 @@ export function SimulatorClient() {
                 cursor-pointer rounded-2xl p-5 bg-white border transition-all duration-200 flex flex-col justify-between text-left
                 ${
                   isActive
-                    ? "border-[#2E2A7A] ring-2 ring-[#2E2A7A] shadow-md"
-                    : "border-[#E5E5EF] hover:border-[#D1D1DF] hover:shadow-sm"
+                    ? "border-[#E11D48] ring-2 ring-[#E11D48] shadow-md"
+                    : "border-[rgba(225,29,72,0.09)] hover:border-[#FECDD3] hover:shadow-sm"
                 }
               `}
             >
@@ -442,7 +442,7 @@ export function SimulatorClient() {
                   </span>
 
                   {isActive && (
-                    <span className="flex items-center gap-1 text-[11px] font-bold text-[#2E2A7A]">
+                    <span className="flex items-center gap-1 text-[11px] font-bold text-[#E11D48]">
                       <Play className="w-3 h-3 fill-current" />
                       Active
                     </span>
@@ -450,22 +450,22 @@ export function SimulatorClient() {
                 </div>
 
                 {/* Title */}
-                <h3 className="text-base font-bold text-[#1F1D3D] leading-snug mb-1">
+                <h3 className="text-base font-bold text-[#1C1917] leading-snug mb-1 font-display">
                   {scenario.title}
                 </h3>
 
                 {/* Description */}
-                <p className="text-xs text-[#5B5B72] leading-relaxed line-clamp-3">
+                <p className="text-xs text-[#57534E] leading-relaxed line-clamp-3">
                   {scenario.description}
                 </p>
               </div>
 
               {/* Card Footer: Event count + Run Test link */}
-              <div className="mt-4 pt-3 border-t border-[#E5E5EF] flex items-center justify-between text-xs">
-                <span className="text-[#5B5B72] font-medium">
+              <div className="mt-4 pt-3 border-t border-[rgba(225,29,72,0.06)] flex items-center justify-between text-xs">
+                <span className="text-[#57534E] font-medium">
                   {scenario.eventCountText}
                 </span>
-                <span className="font-semibold text-[#4338CA] flex items-center gap-0.5 hover:underline">
+                <span className="font-semibold text-[#E11D48] flex items-center gap-0.5 hover:underline">
                   Run Test <span className="text-sm">→</span>
                 </span>
               </div>
@@ -475,7 +475,7 @@ export function SimulatorClient() {
       </div>
 
       {/* ─── SCENARIO RUNNING STATUS BANNER ─── */}
-      <div className="bg-white rounded-2xl border border-[#E5E5EF] p-4 sm:p-5 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <div className="bg-white rounded-2xl border border-[rgba(225,29,72,0.09)] p-4 sm:p-5 soft-card-shadow flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
           <div className="flex items-center gap-2">
             <span
@@ -483,18 +483,18 @@ export function SimulatorClient() {
                 isStreaming ? "bg-[#22C55E] animate-ping" : "bg-[#22C55E]"
               }`}
             />
-            <span className="text-xs font-bold uppercase tracking-wider text-[#2E2A7A]">
+            <span className="text-xs font-bold uppercase tracking-wider text-[#BE123C]">
               SCENARIO RUNNING: {activeScenario.title.toUpperCase()}
             </span>
             {isStreaming && (
-              <span className="text-[10px] bg-[#EEF2FF] text-[#4338CA] px-2 py-0.5 rounded-full font-bold animate-pulse">
+              <span className="text-[10px] bg-rose-50 text-[#E11D48] px-2 py-0.5 rounded-full font-bold animate-pulse border border-[#FECDD3]">
                 STREAMING LINE-BY-LINE (300ms)...
               </span>
             )}
           </div>
-          <p className="text-xs text-[#5B5B72] mt-1">
+          <p className="text-xs text-[#57534E] mt-1">
             {activeScenario.description} •{" "}
-            <span className="font-medium text-[#1F1D3D]">
+            <span className="font-medium text-[#1C1917]">
               Tests: {activeScenario.rulesTested}
             </span>
           </p>
@@ -502,7 +502,7 @@ export function SimulatorClient() {
 
         <button
           onClick={() => handleSelectScenario("legitimate_baseline")}
-          className="inline-flex items-center gap-1.5 text-xs font-semibold px-4 py-2 rounded-xl border border-[#E5E5EF] bg-white hover:bg-[#F8F8FC] text-[#5B5B72] hover:text-[#1F1D3D] transition-colors self-start sm:self-auto shrink-0 shadow-sm"
+          className="inline-flex items-center gap-1.5 text-xs font-semibold px-4 py-2 rounded-xl border border-[rgba(225,29,72,0.09)] bg-white hover:bg-[#FCFBF7] text-[#57534E] hover:text-[#1C1917] transition-colors self-start sm:self-auto shrink-0 shadow-sm"
         >
           <RotateCcw className="w-3.5 h-3.5" />
           <span>Reset to Baseline</span>
@@ -624,10 +624,10 @@ export function SimulatorClient() {
         </div>
 
         {/* Right: Large Live "Current Score" Dial (4 cols on lg) */}
-        <div className="lg:col-span-4 bg-white rounded-2xl border border-[#E5E5EF] p-6 shadow-sm flex flex-col justify-between items-center text-center">
+        <div className="lg:col-span-4 bg-white rounded-2xl border border-[rgba(225,29,72,0.09)] p-6 soft-card-shadow flex flex-col justify-between items-center text-center">
           <div className="w-full">
             <div className="flex items-center justify-between mb-4">
-              <span className="text-xs font-bold uppercase tracking-wider text-[#5B5B72]">
+              <span className="text-xs font-bold uppercase tracking-wider text-[#57534E]">
                 Current Trust Score
               </span>
               <span
@@ -650,7 +650,7 @@ export function SimulatorClient() {
                   cy="80"
                   r="66"
                   fill="none"
-                  stroke="#F1F1FA"
+                  stroke="#FFF1F2"
                   strokeWidth="12"
                 />
                 <circle
@@ -670,12 +670,12 @@ export function SimulatorClient() {
 
               <div className="absolute inset-0 flex flex-col items-center justify-center">
                 <span
-                  className="text-5xl sm:text-6xl font-extrabold tracking-tight transition-all duration-300"
+                  className="text-5xl sm:text-6xl font-extrabold tracking-tight transition-all duration-300 font-display"
                   style={{ color: bandStyle.text }}
                 >
                   {currentScore}
                 </span>
-                <span className="text-[10px] font-medium text-[#5B5B72] uppercase tracking-wider mt-1">
+                <span className="text-[10px] font-medium text-[#57534E] uppercase tracking-wider mt-1">
                   out of 900
                 </span>
               </div>
@@ -683,14 +683,14 @@ export function SimulatorClient() {
 
             {/* Delta Box */}
             <div className="mt-3 flex items-center justify-center gap-2">
-              <span className="text-xs text-[#5B5B72]">Total Delta:</span>
+              <span className="text-xs text-[#57534E]">Total Delta:</span>
               <span
                 className={`text-sm font-bold px-2 py-0.5 rounded-lg ${
                   delta > 0
                     ? "bg-[#DCFCE7] text-[#15803D]"
                     : delta < 0
                     ? "bg-[#FEE2E2] text-[#B91C1C]"
-                    : "bg-[#F1F1FA] text-[#5B5B72]"
+                    : "bg-rose-50 text-[#57534E] border border-[#FECDD3]"
                 }`}
               >
                 {delta > 0 ? `+${delta}` : delta} pts
@@ -699,12 +699,12 @@ export function SimulatorClient() {
           </div>
 
           {/* Mathematical Proof Box */}
-          <div className="w-full mt-6 pt-4 border-t border-[#E5E5EF] text-left text-xs space-y-1.5 text-[#5B5B72]">
-            <div className="flex items-center gap-1.5 text-[#1F1D3D] font-bold text-xs mb-1">
+          <div className="w-full mt-6 pt-4 border-t border-[rgba(225,29,72,0.06)] text-left text-xs space-y-1.5 text-[#57534E]">
+            <div className="flex items-center gap-1.5 text-[#1C1917] font-bold text-xs mb-1">
               <ShieldCheck className="w-4 h-4 text-[#0F766E]" />
               <span>Un-Gameable Math Rules</span>
             </div>
-            <ul className="text-[10px] space-y-1 text-[#5B5B72] list-disc list-inside">
+            <ul className="text-[10px] space-y-1 text-[#57534E] list-disc list-inside">
               <li>Minimum Amount: &lt; ₹50 gives 0 points</li>
               <li>Asymmetric Penalty: -(days_late × amount / 100)</li>
               <li>Diversity: 5 / (1 + previous_transactions)</li>

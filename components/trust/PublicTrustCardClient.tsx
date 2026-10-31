@@ -127,7 +127,7 @@ export function PublicTrustCardClient({ data }: PublicTrustCardClientProps) {
         </div>
         <Link
           href="/how-scoring-works"
-          className="text-xs text-[#4338CA] hover:underline font-medium"
+          className="text-xs text-[#E11D48] hover:underline font-medium"
         >
           How Scoring Works
         </Link>
@@ -139,7 +139,7 @@ export function PublicTrustCardClient({ data }: PublicTrustCardClientProps) {
           className="relative rounded-3xl p-6 sm:p-7 text-white shadow-2xl transition-all duration-300 overflow-hidden"
           style={{
             background:
-              "linear-gradient(135deg, #1F1D3D 0%, #2E2A7A 50%, #151330 100%)",
+              "linear-gradient(135deg, #1C1917 0%, #BE123C 50%, #1C1917 100%)",
             boxShadow: `0 20px 40px -15px ${band.glowColor}, 0 10px 20px -10px rgba(0,0,0,0.3)`,
             border: "1px solid rgba(255, 255, 255, 0.15)",
           }}
@@ -154,7 +154,7 @@ export function PublicTrustCardClient({ data }: PublicTrustCardClientProps) {
           {/* Card Top Row: Brand & Verified Button */}
           <div className="flex items-center justify-between mb-6 relative z-10">
             <div className="flex items-center gap-2">
-              <span className="w-8 h-8 rounded-xl bg-white text-[#2E2A7A] flex items-center justify-center font-extrabold text-base shadow-sm">
+              <span className="w-8 h-8 rounded-xl bg-white text-[#BE123C] flex items-center justify-center font-extrabold text-base shadow-sm">
                 S
               </span>
               <div>
@@ -199,7 +199,7 @@ export function PublicTrustCardClient({ data }: PublicTrustCardClientProps) {
               <p className="text-[10px] tracking-wider uppercase text-white/60 font-medium">
                 Cardholder
               </p>
-              <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-white leading-tight">
+              <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-white leading-tight font-display">
                 {data.userName}
               </h2>
               <p className="text-xs text-white/70 mt-0.5">
@@ -216,7 +216,7 @@ export function PublicTrustCardClient({ data }: PublicTrustCardClientProps) {
               }}
             >
               <span
-                className="text-3xl sm:text-4xl font-extrabold tracking-tight leading-none"
+                className="text-3xl sm:text-4xl font-extrabold tracking-tight leading-none font-display"
                 style={{ color: "#FFFFFF" }}
               >
                 {data.score}
@@ -263,16 +263,16 @@ export function PublicTrustCardClient({ data }: PublicTrustCardClientProps) {
       </div>
 
       {/* ─── QR CODE & SHARING SECTION ─── */}
-      <div className="w-full max-w-md bg-white rounded-2xl border border-[#E5E5EF] p-6 shadow-sm flex flex-col items-center text-center">
-        <h3 className="text-base font-bold text-[#1F1D3D] mb-1">
+      <div className="w-full max-w-md bg-white rounded-2xl border border-[rgba(225,29,72,0.09)] p-6 soft-card-shadow flex flex-col items-center text-center">
+        <h3 className="text-base font-bold text-[#1C1917] mb-1 font-display">
           Scan to Verify In Person
         </h3>
-        <p className="text-xs text-[#5B5B72] mb-5 max-w-xs">
+        <p className="text-xs text-[#57534E] mb-5 max-w-xs">
           Show this QR code to new group members or roommates to instantly verify your repayment track record.
         </p>
 
         {/* QR Code Container */}
-        <div className="p-4 bg-white rounded-2xl border-2 border-[#E5E5EF] shadow-inner mb-5">
+        <div className="p-4 bg-white rounded-2xl border-2 border-[rgba(225,29,72,0.09)] shadow-inner mb-5">
           <QRCode
             value={cardUrl}
             size={180}
@@ -286,7 +286,7 @@ export function PublicTrustCardClient({ data }: PublicTrustCardClientProps) {
         <div className="w-full flex flex-col sm:flex-row gap-3">
           <button
             onClick={handleCopyLink}
-            className="flex-1 min-h-[44px] inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold text-[#2E2A7A] bg-[#F1F1FA] hover:bg-[#E5E5EF] transition-all border border-[#E5E5EF] active:scale-[0.98]"
+            className="flex-1 min-h-[44px] inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold text-[#BE123C] bg-rose-50 hover:bg-[#FECDD3] transition-all border border-[#FECDD3] active:scale-[0.98]"
           >
             {copied ? (
               <>
@@ -295,7 +295,7 @@ export function PublicTrustCardClient({ data }: PublicTrustCardClientProps) {
               </>
             ) : (
               <>
-                <Copy className="w-4 h-4 text-[#2E2A7A]" />
+                <Copy className="w-4 h-4 text-[#BE123C]" />
                 <span>Copy Card Link</span>
               </>
             )}
@@ -303,7 +303,7 @@ export function PublicTrustCardClient({ data }: PublicTrustCardClientProps) {
 
           <button
             onClick={handleShare}
-            className="flex-1 min-h-[44px] inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold text-white bg-[#4338CA] hover:bg-[#2E2A7A] transition-all shadow-sm active:scale-[0.98]"
+            className="flex-1 min-h-[44px] inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-[#E11D48] to-[#BE123C] hover:shadow-lg hover:shadow-[#E11D48]/25 transition-all active:scale-[0.98] active:scale-95"
           >
             <Share2 className="w-4 h-4" />
             <span>Share Card</span>
@@ -311,7 +311,7 @@ export function PublicTrustCardClient({ data }: PublicTrustCardClientProps) {
         </div>
 
         {/* Cryptographic Assurance Note */}
-        <div className="mt-5 pt-4 border-t border-[#E5E5EF] w-full flex items-center justify-center gap-1.5 text-[11px] text-[#5B5B72]">
+        <div className="mt-5 pt-4 border-t border-[rgba(225,29,72,0.06)] w-full flex items-center justify-center gap-1.5 text-[11px] text-[#57534E]">
           <ShieldCheck className="w-3.5 h-3.5 text-[#0F766E]" />
           <span>
             Cryptographically signed by SplitScore • Valid for 30 days

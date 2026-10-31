@@ -56,11 +56,11 @@ export function ScoreHistoryChart({ events, band }: ScoreHistoryChartProps) {
 
   if (chartData.length === 0) {
     return (
-      <div className="bg-white rounded-2xl border border-[#E5E5EF] p-6">
-        <h2 className="text-sm font-semibold text-[#1F1D3D] mb-2">
+      <div className="bg-white rounded-2xl border border-[rgba(225,29,72,0.09)] p-6 soft-card-shadow">
+        <h2 className="text-sm font-semibold text-[#1C1917] mb-2 font-display">
           Score History
         </h2>
-        <p className="text-xs text-[#5B5B72]">
+        <p className="text-xs text-[#57534E]">
           No score events yet. Your chart will appear here once you settle your first expense.
         </p>
       </div>
@@ -72,12 +72,12 @@ export function ScoreHistoryChart({ events, band }: ScoreHistoryChartProps) {
   const maxScore = Math.min(900, Math.max(...scores) + 30);
 
   return (
-    <div className="bg-white rounded-2xl border border-[#E5E5EF] p-4 sm:p-6">
+    <div className="bg-white rounded-2xl border border-[rgba(225,29,72,0.09)] p-4 sm:p-6 soft-card-shadow">
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-sm font-semibold text-[#1F1D3D]">
+        <h2 className="text-sm font-semibold text-[#1C1917] font-display">
           Score History
         </h2>
-        <span className="text-[10px] text-[#5B5B72] bg-[#F1F1FA] px-2 py-0.5 rounded-full">
+        <span className="text-[10px] text-[#57534E] bg-rose-50 text-[#BE123C] px-2 py-0.5 rounded-full border border-[#FECDD3]">
           {chartData.length} events
         </span>
       </div>
@@ -105,7 +105,7 @@ export function ScoreHistoryChart({ events, band }: ScoreHistoryChartProps) {
               </defs>
               <CartesianGrid
                 strokeDasharray="3 3"
-                stroke="#E5E5EF"
+                stroke="rgba(225,29,72,0.09)"
                 vertical={false}
               />
               <XAxis
@@ -125,7 +125,7 @@ export function ScoreHistoryChart({ events, band }: ScoreHistoryChartProps) {
               <Tooltip
                 contentStyle={{
                   borderRadius: "8px",
-                  border: "1px solid #E5E5EF",
+                  border: "1px solid rgba(225,29,72,0.09)",
                   boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
                   fontSize: "12px",
                   padding: "8px 12px",
@@ -155,7 +155,7 @@ export function ScoreHistoryChart({ events, band }: ScoreHistoryChartProps) {
             </AreaChart>
           </ResponsiveContainer>
         ) : (
-          <div className="w-full h-full flex items-center justify-center text-xs text-[#5B5B72]">
+          <div className="w-full h-full flex items-center justify-center text-xs text-[#57534E]">
             Loading chart...
           </div>
         )}

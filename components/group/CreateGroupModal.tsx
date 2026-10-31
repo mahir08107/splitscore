@@ -87,26 +87,26 @@ export function CreateGroupModal({
       onClick={onClose}
     >
       <div
-        className="bg-white w-full max-w-md rounded-2xl border border-[#E5E5F0] shadow-xl p-6 sm:p-7 relative"
+        className="bg-white w-full max-w-md rounded-2xl border border-[rgba(225,29,72,0.09)] shadow-xl p-6 sm:p-7 relative"
         onClick={(e) => e.stopPropagation()}
       >
         <button
           onClick={onClose}
-          className="absolute top-5 right-5 p-2 rounded-lg text-[#5B5B72] hover:text-[#1F1D3D] hover:bg-[#F1F1FA] transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
+          className="absolute top-5 right-5 p-2 rounded-lg text-[#57534E] hover:text-[#1C1917] hover:bg-rose-50 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
           aria-label="Close modal"
         >
           <X className="w-5 h-5" />
         </button>
 
         <div className="flex items-center gap-3 mb-5">
-          <div className="w-10 h-10 rounded-xl bg-[#2E2A7A] text-white flex items-center justify-center shrink-0">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-[#E11D48] to-[#BE123C] text-white flex items-center justify-center shrink-0">
             <Plus className="w-5 h-5" />
           </div>
           <div>
-            <h2 id="create-group-title" className="text-xl font-bold text-[#1F1D3D]">
+            <h2 id="create-group-title" className="text-xl font-bold font-display text-[#1C1917]">
               Create New Group
             </h2>
-            <p className="text-xs text-[#5B5B72]">
+            <p className="text-xs text-[#57534E]">
               Set up a group to track and split shared expenses
             </p>
           </div>
@@ -114,7 +114,7 @@ export function CreateGroupModal({
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="text-xs font-bold uppercase tracking-wider text-[#5B5B72] block mb-1">
+            <label className="text-xs font-bold uppercase tracking-wider text-[#57534E] block mb-1">
               Group Name <span className="text-[#B91C1C]">*</span>
             </label>
             <input
@@ -123,12 +123,12 @@ export function CreateGroupModal({
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
-              className="w-full px-3.5 min-h-[44px] rounded-lg border border-[#E5E5F0] bg-white text-sm text-[#1F1D3D] placeholder:text-[#5B5B72]/60 focus:outline-none focus:border-[#4338CA] focus:ring-1 focus:ring-[#4338CA]"
+              className="w-full px-3.5 min-h-[44px] rounded-lg border border-[rgba(225,29,72,0.09)] bg-white text-sm text-[#1C1917] placeholder:text-[#57534E]/60 focus:outline-none focus:border-[#E11D48] focus:ring-1 focus:ring-[#E11D48]"
             />
           </div>
 
           <div>
-            <label className="text-xs font-bold uppercase tracking-wider text-[#5B5B72] block mb-1">
+            <label className="text-xs font-bold uppercase tracking-wider text-[#57534E] block mb-1">
               Group Type
             </label>
             <div className="grid grid-cols-3 gap-2">
@@ -137,8 +137,8 @@ export function CreateGroupModal({
                 onClick={() => setType("trip")}
                 className={`p-3 rounded-xl border text-center transition-all flex flex-col items-center justify-center gap-1.5 min-h-[64px] ${
                   type === "trip"
-                    ? "bg-[#EEF2FF] border-[#4338CA] text-[#4338CA] font-bold"
-                    : "bg-white border-[#E5E5F0] text-[#5B5B72] hover:bg-[#F8F9FD]"
+                    ? "bg-[#FFF1F2] border-[#E11D48] text-[#E11D48] font-bold"
+                    : "bg-white border-[rgba(225,29,72,0.09)] text-[#57534E] hover:bg-[#FCFBF7]"
                 }`}
               >
                 <Compass className="w-4 h-4" />
@@ -151,7 +151,7 @@ export function CreateGroupModal({
                 className={`p-3 rounded-xl border text-center transition-all flex flex-col items-center justify-center gap-1.5 min-h-[64px] ${
                   type === "mess"
                     ? "bg-[#F0FDFA] border-[#0F766E] text-[#0F766E] font-bold"
-                    : "bg-white border-[#E5E5F0] text-[#5B5B72] hover:bg-[#F8F9FD]"
+                    : "bg-white border-[rgba(225,29,72,0.09)] text-[#57534E] hover:bg-[#FCFBF7]"
                 }`}
               >
                 <Utensils className="w-4 h-4" />
@@ -164,7 +164,7 @@ export function CreateGroupModal({
                 className={`p-3 rounded-xl border text-center transition-all flex flex-col items-center justify-center gap-1.5 min-h-[64px] ${
                   type === "event"
                     ? "bg-[#FFFBEB] border-[#B45309] text-[#B45309] font-bold"
-                    : "bg-white border-[#E5E5F0] text-[#5B5B72] hover:bg-[#F8F9FD]"
+                    : "bg-white border-[rgba(225,29,72,0.09)] text-[#57534E] hover:bg-[#FCFBF7]"
                 }`}
               >
                 <CalendarDays className="w-4 h-4" />
@@ -174,7 +174,7 @@ export function CreateGroupModal({
           </div>
 
           <div>
-            <label className="text-xs font-bold uppercase tracking-wider text-[#5B5B72] block mb-1">
+            <label className="text-xs font-bold uppercase tracking-wider text-[#57534E] block mb-1">
               Description (Optional)
             </label>
             <textarea
@@ -182,7 +182,7 @@ export function CreateGroupModal({
               onChange={(e) => setDescription(e.target.value)}
               rows={2}
               placeholder="Add details, itinerary, or mess rules..."
-              className="w-full p-3 rounded-lg border border-[#E5E5F0] bg-white text-sm text-[#1F1D3D] placeholder:text-[#5B5B72]/60 focus:outline-none focus:border-[#4338CA] focus:ring-1 focus:ring-[#4338CA]"
+              className="w-full p-3 rounded-lg border border-[rgba(225,29,72,0.09)] bg-white text-sm text-[#1C1917] placeholder:text-[#57534E]/60 focus:outline-none focus:border-[#E11D48] focus:ring-1 focus:ring-[#E11D48]"
             />
           </div>
 
@@ -191,14 +191,14 @@ export function CreateGroupModal({
               type="button"
               onClick={onClose}
               disabled={loading}
-              className="min-h-[44px] px-4 rounded-lg border border-[#E5E5F0] text-xs font-semibold text-[#5B5B72] hover:bg-[#F8F9FD] transition-colors"
+              className="min-h-[44px] px-4 rounded-lg border border-[rgba(225,29,72,0.09)] text-xs font-semibold text-[#57534E] hover:bg-[#FCFBF7] transition-colors"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={loading}
-              className="min-h-[44px] px-6 rounded-lg bg-[#2E2A7A] hover:bg-[#252263] text-white font-semibold text-xs uppercase tracking-wide transition-colors shadow-sm disabled:opacity-60"
+              className="min-h-[44px] px-6 rounded-lg bg-gradient-to-r from-[#E11D48] to-[#BE123C] hover:shadow-lg hover:shadow-[#E11D48]/25 text-white font-semibold text-xs uppercase tracking-wide transition-all shadow-sm disabled:opacity-60 active:scale-95"
             >
               {loading ? "Creating..." : "Create Group"}
             </button>

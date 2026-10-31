@@ -2,7 +2,7 @@ import { Header } from "@/components/layout/Header";
 
 export default function TrustScoreLoading() {
   return (
-    <div className="min-h-screen bg-[#F1F1FA] flex flex-col animate-pulse">
+    <div className="min-h-screen bg-[#FCFBF7] flex flex-col animate-pulse">
       <Header showBackToHome={true} />
 
       <main className="flex-1 max-w-2xl w-full mx-auto px-4 py-5 sm:px-6 sm:py-8 space-y-5">
@@ -13,7 +13,7 @@ export default function TrustScoreLoading() {
         </div>
 
         {/* Hero Card Skeleton */}
-        <div className="h-56 bg-white rounded-2xl border border-[#E5E5EF] p-6 flex flex-col justify-between">
+        <div className="h-56 bg-white rounded-2xl border border-[rgba(225,29,72,0.09)] p-6 flex flex-col justify-between">
           <div className="flex justify-between">
             <div className="w-24 h-5 bg-gray-200 rounded" />
             <div className="w-20 h-5 bg-gray-200 rounded-full" />
@@ -30,7 +30,7 @@ export default function TrustScoreLoading() {
         </div>
 
         {/* Chart Skeleton */}
-        <div className="h-56 bg-white rounded-2xl border border-[#E5E5EF] p-5">
+        <div className="h-56 bg-white rounded-2xl border border-[rgba(225,29,72,0.09)] p-5">
           <div className="w-28 h-5 bg-gray-200 rounded mb-4" />
           <div className="w-full h-36 bg-gray-100 rounded-xl" />
         </div>
@@ -40,7 +40,7 @@ export default function TrustScoreLoading() {
           {Array.from({ length: 5 }).map((_, i) => (
             <div
               key={i}
-              className="h-24 bg-white rounded-xl border border-[#E5E5EF] p-4 flex flex-col justify-between"
+              className="h-24 bg-white rounded-xl border border-[rgba(225,29,72,0.09)] p-4 flex flex-col justify-between"
             >
               <div className="w-16 h-3 bg-gray-200 rounded" />
               <div className="w-12 h-6 bg-gray-200 rounded" />

@@ -87,15 +87,15 @@ export function LoginForm() {
   };
 
   return (
-    <div className="bg-white rounded-2xl border border-[#E5E5EF] p-6 sm:p-8 shadow-sm">
+    <div className="bg-white rounded-2xl border border-[rgba(225,29,72,0.09)] p-6 sm:p-8 shadow-sm">
       <div className="text-center mb-6">
-        <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-[#2E2A7A] text-white font-bold text-xl mb-4">
+        <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-r from-[#E11D48] to-[#BE123C] text-white font-bold text-xl mb-4">
           S
         </div>
-        <h1 className="text-2xl font-bold tracking-tight text-[#2E2A7A]">
+        <h1 className="text-2xl font-bold tracking-tight text-[#BE123C]">
           SplitScore
         </h1>
-        <p className="text-sm text-[#5B5B72] mt-1">
+        <p className="text-sm text-[#57534E] mt-1">
           Split fair. Score fair.
         </p>
       </div>
@@ -127,7 +127,7 @@ export function LoginForm() {
           type="button"
           onClick={handleGoogleLogin}
           disabled={loadingGoogle || loadingDemo}
-          className="w-full min-h-[48px] px-4 py-2.5 rounded-xl border border-[#D1D1DF] bg-white hover:bg-slate-50 text-[#1F1D3D] font-medium text-sm sm:text-base flex items-center justify-center gap-3 transition-colors disabled:opacity-60 disabled:cursor-not-allowed focus:outline-none focus-visible:ring-2 focus-visible:ring-[#4338CA]"
+          className="w-full min-h-[48px] px-4 py-2.5 rounded-xl border border-[#D1D1DF] bg-white hover:bg-slate-50 text-[#1C1917] font-medium text-sm sm:text-base flex items-center justify-center gap-3 transition-colors disabled:opacity-60 disabled:cursor-not-allowed focus:outline-none focus-visible:ring-2 focus-visible:ring-[#E11D48]"
         >
           {loadingGoogle ? (
             <span>Connecting to Google...</span>
@@ -157,8 +157,8 @@ export function LoginForm() {
         </button>
 
         <div className="relative py-2 flex items-center justify-center">
-          <div className="w-full border-t border-[#E5E5EF]"></div>
-          <span className="absolute bg-white px-3 text-xs uppercase tracking-wider text-[#5B5B72]">
+          <div className="w-full border-t border-[rgba(225,29,72,0.09)]"></div>
+          <span className="absolute bg-white px-3 text-xs uppercase tracking-wider text-[#57534E]">
             or
           </span>
         </div>
@@ -166,13 +166,13 @@ export function LoginForm() {
         <a
           href="/api/demo"
           onClick={handleTryDemo}
-          className="w-full min-h-[48px] px-4 py-2.5 rounded-xl bg-[#F1F1FA] hover:bg-[#E5E5F5] text-[#2E2A7A] font-semibold text-sm sm:text-base border border-[#E0E0F0] flex items-center justify-center transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#4338CA]"
+          className="w-full min-h-[48px] px-4 py-2.5 rounded-xl bg-[#FCFBF7] hover:bg-[#E5E5F5] text-[#BE123C] font-semibold text-sm sm:text-base border border-[#E0E0F0] flex items-center justify-center transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#E11D48]"
         >
           {loadingDemo ? "Opening Demo..." : "Try Demo"}
         </a>
       </div>
 
-      <p className="text-center text-xs text-[#5B5B72] mt-6 leading-relaxed">
+      <p className="text-center text-xs text-[#57534E] mt-6 leading-relaxed">
         By continuing, you agree to fair expense sharing and transparent reputation scoring.
       </p>
     </div>
