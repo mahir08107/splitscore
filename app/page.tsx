@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import GhostFibersHeroBackground from "@/components/hero/GhostFibersHeroBackground";
 
 export default function LandingPage() {
   const [loadingDemo, setLoadingDemo] = useState(false);
@@ -99,7 +100,10 @@ export default function LandingPage() {
           <div className="absolute top-10 left-1/4 w-[500px] h-[500px] bg-[#FECDD3]/25 rounded-full blur-[140px] pointer-events-none -z-10" />
           <div className="absolute bottom-0 right-10 w-[600px] h-[600px] bg-[#FFE4E6]/40 rounded-full blur-[160px] pointer-events-none -z-10" />
 
-          <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
+          {/* WebGL Ambient Background Layer (GhostFibers) */}
+          <GhostFibersHeroBackground />
+
+          <div className="relative z-10 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
             {/* LEFT COLUMN: High-impact typography, clamp header, badges, avatars, and dual CTAs */}
             <div className="lg:col-span-6 flex flex-col items-start gap-6">
               {/* Editorial Pill Tag */}
