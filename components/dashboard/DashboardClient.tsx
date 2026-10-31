@@ -10,13 +10,6 @@ import { PendingActionsList } from "@/components/dashboard/PendingActionsList";
 import { GroupsList } from "@/components/dashboard/GroupsList";
 import { DashboardErrorState } from "@/components/dashboard/DashboardErrorState";
 import { Camera } from "lucide-react";
-import dynamic from "next/dynamic";
-import type { LightfallProps } from "@/components/ui/Lightfall";
-
-const Lightfall = dynamic<LightfallProps>(
-  () => import("@/components/ui/Lightfall"),
-  { ssr: false }
-);
 
 interface DashboardClientProps {
   initialData: DashboardData;
@@ -45,39 +38,6 @@ export function DashboardClient({ initialData }: DashboardClientProps) {
 
   return (
     <div className="min-h-screen bg-[#FCFBF7] text-[#1C1917] flex flex-col font-body relative overflow-hidden">
-      {/* Dashboard Ambient Lightfall Layer */}
-      <div
-        className="pointer-events-none fixed inset-0 -z-10 overflow-hidden flex items-center justify-center"
-        aria-hidden="true"
-      >
-        <div style={{ width: "100%", height: "600px", position: "relative" }}>
-          <Lightfall
-            colors={["#f43f5e"]}
-            backgroundColor="#ffffff"
-            speed={0.3}
-            streakCount={2}
-            streakWidth={0.8}
-            twinkle={0.3}
-            backgroundGlow={0.1}
-            headGlow={0.6}
-            bloom={0.35}
-            mouseInteraction
-            holdToWarp
-            intro
-            streakLength={1}
-            density={0.6}
-            glow={1}
-            depth={0.5}
-            zoom={3}
-            mouseStrength={0.4}
-            mouseRadius={0.45}
-            lens={0.5}
-            fade={0}
-            lightMode={false}
-          />
-        </div>
-      </div>
-
       {/* 1. Header with SplitScore brand, user name/avatar and link to My Trust Score */}
       <DashboardHeader user={data.user} />
 
@@ -85,7 +45,7 @@ export function DashboardClient({ initialData }: DashboardClientProps) {
       <main className="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-8">
         {/* Subtle refreshing indicator if background fetch is active */}
         {isPending && (
-          <div className="mb-4 text-xs font-semibold text-[#BE123C] bg-[#FFF1F2] border border-[#FECDD3] px-3.5 py-1.5 rounded-xl inline-block animate-pulse">
+          <div className="mb-4 inline-block rounded-md border border-[#5BC5A7]/30 bg-[#5BC5A7]/10 px-3.5 py-1.5 text-xs font-semibold text-[#5BC5A7] animate-pulse">
             Updating dashboard data...
           </div>
         )}
@@ -94,7 +54,7 @@ export function DashboardClient({ initialData }: DashboardClientProps) {
         <div className="mb-5">
           <Link
             href="/receipt/new"
-            className="inline-flex items-center gap-2.5 px-5 py-3 rounded-xl bg-gradient-to-r from-[#2E2A7A] to-[#4338CA] text-white text-sm font-semibold shadow-sm hover:shadow-md hover:from-[#23205E] hover:to-[#3730A3] transition-all"
+            className="inline-flex items-center gap-2.5 rounded-md border border-[#5BC5A7]/70 bg-[#5BC5A7] px-5 py-3 text-sm font-bold text-black transition-all hover:bg-[#79D9BD] active:scale-95"
           >
             <Camera className="w-4.5 h-4.5" />
             Scan a Bill
@@ -107,6 +67,14 @@ export function DashboardClient({ initialData }: DashboardClientProps) {
           totalOwed={data.totalOwed}
           trustScore={data.trustScore}
         />
+
+        <section className="mt-5 flex flex-col gap-3 rounded-xl border border-[#5BC5A7]/25 bg-[#0D1117] p-4 sm:flex-row sm:items-center sm:justify-between sm:px-5">
+          <div className="flex items-start gap-3">
+            <span className="mt-1 h-2 w-2 shrink-0 rounded-full bg-[#5BC5A7] shadow-[0_0_10px_rgba(91,197,167,0.8)]" />
+            <div><h2 className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#5BC5A7]">Global netting · in development</h2><p className="mt-1 text-xs leading-5 text-gray-400">Cross-group debt optimization is being built. Balances below currently reflect each group separately.</p></div>
+          </div>
+          <Link href="/how-scoring-works" className="shrink-0 pl-5 text-xs font-semibold text-gray-300 hover:text-[#5BC5A7]">How settlements work →</Link>
+        </section>
 
         {/* 3. Pending actions list with Confirm or Pay buttons */}
         <PendingActionsList actions={data.pendingActions} />

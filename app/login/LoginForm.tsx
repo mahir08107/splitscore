@@ -12,6 +12,7 @@ export function LoginForm() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [loadingDemo, setLoadingDemo] = useState(false);
+  const [loadingGoogle, setLoadingGoogle] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   // Check for error from redirect or search params
@@ -107,22 +108,38 @@ export function LoginForm() {
       document.cookie = "demo_mode=true; path=/; max-age=86400; SameSite=Lax";
       router.push("/dashboard");
       router.refresh();
-    } catch (err: any) {
-      setErrorMessage(err?.message || "Failed to start demo mode.");
+    } catch (err: unknown) {
+      setErrorMessage(err instanceof Error ? err.message : "Failed to start demo mode.");
       setLoadingDemo(false);
     }
   };
 
-  const isSubmitting = loading || loadingDemo;
+  const isSubmitting = loading || loadingDemo || loadingGoogle;
+
+  const handleGoogleLogin = async () => {
+    setErrorMessage(null);
+    setLoadingGoogle(true);
+    try {
+      const supabase = createClient();
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: "google",
+        options: { redirectTo: `${window.location.origin}/auth/callback` },
+      });
+      if (error) throw error;
+    } catch (error) {
+      setErrorMessage(error instanceof Error ? error.message : "Google sign in failed. Please try again.");
+      setLoadingGoogle(false);
+    }
+  };
 
   return (
-    <div className="bg-white rounded-2xl border border-[#E5E5EF] p-6 sm:p-8 shadow-sm sm:shadow-md">
+    <div className="rounded-2xl border border-[#5BC5A7]/25 bg-[#0D1117]/95 p-6 shadow-[0_0_24px_rgba(91,197,167,0.10)] sm:p-8">
       {/* Brand & Tagline */}
       <div className="text-center mb-6">
-        <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-[#2E2A7A] text-white font-bold text-xl mb-4 shadow-sm">
+        <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl border border-[#5BC5A7]/50 bg-[#5BC5A7]/10 text-[#5BC5A7] font-bold text-xl mb-4 shadow-sm">
           S
         </div>
-        <h1 className="text-2xl font-bold tracking-tight text-[#2E2A7A]">
+        <h1 className="text-2xl font-bold tracking-tight text-white">
           SplitScore
         </h1>
         <p className="text-sm text-[#5B5B72] mt-1">
@@ -142,6 +159,11 @@ export function LoginForm() {
           <div className="flex-1 font-medium">{displayError}</div>
         </div>
       )}
+
+      <button type="button" onClick={handleGoogleLogin} disabled={isSubmitting || loadingGoogle} className="mb-5 flex min-h-12 w-full items-center justify-center gap-3 rounded-md border border-slate-600 bg-transparent px-4 text-sm font-semibold text-white transition-all hover:border-[#5BC5A7]/70 hover:bg-white/[0.03] disabled:opacity-60 active:scale-95">
+        <svg aria-hidden="true" viewBox="0 0 48 48" className="h-5 w-5"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5Z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.25 5.47-4.72 7.16l7.62 5.91c4.45-4.11 7.14-10.16 7.14-17.54Z"/><path fill="#FBBC05" d="M10.53 28.59a14.4 14.4 0 0 1 0-9.18l-7.98-6.19a24 24 0 0 0 0 21.56l7.98-6.19Z"/><path fill="#34A853" d="M24 48c6.48 0 11.94-2.13 15.92-5.91l-7.62-5.91c-2.12 1.42-4.84 2.26-8.3 2.26-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48Z"/></svg>
+        {loadingGoogle ? "Connecting to Google…" : "Continue with Google"}
+      </button>
 
       {/* Email/Password Form */}
       <form onSubmit={handleEmailLogin} className="space-y-4">
@@ -182,7 +204,7 @@ export function LoginForm() {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full min-h-[48px] px-4 py-2.5 rounded-xl bg-[#2E2A7A] hover:bg-[#23205E] text-white font-semibold text-sm sm:text-base flex items-center justify-center transition-colors shadow-sm disabled:opacity-60 disabled:cursor-not-allowed focus:outline-none focus-visible:ring-2 focus-visible:ring-[#4338CA]"
+          className="w-full min-h-[48px] px-4 py-2.5 rounded-md bg-[#5BC5A7] hover:bg-[#79D9BD] text-black font-bold text-sm sm:text-base flex items-center justify-center transition-all shadow-sm disabled:opacity-60 disabled:cursor-not-allowed focus:outline-none focus-visible:ring-2 focus-visible:ring-[#5BC5A7] active:scale-95"
         >
           {loading ? "Signing in..." : "Sign In"}
         </button>
@@ -191,7 +213,7 @@ export function LoginForm() {
       {/* Divider */}
       <div className="relative py-4 flex items-center justify-center">
         <div className="w-full border-t border-[#E5E5EF]"></div>
-        <span className="absolute bg-white px-3 text-[11px] uppercase tracking-wider text-[#7E7E94]">
+        <span className="absolute bg-[#0D1117] px-3 text-[11px] uppercase tracking-wider text-gray-500">
           or preview demo
         </span>
       </div>

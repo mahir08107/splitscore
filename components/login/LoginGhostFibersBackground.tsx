@@ -1,22 +1,27 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 
-const GhostFibers = dynamic<any>(
+interface GhostFibersProps {
+  glowColor: string; layers: number; twist: number; threads: number;
+  fiberStyle: string; depthOfField: number; hoverEffect: string;
+  intro: boolean; mouseInteraction: boolean; lineColor: string;
+  secondaryColor: string; gradient: string; waves: number; volume: number;
+  spread: number; scale: number; rotation: number; perspective: number;
+  density: number; thickness: number; tips: number; foldGlow: number;
+  speed: number; flow: number; rollSpeed: number; focusDepth: number;
+  particles: number; sparkle: number; glow: number; brightness: number;
+  vignette: number; grain: number; mouseStrength: number;
+  pulseOnClick: boolean; lightMode: boolean;
+  dpr: number;
+}
+
+const GhostFibers = dynamic<GhostFibersProps>(
   () => import("@/components/GhostFibers"),
   { ssr: false }
 );
 
 export default function LoginGhostFibersBackground() {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) return null;
-
   return (
     <div
       className="pointer-events-none fixed inset-0 -z-10 overflow-hidden flex items-center justify-center"
@@ -24,7 +29,7 @@ export default function LoginGhostFibersBackground() {
     >
       <div style={{ width: "100%", height: "600px", position: "relative" }}>
         <GhostFibers
-          glowColor="#ef4444"
+          glowColor="#5BC5A7"
           layers={3}
           twist={1.2}
           threads={72}
@@ -33,8 +38,8 @@ export default function LoginGhostFibersBackground() {
           hoverEffect="focus"
           intro
           mouseInteraction
-          lineColor="#dfd1fc"
-          secondaryColor="#f43f5e"
+          lineColor="#9BE7D0"
+          secondaryColor="#278F76"
           gradient="depth"
           waves={1}
           volume={0.7}
@@ -58,6 +63,7 @@ export default function LoginGhostFibersBackground() {
           grain={0.06}
           mouseStrength={0.95}
           pulseOnClick
+          dpr={1}
           lightMode={false}
         />
       </div>

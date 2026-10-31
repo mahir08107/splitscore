@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useSyncExternalStore } from "react";
 import {
   ResponsiveContainer,
   AreaChart,
@@ -17,17 +17,21 @@ interface ScoreHistoryChartProps {
   band: TrustBand;
 }
 
+const subscribeToHydration = () => () => {};
+const getClientHydration = () => true;
+const getServerHydration = () => false;
+
 const bandStroke: Record<TrustBand, string> = {
-  Excellent: "#22C55E",
-  Good: "#14B8A6",
-  Building: "#F59E0B",
+  Excellent: "#5BC5A7",
+  Good: "#5BC5A7",
+  Building: "#E9A849",
   Risky: "#EF4444",
 };
 
 const bandFill: Record<TrustBand, string> = {
-  Excellent: "#DCFCE7",
-  Good: "#CCFBF1",
-  Building: "#FEF3C7",
+  Excellent: "rgba(91, 197, 167, 0.18)",
+  Good: "rgba(91, 197, 167, 0.18)",
+  Building: "rgba(233, 168, 73, 0.16)",
   Risky: "#FECACA",
 };
 
@@ -37,11 +41,11 @@ function formatShortDate(iso: string): string {
 }
 
 export function ScoreHistoryChart({ events, band }: ScoreHistoryChartProps) {
-  const [isMounted, setIsMounted] = useState(false);
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
+  const isMounted = useSyncExternalStore(
+    subscribeToHydration,
+    getClientHydration,
+    getServerHydration
+  );
 
   // Sort chronologically (oldest first) so the timeline progresses left-to-right
   const chronological = [...events].sort(
@@ -105,7 +109,7 @@ export function ScoreHistoryChart({ events, band }: ScoreHistoryChartProps) {
               </defs>
               <CartesianGrid
                 strokeDasharray="3 3"
-                stroke="rgba(225,29,72,0.09)"
+                stroke="rgba(71,85,105,0.45)"
                 vertical={false}
               />
               <XAxis
@@ -124,9 +128,11 @@ export function ScoreHistoryChart({ events, band }: ScoreHistoryChartProps) {
               />
               <Tooltip
                 contentStyle={{
+                  backgroundColor: "#10151C",
+                  color: "#F9FAFB",
                   borderRadius: "8px",
-                  border: "1px solid rgba(225,29,72,0.09)",
-                  boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
+                  border: "1px solid rgba(91,197,167,0.24)",
+                  boxShadow: "0 8px 24px rgba(0,0,0,0.35)",
                   fontSize: "12px",
                   padding: "8px 12px",
                 }}

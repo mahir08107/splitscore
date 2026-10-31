@@ -89,14 +89,14 @@ export function ExpensesTab({
         <div className="flex items-center gap-2 self-start sm:self-auto">
           <Link
             href={`/receipt/new?group_id=${groupId}`}
-            className="inline-flex items-center justify-center gap-1.5 min-h-[44px] px-3.5 py-2 rounded-lg border border-[#4338CA]/30 bg-[#EEF2FF] hover:bg-[#E0E7FF] text-[#4338CA] font-semibold text-xs uppercase tracking-wide transition-all shadow-sm"
+            className="inline-flex items-center justify-center gap-1.5 min-h-[44px] px-3.5 py-2 rounded-md border border-[#5BC5A7]/50 bg-transparent hover:bg-[#5BC5A7]/10 text-[#5BC5A7] font-semibold text-xs uppercase tracking-wide transition-all shadow-sm active:scale-95"
           >
             <Camera className="w-4 h-4" />
             <span>Scan Bill</span>
           </Link>
           <Link
             href={`/group/${groupId}/add-expense`}
-            className="inline-flex items-center justify-center gap-1.5 min-h-[44px] px-4 py-2 rounded-lg bg-[#2E2A7A] hover:bg-[#252263] text-white font-semibold text-xs uppercase tracking-wide transition-all shadow-sm"
+            className="inline-flex items-center justify-center gap-1.5 min-h-[44px] px-4 py-2 rounded-md bg-[#5BC5A7] hover:bg-[#79D9BD] text-black font-bold text-xs uppercase tracking-wide transition-all shadow-sm active:scale-95"
           >
             <Plus className="w-4 h-4" />
             <span>Add Expense</span>
@@ -180,7 +180,7 @@ export function ExpensesTab({
           </div>
         </div>
       ) : (
-        <div className="bg-white rounded-xl border border-[#E5E5F0] shadow-sm divide-y divide-[#E5E5F0] overflow-hidden">
+        <div className="overflow-hidden rounded-xl border border-slate-700/70 bg-[#080A0D] font-mono shadow-[0_0_15px_rgba(91,197,167,0.06)] divide-y divide-slate-800">
           {filteredExpenses.map((expense) => {
             const CategoryIcon = getCategoryIcon(expense.category);
 
@@ -212,31 +212,30 @@ export function ExpensesTab({
                     setSelectedExpense(expense);
                   }
                 }}
-                className="p-4 sm:p-4.5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-[#F8F9FD] cursor-pointer transition-colors focus:outline-none focus:bg-[#F8F9FD]"
+                className="flex cursor-pointer flex-col justify-between gap-3 p-4 transition-colors hover:bg-[#10151C] focus:bg-[#10151C] focus:outline-none sm:flex-row sm:items-center sm:p-4.5"
                 title="Click to view detailed member splits"
               >
                 {/* Left: Category Icon + Title, Date, Payer */}
                 <div className="flex items-center gap-3.5 min-w-0">
-                  <div className="w-10 h-10 rounded-xl bg-[#EEF2FF] text-[#4338CA] flex items-center justify-center shrink-0">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-[#5BC5A7]/25 bg-[#5BC5A7]/[0.08] text-[#5BC5A7]">
                     <CategoryIcon className="w-5 h-5" />
                   </div>
                   <div className="min-w-0">
-                    <h3 className="text-sm sm:text-base font-bold text-[#1F1D3D] truncate">
+                    <div className="mb-1 text-[9px] uppercase tracking-wider text-gray-500">[{expense.date}] · {(expense.payerName || "MEMBER").toUpperCase()} ADDED {expense.category.toUpperCase()}</div>
+                    <h3 className="truncate text-sm font-bold text-white sm:text-base">
                       {expense.title}
                     </h3>
-                    <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 mt-0.5 text-xs text-[#5B5B72]">
-                      <span className="font-medium text-[#4338CA]">{expense.category}</span>
+                    <div className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-0.5 text-[10px] uppercase tracking-wider text-gray-500">
+                      <span>SPLIT: {expense.split_type.toUpperCase()}</span>
                       <span>•</span>
-                      <span>Paid by <strong className="text-[#1F1D3D]">{expense.payerName || "Member"}</strong></span>
-                      <span>•</span>
-                      <span>{expense.date}</span>
+                      <span>{expense.splits.length} participants</span>
                     </div>
                   </div>
                 </div>
 
                 {/* Right: Total Amount & User Share */}
-                <div className="flex items-center justify-between sm:flex-col sm:items-end shrink-0 pl-13 sm:pl-0 border-t sm:border-t-0 pt-2 sm:pt-0 border-[#F1F1FA]">
-                  <span className="text-base sm:text-lg font-extrabold text-[#1F1D3D]">
+                <div className="flex shrink-0 items-center justify-between border-t border-slate-800 pt-2 sm:flex-col sm:items-end sm:border-0 sm:pt-0">
+                  <span className="text-base font-extrabold text-white sm:text-lg">
                     {formatRupees(expense.amount)}
                   </span>
                   <span className={`text-xs font-semibold ${shareColor}`}>

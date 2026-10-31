@@ -26,10 +26,19 @@ export interface VerificationProof {
   payload: TrustCardTokenPayload;
 }
 
-const SECRET =
-  process.env.SPLITSCORE_SIGNING_SECRET ||
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
-  "splitscore-ed25519-sha256-trust-card-signature-salt-2026";
+function getSigningSecret(): string {
+  const configuredSecret = process.env.SPLITSCORE_SIGNING_SECRET;
+  if (configuredSecret) return configuredSecret;
+
+  if (process.env.NODE_ENV === "production") {
+    throw new Error("SPLITSCORE_SIGNING_SECRET must be configured in production.");
+  }
+
+  return (
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
+    "splitscore-ed25519-sha256-trust-card-signature-salt-2026"
+  );
+}
 
 function base64UrlEncode(str: string): string {
   return Buffer.from(str, "utf8")
@@ -71,7 +80,7 @@ export function signTrustCardToken(
   const dataToSign = `${encodedHeader}.${encodedPayload}`;
 
   const signature = crypto
-    .createHmac("sha256", SECRET)
+    .createHmac("sha256", getSigningSecret())
     .update(dataToSign)
     .digest("base64")
     .replace(/=/g, "")
@@ -93,7 +102,7 @@ export function verifyTrustCardToken(token: string): VerificationProof | null {
     const dataToSign = `${encodedHeader}.${encodedPayload}`;
 
     const expectedSignature = crypto
-      .createHmac("sha256", SECRET)
+      .createHmac("sha256", getSigningSecret())
       .update(dataToSign)
       .digest("base64")
       .replace(/=/g, "")

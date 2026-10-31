@@ -2,7 +2,8 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { DashboardGroup, GroupType, formatRupees } from "@/lib/data/dashboard";
+import type { DashboardGroup, GroupType } from "@/lib/data/dashboard";
+import { formatRupees } from "@/lib/data/dashboard";
 import { Plus, Users, Compass, Utensils, CalendarDays, ChevronRight } from "lucide-react";
 import { CreateGroupModal } from "@/components/group/CreateGroupModal";
 import { ToastProvider } from "@/components/group/ToastContext";
@@ -18,23 +19,23 @@ const groupTypeConfig: Record<
 > = {
   trip: {
     label: "Trip",
-    bg: "#FFF1F2",
-    text: "#BE123C",
-    border: "#FECDD3",
+    bg: "#10151C",
+    text: "#D1D5DB",
+    border: "#475569",
     icon: Compass,
   },
   mess: {
     label: "Mess",
-    bg: "#F0FDFA",
-    text: "#0F766E",
-    border: "#99F6E4",
+    bg: "rgba(91, 197, 167, 0.10)",
+    text: "#5BC5A7",
+    border: "rgba(91, 197, 167, 0.35)",
     icon: Utensils,
   },
   event: {
     label: "Event",
-    bg: "#FFFBEB",
-    text: "#B45309",
-    border: "#FDE68A",
+    bg: "rgba(233, 168, 73, 0.10)",
+    text: "#E9A849",
+    border: "rgba(233, 168, 73, 0.35)",
     icon: CalendarDays,
   },
 };
